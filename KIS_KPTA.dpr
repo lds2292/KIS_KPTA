@@ -48,22 +48,22 @@ uses
   Dlg_SaveDocument in 'Form\Dlg_SaveDocument.pas' {Dlg_SaveDocument_frm},
   QR_KPTA_NORMAL_Complete_PRN in 'Print\QR_KPTA_NORMAL_Complete_PRN.pas' {QR_KPTA_NORMAL_Complete_PRN_frm: TQuickRep},
   UI_ConfirmDocument in 'Document\추가개발\확인명세 관리\UI_ConfirmDocument.pas' {UI_ConfirmDocument_frm},
-  KISEncryption in '..\..\..\UseComponent\KISEncryption\KISEncryption.pas',
-  base64 in '..\..\..\UseComponent\KISEncryption\base64.pas',
   KISCalendarV2 in '..\..\..\UseComponent\KISCalendar\KISCalendarV2.pas' {KISCalendarV2_frm},
   UI_CommonCD in 'Form\UI_CommonCD.pas' {UI_COMMONCD_frm},
   dlg_AddCode in 'Form\Dialog\dlg_AddCode.pas' {dlg_AddCode_frm},
-  SQLCreator in '..\..\..\UseComponent\KISSQLCreator\SQLCreator.pas',
   UI_PUMLIST in 'Form\UI_PUMLIST.pas' {UI_PUMLIST_frm},
   dlg_MtlrsList in 'Form\Dialog\dlg_MtlrsList.pas' {dlg_MtlrsList_frm},
   UI_PUMLISTMODAL in 'Form\UI_PUMLISTMODAL.pas' {UI_PUMLISTMODAL_frm},
   UI_QuickMenu in 'Form\UI_QuickMenu.pas' {UI_QuickMenu_frm},
   CreateTable in 'Common\CreateTable.pas' {DMCreateTable: TDataModule},
   dlg_IMPORT in 'Form\Dialog\dlg_IMPORT.pas' {dlg_IMPORT_frm},
-  NewExcelWriter in '..\..\..\UseComponent\KISExcelWriter\NewExcelWriter.pas',
-  NewExcelReader in '..\..\..\UseComponent\KISExcelWriter\NewExcelReader.pas',
   dialog_RUNSQL in 'Form\Dialog\dialog_RUNSQL.pas' {dialog_RUNSQL_frm},
-  UI_ShowSQLData in 'Form\Dialog\UI_ShowSQLData.pas' {UI_ShowSQLData_frm};
+  UI_ShowSQLData in 'Form\Dialog\UI_ShowSQLData.pas' {UI_ShowSQLData_frm},
+  base64 in '..\..\..\UseComponent\KISLIB\KISEncryption\base64.pas',
+  KISEncryption in '..\..\..\UseComponent\KISLIB\KISEncryption\KISEncryption.pas',
+  NewExcelReader in '..\..\..\UseComponent\KISLIB\KISExcelWriter\NewExcelReader.pas',
+  NewExcelWriter in '..\..\..\UseComponent\KISLIB\KISExcelWriter\NewExcelWriter.pas',
+  SQLCreator in '..\..\..\UseComponent\KISLIB\KISSQLCreator\SQLCreator.pas';
 
 {$R *.res}
 

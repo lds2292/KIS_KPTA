@@ -1,6 +1,6 @@
 inherited UI_PUMLIST_frm: TUI_PUMLIST_frm
-  Left = 484
-  Top = 48
+  Left = 485
+  Top = 134
   BorderWidth = 4
   Caption = #54408#47785#47532#49828#53944
   ClientHeight = 759
