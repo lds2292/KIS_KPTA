@@ -122,6 +122,7 @@ type
     procedure sComboBox1Select(Sender: TObject);
     procedure sButton16Click(Sender: TObject);
     procedure sButton18Click(Sender: TObject);
+    procedure sDBGrid2ScrollData(Sender: TObject);
   private
     { Private declarations }
     FSQL : String;
@@ -351,6 +352,7 @@ begin
     sButton5Click(sButton5);
     sDBGrid1.DataSource.DataSet.Locate('DOC_NO',UI_KPTA_DocNormal_frm.DocNo,[]);
   finally
+    sDBGrid1ScrollData(sDBGrid1);
     Freeandnil(UI_KPTA_DocNormal_frm);
   end;
 end;
@@ -676,8 +678,8 @@ begin
   end
   else
   begin
-    sButton2.Enabled := True;  
-    sButton2.ImageIndex := 26;  
+    sButton2.Enabled := True;
+    sButton2.ImageIndex := 26;
     sButton2.Caption := '보기';
   end;
 
@@ -685,6 +687,7 @@ begin
 // 접수필증은 FS7문서수신후(Result = R01) 경우에만 출력 가능
 //------------------------------------------------------------------------------
   sButton13.Enabled := DataModule_Conn.qryStandard1.FieldByName('isRESULT').AsString = 'R01';
+  sButton12.Enabled := (not sButton13.Enabled) AND (DataModule_Conn.qryStandard1.FieldByName('isSEND').AsString <> '임시');
 
 //------------------------------------------------------------------------------
 // 접수결과가 D01(보완통보)일 경우에는 수정하고 다시 보내야함
@@ -710,7 +713,7 @@ end;
 procedure TUI_KPTA_frm.sMaskEdit1DblClick(Sender: TObject);
 var
   POS : TPoint;
-  TEMPDT : TBetweenDT;
+  TEMPDT : TDateTime;
 begin
   inherited;
 
@@ -724,10 +727,11 @@ begin
     KISCalendarV2_frm.Left := POS.X;
     KISCalendarV2_frm.Top := POS.Y;
 
-    TEMPDT := KISCalendarV2_frm.OpenCalendarBetween(ConvertStr2Date(sMaskEdit1.Text), ConvertStr2Date(sMaskEdit2.Text));
-
-    sMaskEdit1.Text := FormatDateTime('YYYY-MM-DD', TEMPDT.FromDT);
-    sMaskEdit2.Text := FormatDateTime('YYYY-MM-DD', TEMPDT.ToDT);
+    TEMPDT := KISCalendarV2_frm.OpenCalendar(ConvertStr2Date((Sender as TsMaskEdit).Text));
+//    TEMPDT := KISCalendarV2_frm.OpenCalendarBetween(ConvertStr2Date(sMaskEdit1.Text), ConvertStr2Date(sMaskEdit2.Text));
+    (Sender as TsMaskEdit).Text := FormatDateTime('YYYY-MM-DD', TEMPDT);
+//    sMaskEdit1.Text := FormatDateTime('YYYY-MM-DD', TEMPDT.FromDT);
+//    sMaskEdit2.Text := FormatDateTime('YYYY-MM-DD', TEMPDT.ToDT);
   finally
     FreeAndNil(KISCalendarV2_frm);
   end;
@@ -823,6 +827,54 @@ begin
   finally
     Freeandnil(UI_KPTA_DocNormal_frm);
   end;
+end;
+
+procedure TUI_KPTA_frm.sDBGrid2ScrollData(Sender: TObject);
+begin
+  inherited;
+  IF sMemo1.Tag = 0 Then
+  begin
+    with DataModule_Conn.qryMake do
+    begin
+      Close;
+      Parameters.ParamByName('DOC_NO').Value := DataModule_Conn.qryStandard2DOC_NO.AsString;
+      Parameters.ParamByName('SERIAL_NO').Value := DataModule_Conn.qryStandard2SERIAL_NO.AsString;
+      Open;
+      try
+        sMemo1.Lines.Clear;
+        sMemo1.Lines.Add(DataModule_Conn.qryStandard2DOC_NO.AsString+'-FR2'+DataModule_Conn.qryStandard2SERIAL_NO.AsString+' 제조정보');
+        while not eof do
+        begin
+          sMemo1.Lines.Add(FieldByName('MAKE_NO').AsString+' / '+FieldByName('MAKE_DATE').AsString);
+          DataModule_Conn.qryMake.Next;
+        end;
+      finally
+        DataModule_Conn.qryMake.Close;
+      end;
+    end;
+  end
+  else
+  IF sMemo1.Tag = 1 Then
+  begin
+    with DataModule_Conn.qryCheck do
+    begin
+      Close;
+      Parameters.ParamByName('DOC_NO').Value := DataModule_Conn.qryStandard2DOC_NO.AsString;
+      Parameters.ParamByName('SERIAL_NO').Value := DataModule_Conn.qryStandard2SERIAL_NO.AsString;
+      Open;
+      try
+        sMemo1.Lines.Clear;
+        sMemo1.Lines.Add(DataModule_Conn.qryStandard2DOC_NO.AsString+'-FR2'+DataModule_Conn.qryStandard2SERIAL_NO.AsString+' 동일성검사결과서 정보');
+        while not eof do
+        begin
+          sMemo1.Lines.Add(FieldByName('CHECK_B_NO').AsString+' / '+FieldByName('CHECK_QTY').AsString);
+          DataModule_Conn.qryCheck.Next;
+        end;
+      finally
+        DataModule_Conn.qryCheck.Close;
+      end;
+    end;
+  end
 end;
 
 end.

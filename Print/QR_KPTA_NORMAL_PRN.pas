@@ -325,7 +325,7 @@ begin
   end
   else
     QR_MAKE.Caption := ' ';
-    
+
   ChildBand1.Enabled := FSUB_IDX = FSUB_MAX;
   IF ChildBand1.Enabled Then
   begin
@@ -334,8 +334,10 @@ begin
     QR_MAKE_COMPANY3.Caption := '   '+qryStandard2forPrintWITAK_SANGHO3.AsString;
 
     TempStr := '';
+    IF Trim(qryStandard2forPrintWITAK_NATION_CODE.AsString) <> '' Then
+      TempStr := qryStandard2forPrintWITAK_NATION_CODE.AsString+' / ';
     IF Trim(qryStandard2forPrintWITAK_ADDR1.AsString) <> '' Then
-      TempStr := qryStandard2forPrintWITAK_ADDR1.AsString;
+      TempStr := TempStr+qryStandard2forPrintWITAK_ADDR1.AsString;
     IF Trim(qryStandard2forPrintWITAK_ADDR2.AsString) <> '' Then
       TempStr := TempStr+#13#10'   '+qryStandard2forPrintWITAK_ADDR2.AsString;
     IF Trim(qryStandard2forPrintWITAK_ADDR3.AsString) <> '' Then

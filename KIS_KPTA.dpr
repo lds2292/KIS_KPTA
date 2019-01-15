@@ -63,7 +63,8 @@ uses
   KISEncryption in '..\..\..\UseComponent\KISLIB\KISEncryption\KISEncryption.pas',
   NewExcelReader in '..\..\..\UseComponent\KISLIB\KISExcelWriter\NewExcelReader.pas',
   NewExcelWriter in '..\..\..\UseComponent\KISLIB\KISExcelWriter\NewExcelWriter.pas',
-  SQLCreator in '..\..\..\UseComponent\KISLIB\KISSQLCreator\SQLCreator.pas';
+  SQLCreator in '..\..\..\UseComponent\KISLIB\KISSQLCreator\SQLCreator.pas',
+  dialog_PUMLIST in 'Form\Dialog\dialog_PUMLIST.pas' {dialog_PUMLIST_frm};
 
 {$R *.res}
 

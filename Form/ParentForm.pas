@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, sLabel, ExtCtrls, sPanel, sSkinProvider, Grids, DBGrids, acDBGrid;
+  Dialogs, StdCtrls, sLabel, ExtCtrls, sPanel, sSkinProvider, Grids, DBGrids, acDBGrid, DB;
 
 type
   TParentForm_frm = class(TForm)
@@ -13,6 +13,7 @@ type
     procedure FormDeactivate(Sender: TObject);
     procedure KISDrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
+    procedure KISGetText(Sender: TField; var Text: String; DisplayText: Boolean);
   private
     { Private declarations }
   public
@@ -54,6 +55,12 @@ begin
     end;
     DefaultDrawColumnCell(Rect, DataCol, Column, State);
   end;
+end;
+
+procedure TParentForm_frm.KISGetText(Sender: TField; var Text: String;
+  DisplayText: Boolean);
+begin
+  Text := Sender.AsString;
 end;
 
 end.

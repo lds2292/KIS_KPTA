@@ -337,7 +337,7 @@ implementation
 
 uses dmIcon, dmConn, Dialog_CodeParent, DBTables, CommonVar, CommonDef,
   CommonLib, KISCalendar, Dialog_SearchHS, CommonMSG, DIalog_Make,
-  Dialog_Check, UI_CompanyModal, UI_Company, UI_PUMLISTMODAL, UI_PUMLIST, dlg_MtlrsList;
+  Dialog_Check, UI_CompanyModal, UI_Company, UI_PUMLISTMODAL, UI_PUMLIST, dlg_MtlrsList, dialog_PUMLIST;
 
 {$R *.dfm}
 
@@ -2498,9 +2498,9 @@ begin
   inherited;
   IF not (DataModule_Conn.qryStandard2.State in [dsInsert, dsEdit]) Then Exit;
 
-  UI_PUMLISTMODAL_frm := TUI_PUMLISTMODAL_frm.Create(Self);
+  dialog_PUMLIST_frm := Tdialog_PUMLIST_frm.Create(Self);
   try
-    with UI_PUMLISTMODAL_frm do
+    with dialog_PUMLIST_frm do
     begin
       DOCGB := edt_jejegubun.Text;
       IF ShowModal = mrOK Then
@@ -2600,7 +2600,7 @@ begin
       end;
     end;
   finally
-    FreeAndNil(UI_PUMLISTMODAL_frm);
+    FreeAndNil(dialog_PUMLIST_frm);
   end;
 end;
 

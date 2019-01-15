@@ -1008,6 +1008,7 @@ inherited UI_KPTA_frm: TUI_KPTA_frm
           item
             Expanded = False
             FieldName = 'IMPORT_SANGHO'
+            Title.Alignment = taCenter
             Title.Caption = #49688#51077#51088
             Width = 150
             Visible = True
@@ -1015,6 +1016,7 @@ inherited UI_KPTA_frm: TUI_KPTA_frm
           item
             Expanded = False
             FieldName = 'HWAJU_SANGHO'
+            Title.Alignment = taCenter
             Title.Caption = #49688#51077#54868#51452
             Width = 150
             Visible = True
@@ -1022,6 +1024,7 @@ inherited UI_KPTA_frm: TUI_KPTA_frm
           item
             Expanded = False
             FieldName = 'EXPORT_SANGHO'
+            Title.Alignment = taCenter
             Title.Caption = #49688#52636#51088
             Width = 129
             Visible = True
@@ -1329,6 +1332,7 @@ inherited UI_KPTA_frm: TUI_KPTA_frm
           TitleFont.Name = #47569#51008' '#44256#46357
           TitleFont.Style = []
           SkinData.SkinSection = 'EDIT'
+          OnScrollData = sDBGrid2ScrollData
           Columns = <
             item
               Expanded = False
