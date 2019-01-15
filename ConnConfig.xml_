@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Connection>
+	<common>
+		<Address>v12.0</Address>
+		<Port></Port>
+		<UserData>
+			<ID></ID>
+			<PWD></PWD>
+		</UserData>
+		<DBFile>
+		  <islocal>1</islocal>
+			<path>C:\IKIS21\KIS_KPTA\DB\KIS_KPTA.mdf</path>
+		</DBFile>		
+	</common>
+	<DataServerList>
+		<ListCount>2</ListCount>
+		<DataServer>
+			<index>0</index>
+			<ViewName>한국유나이티드제약</ViewName>
+			<DBName>KIS_KPTA_UNITED</DBName>
+		</DataServer>
+		<DataServer>
+			<index>1</index>
+			<ViewName>바이오켐</ViewName>
+			<DBName>KIS_KPTA_BIOCHEM</DBName>
+		</DataServer>		
+	</DataServerList>
+</Connection>

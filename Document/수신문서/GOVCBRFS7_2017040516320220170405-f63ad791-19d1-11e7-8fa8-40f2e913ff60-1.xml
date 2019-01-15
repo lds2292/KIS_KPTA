@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?><wco:Response xmlns:wco="urn:kr:gov:kcs:data:standard:KCS_ResponseOfCSW_FS7SchemaModule:1:0" xmlns:gsw="urn:kr:gov:kcs:data:standard:KCS_ResponseOfCSW_FS7SchemaModule:1:0" xmlns:kcs="urn:kr:gov:kcs:data:standard:KCS_ResponseOfCSW_FS7SchemaModule:1:0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:kr:gov:kcs:data:standard:KCS_ResponseOfCSW_FS7SchemaModule:1:0     ../../schema4G/kcs/data/standard/KCS_ResponseOfCSW_FS7SchemaModule_1.0_standard.xsd">
+    <wco:IssueDateTime>20170405</wco:IssueDateTime>
+    <wco:TypeCode>GOVCBRFS7</wco:TypeCode>
+    <wco:ID>2243051700278334</wco:ID>
+    <wco:Authenticator>
+        <wco:Name>한국의약품수출입협회</wco:Name>
+        <wco:Contact>
+            <wco:Name>김한기</wco:Name>
+        </wco:Contact>
+        <wco:Communication>
+            <wco:ID>60001841</wco:ID>
+        </wco:Communication>
+    </wco:Authenticator>
+    <wco:AdditionalInformation>
+        <wco:Content>수입원료의약품목에 한함.</wco:Content>
+    </wco:AdditionalInformation>
+    <wco:Certifier>
+        <wco:Name>9785511844</wco:Name>
+    </wco:Certifier>
+    <wco:Declaration>
+        <wco:EffectiveDateTime>20180405</wco:EffectiveDateTime>
+        <wco:ID>89670171015AH</wco:ID>
+        <wco:IssueDateTime>20170405</wco:IssueDateTime>
+        <wco:LoadingListQuantity>1</wco:LoadingListQuantity>
+        <wco:TypeCode>GOVCBRFR2</wco:TypeCode>
+        <wco:TransactionNatureCode>1AA</wco:TransactionNatureCode>
+        <kcs:SubTypeCode>1CC</kcs:SubTypeCode>
+        <wco:Agent>
+            <wco:ID schemeAgencyID="KTX">3078130710</wco:ID>
+            <wco:Name>한국바이오켐제약주식회사</wco:Name>
+            <wco:RoleCode>A</wco:RoleCode>
+            <wco:Address>
+                <wco:Line>617</wco:Line>
+                <kcs:Description>세종특별자치시 산단길 204(전의면)</kcs:Description>
+            </wco:Address>
+            <wco:Contact>
+                <kcs:RepresentativeName>송원호</kcs:RepresentativeName>
+            </wco:Contact>
+        </wco:Agent>
+        <wco:Control>
+            <wco:ReviewPlaceID>99</wco:ReviewPlaceID>
+            <wco:Certifier>
+                <wco:ID>007</wco:ID>
+                <wco:Name>대전지방식약청</wco:Name>
+            </wco:Certifier>
+        </wco:Control>
+        <wco:DutyTaxFee>
+            <wco:Payment>
+                <wco:MethodCode>TT </wco:MethodCode>
+                <wco:PaymentAmount currencyID="USD">400000.0000</wco:PaymentAmount>
+            </wco:Payment>
+        </wco:DutyTaxFee>
+        <wco:Exporter>
+            <wco:Name>ZHEJIANG TOP HANKOOK BIOPHARM CO LTD</wco:Name>
+            <wco:Address>
+                <wco:CountryCode>CN</wco:CountryCode>
+                <wco:CountryName>CHINA</wco:CountryName>
+                <wco:Line>19D,E,ZHEJING MATERIAL INDUSTRIAL BUILDING,445 KAIXUAN ROAD HANGZHOU 310021 CHINA HANGZHOU 310021 CHINA</wco:Line>
+            </wco:Address>
+        </wco:Exporter>
+        <wco:Importer>
+            <wco:ID>3078130710</wco:ID>
+            <wco:Name>한국바이오켐제약주식회사</wco:Name>
+            <wco:Address>
+                <wco:Line>617</wco:Line>
+                <kcs:Description>세종특별자치시 산단길 204(전의면)</kcs:Description>
+            </wco:Address>
+            <wco:Contact>
+                <kcs:RepresentativeName>송원호</kcs:RepresentativeName>
+            </wco:Contact>
+        </wco:Importer>
+        <wco:TradeTerms>
+            <wco:ConditionCode>CIF</wco:ConditionCode>
+        </wco:TradeTerms>
+        <wco:UnloadingLocation>
+            <wco:ID>PUS</wco:ID>
+            <wco:Name>부산항</wco:Name>
+        </wco:UnloadingLocation>
+        <wco:LPCO>
+            <wco:ID>20111216-31-C-290-16</wco:ID>
+            <wco:IssueDateTime>20111215</wco:IssueDateTime>
+            <wco:Consignment>
+                <wco:ConsignmentItem>
+                    <wco:Commodity>
+                        <wco:ClassificationNameCode>30781307101AAR009201703001</wco:ClassificationNameCode>
+                        <wco:CargoDescription>Crude Aceclofenac</wco:CargoDescription>
+                        <wco:ID>FR2001</wco:ID>
+                        <wco:Classification>
+                            <wco:ID>2922499000</wco:ID>
+                        </wco:Classification>
+                        <wco:Constituent>
+                            <wco:ElementDescription>아세클로페낙(원료)</wco:ElementDescription>
+                        </wco:Constituent>
+                        <wco:DetailedCommodity>
+                            <wco:CountQuantity kcsUnitCode="KG">20000.0000</wco:CountQuantity>
+                            <wco:Description>별규(95.0% UP), 함량시험</wco:Description>
+                            <wco:ValueAmount currencyID="USD">400000.0000</wco:ValueAmount>
+                            <kcs:UnitPriceAmount>20.0000</kcs:UnitPriceAmount>
+                        </wco:DetailedCommodity>
+                    </wco:Commodity>
+                    <wco:Origin>
+                        <wco:CountryCode>CN</wco:CountryCode>
+                        <wco:CountryName>CHINA</wco:CountryName>
+                    </wco:Origin>
+                </wco:ConsignmentItem>
+            </wco:Consignment>
+            <wco:DetailContents>
+                <wco:Document>
+                    <gsw:ReferenceID>1</gsw:ReferenceID>
+                    <gsw:ManufactureDate>20170323</gsw:ManufactureDate>
+                    <gsw:ManufactureID>제조정보1</gsw:ManufactureID>
+                </wco:Document>
+                <wco:Document>
+                    <gsw:ReferenceID>2</gsw:ReferenceID>
+                    <gsw:ManufactureDate>20170301</gsw:ManufactureDate>
+                    <gsw:ManufactureID>제조정보1</gsw:ManufactureID>
+                </wco:Document>
+                <wco:Document>
+                    <gsw:ReferenceID>3</gsw:ReferenceID>
+                    <gsw:ManufactureDate>20170314</gsw:ManufactureDate>
+                    <gsw:ManufactureID>제조정보1</gsw:ManufactureID>
+                </wco:Document>
+                <wco:Document>
+                    <gsw:ReferenceID>4</gsw:ReferenceID>
+                    <gsw:ManufactureDate>20170322</gsw:ManufactureDate>
+                    <gsw:ManufactureID>제조정보1</gsw:ManufactureID>
+                </wco:Document>
+                <wco:Document>
+                    <gsw:ReferenceID>5</gsw:ReferenceID>
+                    <gsw:ManufactureDate>20170315</gsw:ManufactureDate>
+                    <gsw:ManufactureID>제조정보1</gsw:ManufactureID>
+                </wco:Document>
+                <wco:Document>
+                    <gsw:ReferenceID>6</gsw:ReferenceID>
+                    <gsw:ManufactureDate>20170321</gsw:ManufactureDate>
+                    <gsw:ManufactureID>제조정보1</gsw:ManufactureID>
+                </wco:Document>
+                <wco:Document>
+                    <gsw:ReferenceID>7</gsw:ReferenceID>
+                    <gsw:ManufactureDate>20170307</gsw:ManufactureDate>
+                    <gsw:ManufactureID>제조정보1</gsw:ManufactureID>
+                </wco:Document>
+                <wco:Party>
+                    <gsw:Name>Henan Dongtai pharmaceutical co. ltd.</gsw:Name>
+                </wco:Party>
+                <wco:Location>
+                    <gsw:CountryCode>CN</gsw:CountryCode>
+                    <gsw:CountryName>CHINA</gsw:CountryName>
+                    <gsw:LineAddress>East Changhong Road, Tanguyin country, Anyang City, China, Anyang City, China</gsw:LineAddress>
+                    <gsw:OriginCountryCode>CN</gsw:OriginCountryCode>
+                    <gsw:OriginCountryName>CHINA</gsw:OriginCountryName>
+                </wco:Location>
+                <wco:Indicator>
+                    <gsw:BGMPObjectYN>1AV</gsw:BGMPObjectYN>
+                    <gsw:DMFObjectYN>1AV</gsw:DMFObjectYN>
+                </wco:Indicator>
+                <wco:Product>
+                    <gsw:DrugCosmeticDistinctionCode>1AV</gsw:DrugCosmeticDistinctionCode>
+                    <gsw:BSESubjectItemCode>1AV</gsw:BSESubjectItemCode>
+                </wco:Product>
+            </wco:DetailContents>
+        </wco:LPCO>
+    </wco:Declaration>
+    <wco:Status>
+        <wco:NameCode>R01</wco:NameCode>
+    </wco:Status>
+</wco:Response>

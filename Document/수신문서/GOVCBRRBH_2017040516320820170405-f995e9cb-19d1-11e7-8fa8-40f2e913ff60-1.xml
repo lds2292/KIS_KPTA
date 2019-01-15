@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?><wco:Response xmlns:wco="urn:kr:gov:kcs:data:standard:KCS_ResponseOfCSW_RBHSchemaModule:1:0" xmlns:kcs="urn:kr:gov:kcs:data:standard:KCS_ResponseOfCSW_RBHSchemaModule:1:0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:kr:gov:kcs:data:standard:KCS_ResponseOfCSW_RBHSchemaModule:1:0     ../../schema4G/kcs/data/standard/KCS_ResponseOfCSW_RBHSchemaModule_1.0_standard.xsd">
+    <wco:IssueDateTime>20170405163232</wco:IssueDateTime>
+    <wco:TypeCode>GOVCBRRBH</wco:TypeCode>
+    <wco:ID>20170405163232170</wco:ID>
+    <wco:Authenticator>
+        <wco:Name>한국의약품수출입협회</wco:Name>
+    </wco:Authenticator>
+    <wco:Declaration>
+        <wco:FunctionalReferenceID>20170405-00001</wco:FunctionalReferenceID>
+        <wco:ID>89670171015AH</wco:ID>
+        <wco:TypeCode>GOVCBRFR2</wco:TypeCode>
+        <wco:AdditionalDocument>
+            <wco:ID>2243051700278334</wco:ID>
+        </wco:AdditionalDocument>
+        <wco:AdditionalInformation/>
+        <wco:Consignment/>
+        <wco:Control/>
+        <wco:Submitter>
+            <wco:Name>한국바이오켐제약주식회사</wco:Name>
+        </wco:Submitter>
+    </wco:Declaration>
+    <wco:Status>
+        <wco:NameCode>Z01</wco:NameCode>
+    </wco:Status>
+</wco:Response>

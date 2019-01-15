@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wco:Response 
+	xmlns:kcs="urn:kr:gov:kcs:data:standard:KCS_ResponseOfCSW_ASDSchemaModule:1:0" 
+	xmlns:wco="urn:kr:gov:kcs:data:standard:KCS_ResponseOfCSW_ASDSchemaModule:1:0" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:kr:gov:kcs:data:standard:KCS_ResponseOfCSW_ASDSchemaModule:1:0 ../../schema4G/kcs/data/standard/KCS_ResponseOfCSW_ASDSchemaModule_1.0_standard.xsd">
+	<!--결과통보일시(CCYYMMDDHHMMSS)-->
+    <wco:IssueDateTime>201405061230</wco:IssueDateTime>
+    <!--통보문서형태구분(GOVCBRASD)-->
+    <wco:TypeCode>GOVCBRASD</wco:TypeCode>
+    <!--결과통보번호-->
+    <wco:ID>0000000000</wco:ID>
+    <wco:AdditionalInformation>
+        <!--취소승인구분 코드(G03 : 취소신청 승인, G04 : 취소신청 거부)-->
+        <wco:StatementTypeCode>G03</wco:StatementTypeCode>
+    </wco:AdditionalInformation>
+    <wco:Declaration>
+        <!--요건신청접수번호-->
+        <wco:FunctionalReferenceID>0000000000</wco:FunctionalReferenceID>
+        <!--요건신청번호-->
+        <wco:ID>0000000000000</wco:ID>
+        <!--요건기관지원코드-->
+        <wco:SubsequentDeclarationOfficeID>0000001</wco:SubsequentDeclarationOfficeID>
+        <!--요건신청문서형태구분(GOVCBRBR1)-->
+        <wco:TypeCode>GOVCBRBR1</wco:TypeCode>
+        <wco:AdditionalInformation>
+            <!--사유내용-->
+            <wco:Content>사유내용</wco:Content>
+            <!--환불여부(Y : 환불/ N : 미환불)-->
+            <wco:StatementCode>Y</wco:StatementCode>
+        </wco:AdditionalInformation>
+        <wco:DutyTaxFee>
+            <wco:Payment>
+                <!--환불예정금액-->
+                <kcs:RefundAmount>9999</kcs:RefundAmount>
+            </wco:Payment>
+        </wco:DutyTaxFee>
+        <wco:Submitter>
+            <!--사업자등록번호-->
+            <wco:ID>0000000000</wco:ID>
+        </wco:Submitter>
+    </wco:Declaration>
+</wco:Response>

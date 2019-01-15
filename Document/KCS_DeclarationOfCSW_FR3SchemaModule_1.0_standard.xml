@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wco:Declaration 
+	xmlns:kcs="urn:kr:gov:kcs:data:standard:KCS_DeclarationOfCSW_FR3SchemaModule:1:0" 
+	xmlns:wco="urn:kr:gov:kcs:data:standard:KCS_DeclarationOfCSW_FR3SchemaModule:1:0" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:kr:gov:kcs:data:standard:KCS_DeclarationOfCSW_FR3SchemaModule:1:0 ../../schema4G/kcs/data/standard/KCS_DeclarationOfCSW_FR3SchemaModule_1.0_standard.xsd">
+	<!--전송구분(9 : 최초전송,35 : 재전송,36 : 보완제출,1 : 취소신청)-->
+    <wco:FunctionCode>9</wco:FunctionCode>
+    <!--요건신청번호-->
+    <wco:ID>S138514000001</wco:ID>
+    <!--총금액(통화코드)-->
+    <wco:InvoiceAmount currencyID="USD">99</wco:InvoiceAmount>
+    <!--신청일자(CCYYMMDD)-->
+    <wco:IssueDateTime>20140721</wco:IssueDateTime>
+    <!--문서형태구분-->
+    <wco:TypeCode>GOVCBRFR3</wco:TypeCode>
+    <!--제재구분코드-->
+    <wco:TransactionNatureCode>001</wco:TransactionNatureCode>
+    <!--취소신청 사유-->
+    <kcs:Reason>취소신청 사유</kcs:Reason>
+    <wco:AdditionalInformation>
+        <!--수입자기재사항내용-->
+        <wco:Content>수입자기재사항내용</wco:Content>
+    </wco:AdditionalInformation>
+    
+    <!--1..999 반복-->
+    <wco:Consignment>
+        <wco:ConsignmentItem>
+            <wco:Commodity>
+                <!--거래품명1-->
+                <wco:CargoDescription>거래품명1</wco:CargoDescription>
+                <!--품목코드-->
+                <wco:ClassificationNameCode>ESB001</wco:ClassificationNameCode>
+                <!--거래품명2-->
+                <wco:Description>거래품명2</wco:Description>
+                <!--품목구분명-->
+                <wco:GoodsGroupName>품목구분명</wco:GoodsGroupName>
+                <!--품목구분-->
+                <wco:GoodsGroupNameCode>0004</wco:GoodsGroupNameCode>
+                <!--품목식별부호-->
+                <wco:ID>GOVCBRFR3001</wco:ID>
+                <wco:AdditionalDocument>
+                    <!--안정성심사번호-->
+                    <wco:ID>172</wco:ID>
+                    <!--안전성심사일자(CCYYMMDD)-->
+                    <wco:IssueDateTime>20140721</wco:IssueDateTime>
+                </wco:AdditionalDocument>
+                <wco:Classification>
+                    <!--HS10단위부호-->
+                    <wco:ID>3001901010</wco:ID>
+                </wco:Classification>
+                <wco:DetailedCommodity>
+                    <!--수량(단위)-->
+                    <wco:CountQuantity kcsUnitCode="PH">99</wco:CountQuantity>
+                    <!--모델/규격-->
+                    <wco:Description>모델/규격</wco:Description>
+                    <!--금액(통화코드)-->
+                    <wco:ValueAmount currencyID="USD">99</wco:ValueAmount>
+                    <!--단가-->
+                    <kcs:UnitPriceAmount>99</kcs:UnitPriceAmount>
+                </wco:DetailedCommodity>
+            </wco:Commodity>
+            <wco:Packaging>
+                <!--포장수량(단위코드)-->
+                <wco:QuantityQuantity kcsUnitCode="PH">99</wco:QuantityQuantity>
+            </wco:Packaging>
+        </wco:ConsignmentItem>
+    </wco:Consignment>
+    
+    <wco:DutyTaxFee>
+        <wco:Payment>
+            <!--결제방법(CD : 사후 또는 동시 송금방식(COD,CAD), DA : D / A, DP : D / P, GN : 무상 거래, GO : 기타 유상, LH : 분할영수(지급)방식, LS : 일람출급 L/C, LU : 기한부 L/C, PT : 임가공 지급방식의 위탁(수탁)가공 무역,
+TT : 단순송금방식(T/T,M/T), OA : O/A(open account))-->
+            <wco:MethodCode>CD</wco:MethodCode>
+            <!--결제금액(통화코드)-->
+            <wco:PaymentAmount currencyID="USD">99</wco:PaymentAmount>
+            <!--결제방법명-->
+            <kcs:CurrencyUnitName>결제방법명</kcs:CurrencyUnitName>
+            <!--결제기간-->
+            <kcs:PeriodDescription>결제기간내용</kcs:PeriodDescription>
+        </wco:Payment>
+    </wco:DutyTaxFee>
+    <wco:GoodsShipment>
+        <wco:Supplier>
+            <!--공급자(수출자)업체상호-->
+            <wco:Name>업체상호</wco:Name>
+            <wco:Address>
+                <!--공급자(수출자)국가코드-->
+                <wco:CountryCode>US</wco:CountryCode>
+                <!--공급자(수출자)국가명-->
+                <wco:CountryName>United States</wco:CountryName>
+                <!--공급자(수출자)주소-->
+                <wco:Line>주소</wco:Line>
+            </wco:Address>
+            <wco:Contact>
+                <!--공급자(수출자) 대표명-->
+                <wco:Name>대표명</wco:Name>
+                <!--공급자(수출자) 대표명2-->
+                <kcs:RepresentativeName>대표명2</kcs:RepresentativeName>
+            </wco:Contact>
+        </wco:Supplier>
+    </wco:GoodsShipment>
+    <wco:Importer>
+        <!--수입자사업자등록번호(KTX)/수입자무역업허가번호(KFT)-->
+        <wco:ID schemeAgencyID="KTX">0000000000</wco:ID>
+        <!--수입자사업자등록번호(KTX)/수입자무역업허가번호(KFT)-->
+        <wco:ID schemeAgencyID="KFT">0000000000</wco:ID>
+        
+        <!--수입자업체상호-->
+        <wco:Name>수입자업체상호</wco:Name>
+        <!--수입자구분코드(A : 수입자,납세의무자 동일, B : 수입자,납세의무자 상이)-->
+        <wco:RoleCode>A</wco:RoleCode>
+        <wco:Address>
+            <!--수입자상세주소-->
+            <wco:Line>수입자상세주소</wco:Line>
+            <!--수입자우편번호-->
+            <wco:PostcodeID>44222</wco:PostcodeID>
+            <!--수입자기본주소-->
+            <kcs:Description>수입자기본주소</kcs:Description>
+        </wco:Address>
+        <wco:Contact>
+            <!--수입자(대표)명-->
+            <wco:Name>대표명</wco:Name>
+            <!--수입자(대표)명2-->
+            <kcs:RepresentativeName>대표명2</kcs:RepresentativeName>
+        </wco:Contact>
+    </wco:Importer>
+    <wco:Manufacturer>
+        <!--제조자업체상호-->
+        <wco:Name>제조자업체상호</wco:Name>
+        <wco:Address>
+            <!--제조자국가코드-->
+            <wco:CountryCode>US</wco:CountryCode>
+            <!--제조자국가명-->
+            <wco:CountryName>미국</wco:CountryName>
+            <!--제조자주소-->
+            <wco:Line>제조자주소</wco:Line>
+        </wco:Address>
+        <wco:Contact>
+            <!--제조자(대표)명-->
+            <wco:Name>대표명</wco:Name>
+            <!--제조자(대표)명2-->
+            <kcs:RepresentativeName>대표명2</kcs:RepresentativeName>
+        </wco:Contact>
+    </wco:Manufacturer>
+    <wco:LoadingLocation>
+        <!--인도장소명-->
+        <wco:Name>인천공항</wco:Name>
+    </wco:LoadingLocation>
+    <wco:Payer>
+        <!--납세의무자사업자등록번호-->
+        <wco:ID>0000000000</wco:ID>
+        <!--납세의무자업체상호-->
+        <wco:Name>납세의무자업체상호</wco:Name>
+        <wco:Address>
+            <!--납세의무자상세주소-->
+            <wco:Line>납세의무자상세주소</wco:Line>
+            <!--납세의무자우편번호-->
+            <wco:PostcodeID>55544</wco:PostcodeID>
+            <!--납세의무자기본주소-->
+            <kcs:Description>납세의무자기본주소</kcs:Description>
+        </wco:Address>
+        <wco:Contact>
+            <!--납세의무자(대표)명-->
+            <wco:Name>대표명</wco:Name>
+            <!--납세의무자(대표)명2-->
+            <kcs:RepresentativeName>대표명2</kcs:RepresentativeName>
+        </wco:Contact>
+    </wco:Payer>
+    <wco:TradeTerms>
+        <!--인도조건코드(CFR : 운임포함 인도조건,CIF : 운임,보험료 포함 인도조건,CIN : 보험료포함 인도조건,CIP : 운송비,보험료지불인도조건,CPT : 운송비 지불인도조건,DAF : 국경인도조건,DAP : 도착지 지정장소 인도조건,DAT : 도착지 터미널 인도조건,DDP : 관세지급 인도조건,DDU : 관세미지급 인도조건,DEQ : 부두 인도조건,DES : 착선 인도조건,EXW : 작업장 인도조건,FAS : 선측 인도조건,FCA : 운송인 인도조건,FOB : 본선 인도조건)-->
+        <wco:ConditionCode>CFR</wco:ConditionCode>
+        <!--인도조건명-->
+        <wco:Description>인도조건명</wco:Description>
+        <!--인도국가코드-->
+        <wco:LocationID>US</wco:LocationID>
+        <!--인도국가명-->
+        <wco:LocationName>United States</wco:LocationName>
+    </wco:TradeTerms>
+    <wco:UnloadingLocation>
+        <!--도착항코드-->
+        <wco:ID>ICN</wco:ID>
+        <!--도착항명-->
+        <wco:Name>인천공항</wco:Name>
+    </wco:UnloadingLocation>
+</wco:Declaration>
