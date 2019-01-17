@@ -7,7 +7,7 @@ uses
   Dialogs, ParentForm, sSkinProvider, StdCtrls, sButton, sLabel, ExtCtrls,
   sPanel, Buttons, sSpeedButton, Mask, DBCtrls, sDBEdit, Grids, DBGrids,
   acDBGrid, sSplitter, sEdit, sComboBox, sMaskEdit, sDBMemo, sMemo, StrUtils, Clipbrd, DateUtils,
-  sCustomComboEdit, sToolEdit;
+  sCustomComboEdit, sToolEdit, ComCtrls, sPageControl;
 
 type
   TUI_KPTA_frm = class(TParentForm_frm)
@@ -66,12 +66,8 @@ type
     sSplitter2: TsSplitter;
     sDBMemo1: TsDBMemo;
     sSplitter4: TsSplitter;
-    sButton9: TsButton;
-    sButton10: TsButton;
     sPanel21: TsPanel;
     sDBGrid2: TsDBGrid;
-    sPanel22: TsPanel;
-    sMemo1: TsMemo;
     sButton11: TsButton;
     sButton7: TsButton;
     sButton8: TsButton;
@@ -89,6 +85,11 @@ type
     sButton17: TsButton;
     sSpeedButton4: TsSpeedButton;
     sButton18: TsButton;
+    sPageControl1: TsPageControl;
+    sTabSheet1: TsTabSheet;
+    sDBGrid3: TsDBGrid;
+    sTabSheet2: TsTabSheet;
+    sDBGrid4: TsDBGrid;
     procedure sButton1Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -97,9 +98,7 @@ type
     procedure sEdit3Exit(Sender: TObject);
     procedure sEdit3KeyUp(Sender: TObject; var Key: Word;
       Shift: TShiftState);
-    procedure sButton9Click(Sender: TObject);
     procedure sButton2Click(Sender: TObject);
-    procedure sDBGrid1AfterScroll(Sender: TObject; ScrollBar: Cardinal);
     procedure sButton4Click(Sender: TObject);
     procedure sButton11Click(Sender: TObject);
     procedure sButton3Click(Sender: TObject);
@@ -122,7 +121,8 @@ type
     procedure sComboBox1Select(Sender: TObject);
     procedure sButton16Click(Sender: TObject);
     procedure sButton18Click(Sender: TObject);
-    procedure sDBGrid2ScrollData(Sender: TObject);
+    procedure sEdit1KeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
   private
     { Private declarations }
     FSQL : String;
@@ -170,6 +170,7 @@ begin
   ReadList;
 //  DataModule_Conn.qryStandard1.Open;
   sDBGrid1ScrollData(sDBGrid1);
+  sPageControl1.ActivePageIndex := 0;
 end;
 
 procedure TUI_KPTA_frm.FormCreate(Sender: TObject);
@@ -254,76 +255,6 @@ begin
   end;
 end;
 
-procedure TUI_KPTA_frm.sButton9Click(Sender: TObject);
-begin
-  inherited;
-
-  IF DataModule_Conn.qryStandard1.RecordCount = 0 Then
-  begin
-    IF sPanel22.Visible Then
-    begin
-      spanel22.Visible := False;
-      sMemo1.Tag := -1;
-    end;
-    Exit;
-  end;
-
-  IF sMemo1.Tag = (Sender as TsButton).Tag Then
-  begin
-    sPanel22.Visible := False;
-    sMemo1.Tag := -1;
-  end
-  else
-  begin
-    sPanel22.Visible := True;
-    sMemo1.Tag := (Sender as TsButton).Tag;
-  end;
-
-  IF (Sender as TsButton).Tag = 0 Then
-  begin
-    with DataModule_Conn.qryMake do
-    begin
-      Close;
-      Parameters.ParamByName('DOC_NO').Value := DataModule_Conn.qryStandard2DOC_NO.AsString;
-      Parameters.ParamByName('SERIAL_NO').Value := DataModule_Conn.qryStandard2SERIAL_NO.AsString;
-      Open;
-      try
-        sMemo1.Lines.Clear;
-        sMemo1.Lines.Add(FieldByName('DOC_NO').AsString+'-FR2'+DataModule_Conn.qryStandard2SERIAL_NO.AsString+' '+(Sender as TsButton).Caption);
-        while not eof do
-        begin
-          sMemo1.Lines.Add(FieldByName('MAKE_NO').AsString+' / '+FieldByName('MAKE_DATE').AsString);
-          DataModule_Conn.qryMake.Next;
-        end;
-      finally
-        DataModule_Conn.qryMake.Close;
-      end;
-    end;
-  end
-  else
-  IF (Sender as TsButton).Tag = 1 Then
-  begin
-    with DataModule_Conn.qryCheck do
-    begin
-      Close;
-      Parameters.ParamByName('DOC_NO').Value := DataModule_Conn.qryStandard2DOC_NO.AsString;
-      Parameters.ParamByName('SERIAL_NO').Value := DataModule_Conn.qryStandard2SERIAL_NO.AsString;
-      Open;
-      try
-        sMemo1.Lines.Clear;
-        sMemo1.Lines.Add(FieldByName('DOC_NO').AsString+'-FR2'+DataModule_Conn.qryStandard2SERIAL_NO.AsString+' '+(Sender as TsButton).Caption);
-        while not eof do
-        begin
-          sMemo1.Lines.Add(FieldByName('CHECK_B_NO').AsString+' / '+FieldByName('CHECK_QTY').AsString);
-          DataModule_Conn.qryCheck.Next;
-        end;
-      finally
-        DataModule_Conn.qryCheck.Close;
-      end;
-    end;
-  end
-end;
-
 procedure TUI_KPTA_frm.sButton2Click(Sender: TObject);
 begin
   inherited;
@@ -355,13 +286,6 @@ begin
     sDBGrid1ScrollData(sDBGrid1);
     Freeandnil(UI_KPTA_DocNormal_frm);
   end;
-end;
-
-procedure TUI_KPTA_frm.sDBGrid1AfterScroll(Sender: TObject;
-  ScrollBar: Cardinal);
-begin
-  inherited;
-  sButton9.Enabled := DataModule_Conn.qryStandard1.RecordCount > 0;
 end;
 
 procedure TUI_KPTA_frm.sButton4Click(Sender: TObject);
@@ -456,9 +380,19 @@ begin
       //------------------------------------------------------------------------------
       // 새로고침
       //------------------------------------------------------------------------------
-//      sComboBox1.ItemIndex := 1;
-      sMaskEdit1.Text := FormatDateTime('YYYY-MM-DD',Now);
-      sMaskEdit2.Text := FormatDateTime('YYYY-MM-DD',EndOfTheMonth(Now));
+//      sMaskEdit1.Text := FormatDateTime('YYYY-MM-DD',Now);
+//      sMaskEdit2.Text := FormatDateTime('YYYY-MM-DD',EndOfTheMonth(Now));
+      sMaskEdit1.Text := FormatDateTime('YYYY-MM-DD', StartOfTheMonth(Now));
+      sMaskEdit2.Text := FormatDateTime('YYYY-MM-DD',Now);
+      //------------------------------------------------------------------------------
+      //필터처리 되어있었다면 초기화
+      //------------------------------------------------------------------------------
+      IF sComboBox1.ItemIndex <> 0 Then
+      begin
+        sCombobox1.ItemIndex := 0;
+        sEdit1.Clear;
+      end;
+
       ReadList;
       //------------------------------------------------------------------------------
       // 복사된 문서 수정작업
@@ -829,52 +763,12 @@ begin
   end;
 end;
 
-procedure TUI_KPTA_frm.sDBGrid2ScrollData(Sender: TObject);
+procedure TUI_KPTA_frm.sEdit1KeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
 begin
   inherited;
-  IF sMemo1.Tag = 0 Then
-  begin
-    with DataModule_Conn.qryMake do
-    begin
-      Close;
-      Parameters.ParamByName('DOC_NO').Value := DataModule_Conn.qryStandard2DOC_NO.AsString;
-      Parameters.ParamByName('SERIAL_NO').Value := DataModule_Conn.qryStandard2SERIAL_NO.AsString;
-      Open;
-      try
-        sMemo1.Lines.Clear;
-        sMemo1.Lines.Add(DataModule_Conn.qryStandard2DOC_NO.AsString+'-FR2'+DataModule_Conn.qryStandard2SERIAL_NO.AsString+' 제조정보');
-        while not eof do
-        begin
-          sMemo1.Lines.Add(FieldByName('MAKE_NO').AsString+' / '+FieldByName('MAKE_DATE').AsString);
-          DataModule_Conn.qryMake.Next;
-        end;
-      finally
-        DataModule_Conn.qryMake.Close;
-      end;
-    end;
-  end
-  else
-  IF sMemo1.Tag = 1 Then
-  begin
-    with DataModule_Conn.qryCheck do
-    begin
-      Close;
-      Parameters.ParamByName('DOC_NO').Value := DataModule_Conn.qryStandard2DOC_NO.AsString;
-      Parameters.ParamByName('SERIAL_NO').Value := DataModule_Conn.qryStandard2SERIAL_NO.AsString;
-      Open;
-      try
-        sMemo1.Lines.Clear;
-        sMemo1.Lines.Add(DataModule_Conn.qryStandard2DOC_NO.AsString+'-FR2'+DataModule_Conn.qryStandard2SERIAL_NO.AsString+' 동일성검사결과서 정보');
-        while not eof do
-        begin
-          sMemo1.Lines.Add(FieldByName('CHECK_B_NO').AsString+' / '+FieldByName('CHECK_QTY').AsString);
-          DataModule_Conn.qryCheck.Next;
-        end;
-      finally
-        DataModule_Conn.qryCheck.Close;
-      end;
-    end;
-  end
+  IF Key = VK_RETURN Then sButton6Click(nil);
+
 end;
 
 end.

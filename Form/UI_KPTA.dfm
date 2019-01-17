@@ -467,15 +467,15 @@ inherited UI_KPTA_frm: TUI_KPTA_frm
         DoubleBuffered = False
         TabOrder = 7
         object sLabel3: TsLabel
-          Left = 8
-          Top = 6
-          Width = 118
-          Height = 21
+          Left = 6
+          Top = 7
+          Width = 96
+          Height = 17
           Caption = #49688#51077#51088' '#44592#51116#49324#54637
           ParentFont = False
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
-          Font.Height = -16
+          Font.Height = -13
           Font.Name = #47569#51008' '#44256#46357
           Font.Style = [fsBold]
         end
@@ -1118,7 +1118,6 @@ inherited UI_KPTA_frm: TUI_KPTA_frm
           Height = 23
           Caption = #51089#49457#45236#50669
           TabOrder = 3
-          Visible = False
           OnClick = sButton8Click
           SkinData.SkinSection = 'BUTTON'
           Images = DataModule_ICON.IMG_16
@@ -1220,6 +1219,7 @@ inherited UI_KPTA_frm: TUI_KPTA_frm
           Enabled = False
           ParentCtl3D = False
           TabOrder = 9
+          OnKeyDown = sEdit1KeyDown
         end
       end
     end
@@ -1244,7 +1244,7 @@ inherited UI_KPTA_frm: TUI_KPTA_frm
         TabOrder = 0
         object sLabel2: TsLabel
           Left = 8
-          Top = 6
+          Top = 5
           Width = 64
           Height = 21
           Caption = #54408#47785#49324#54637
@@ -1255,54 +1255,11 @@ inherited UI_KPTA_frm: TUI_KPTA_frm
           Font.Name = #47569#51008' '#44256#46357
           Font.Style = [fsBold]
         end
-        object sButton9: TsButton
-          Left = 954
-          Top = 2
-          Width = 103
-          Height = 28
-          Cursor = crHandPoint
-          Caption = #51228#51312#51221#48372
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -12
-          Font.Name = #47569#51008' '#44256#46357
-          Font.Style = []
-          ParentFont = False
-          TabOrder = 0
-          TabStop = False
-          OnClick = sButton9Click
-          SkinData.SkinSection = 'BUTTON'
-          Reflected = True
-          Images = DataModule_ICON.IMG_16
-          ImageIndex = 11
-        end
-        object sButton10: TsButton
-          Tag = 1
-          Left = 1059
-          Top = 2
-          Width = 174
-          Height = 28
-          Cursor = crHandPoint
-          Caption = #46041#51068#49457#44160#49324#44208#44284#49436' '#51221#48372
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -12
-          Font.Name = #47569#51008' '#44256#46357
-          Font.Style = []
-          ParentFont = False
-          TabOrder = 1
-          TabStop = False
-          OnClick = sButton9Click
-          SkinData.SkinSection = 'BUTTON'
-          Reflected = True
-          Images = DataModule_ICON.IMG_16
-          ImageIndex = 11
-        end
       end
       object sPanel21: TsPanel
         Left = 1
         Top = 34
-        Width = 1235
+        Width = 840
         Height = 205
         SkinData.SkinSection = 'TRANSPARENT'
         Align = alClient
@@ -1312,7 +1269,7 @@ inherited UI_KPTA_frm: TUI_KPTA_frm
         object sDBGrid2: TsDBGrid
           Left = 0
           Top = 0
-          Width = 824
+          Width = 840
           Height = 205
           Align = alClient
           Color = clWhite
@@ -1331,8 +1288,8 @@ inherited UI_KPTA_frm: TUI_KPTA_frm
           TitleFont.Height = -12
           TitleFont.Name = #47569#51008' '#44256#46357
           TitleFont.Style = []
+          OnDrawColumnCell = KISDrawColumnCell
           SkinData.SkinSection = 'EDIT'
-          OnScrollData = sDBGrid2ScrollData
           Columns = <
             item
               Expanded = False
@@ -1363,28 +1320,125 @@ inherited UI_KPTA_frm: TUI_KPTA_frm
               Visible = True
             end>
         end
-        object sPanel22: TsPanel
-          Left = 824
-          Top = 0
-          Width = 411
-          Height = 205
-          SkinData.SkinSection = 'PANEL'
-          Align = alRight
-          BorderWidth = 4
-          DoubleBuffered = False
-          TabOrder = 1
-          Visible = False
-          object sMemo1: TsMemo
-            Tag = -1
-            Left = 5
-            Top = 5
-            Width = 401
-            Height = 195
+      end
+      object sPageControl1: TsPageControl
+        Left = 841
+        Top = 34
+        Width = 395
+        Height = 205
+        ActivePage = sTabSheet1
+        Align = alRight
+        Images = DataModule_ICON.IMG_16
+        TabHeight = 28
+        TabIndex = 0
+        TabOrder = 2
+        TabPadding = 5
+        object sTabSheet1: TsTabSheet
+          Caption = #51228#51312' '#51221#48372
+          ImageIndex = 26
+          object sDBGrid3: TsDBGrid
+            Left = 0
+            Top = 0
+            Width = 387
+            Height = 167
             Align = alClient
-            ReadOnly = True
-            ScrollBars = ssVertical
+            Color = clWhite
+            DataSource = DataModule_Conn.dsMake
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clBlack
+            Font.Height = -12
+            Font.Name = #47569#51008' '#44256#46357
+            Font.Style = []
+            Options = [dgTitles, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit]
+            ParentFont = False
             TabOrder = 0
-            SkinData.SkinSection = 'EDIT'
+            TitleFont.Charset = ANSI_CHARSET
+            TitleFont.Color = clWindowText
+            TitleFont.Height = -12
+            TitleFont.Name = #47569#51008' '#44256#46357
+            TitleFont.Style = []
+            OnDrawColumnCell = KISDrawColumnCell
+            Columns = <
+              item
+                Alignment = taCenter
+                Color = clBtnFace
+                Expanded = False
+                FieldName = 'MAKE_SERIAL_NO'
+                Title.Alignment = taCenter
+                Title.Caption = #49692#48264
+                Width = 45
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'MAKE_NO'
+                Title.Alignment = taCenter
+                Title.Caption = #51228#51312#48264#54840
+                Width = 190
+                Visible = True
+              end
+              item
+                Alignment = taCenter
+                Expanded = False
+                FieldName = 'MAKE_DATE'
+                Title.Alignment = taCenter
+                Title.Caption = #51228#51312#51068#51088
+                Width = 130
+                Visible = True
+              end>
+          end
+        end
+        object sTabSheet2: TsTabSheet
+          Caption = #46041#51068#49457#44160#49324#44208#44284#49436' '#51221#48372
+          ImageIndex = 27
+          object sDBGrid4: TsDBGrid
+            Left = 0
+            Top = 0
+            Width = 387
+            Height = 167
+            Align = alClient
+            Color = clWhite
+            DataSource = DataModule_Conn.dsCheck
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clBlack
+            Font.Height = -12
+            Font.Name = #47569#51008' '#44256#46357
+            Font.Style = []
+            Options = [dgTitles, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit]
+            ParentFont = False
+            TabOrder = 0
+            TitleFont.Charset = ANSI_CHARSET
+            TitleFont.Color = clWindowText
+            TitleFont.Height = -12
+            TitleFont.Name = #47569#51008' '#44256#46357
+            TitleFont.Style = []
+            OnDrawColumnCell = KISDrawColumnCell
+            Columns = <
+              item
+                Color = clBtnFace
+                Expanded = False
+                FieldName = 'CHECK_SERIAL_NO'
+                Title.Alignment = taCenter
+                Title.Caption = #49692#48264
+                Width = 45
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'CHECK_B_NO'
+                Title.Alignment = taCenter
+                Title.Caption = #48156#44553#48264#54840
+                Width = 190
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'CHECK_QTY'
+                Title.Alignment = taCenter
+                Title.Caption = #49688#47049
+                Width = 130
+                Visible = True
+              end>
           end
         end
       end

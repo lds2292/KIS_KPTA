@@ -399,25 +399,24 @@ object dlg_IMPORT_frm: Tdlg_IMPORT_frm
     CursorType = ctStatic
     Parameters = <>
     SQL.Strings = (
-      'SELECT A.DOCUMENT_REFERENCE_ID,'#39'FR2'#39' as SERIAL_CODE, '
+      'SELECT H1.DOCUMENT_REFERENCE_ID,'#39'FR2'#39' as SERIAL_CODE, '
       
         '       REPLICATE('#39'0'#39', 3 - LEN(EDI_CUSSNWFR1_D1_SEQ))+Convert(var' +
         'char(3),EDI_CUSSNWFR1_D1_SEQ) as SERIAL_NO,'
       
-        '       ROW_NUMBER() OVER(PARTITION BY A.DOCUMENT_REFERENCE_ID,ED' +
-        'I_CUSSNWFR1_D1_SEQ  ORDER BY MANUFACTURE_SEQ) as MAKE_SERIAL_NO,'
-      
-        '       --REPLICATE('#39'0'#39', 3 - LEN(MANUFACTURE_SEQ))+Convert(varcha' +
-        'r(3),MANUFACTURE_SEQ) as MAKE_SERIAL_NO,'
+        '       ROW_NUMBER() OVER(PARTITION BY H1.DOCUMENT_REFERENCE_ID,E' +
+        'DI_CUSSNWFR1_D1_SEQ  ORDER BY MANUFACTURE_SEQ) as MAKE_SERIAL_NO' +
+        ','
       '       MANUFACTURE_NO,'
       '       MANUFACTURE_DATE '
       
-        'FROM EDI_CUSSNWFR1_H A INNER JOIN EDI_CUSSNWFR1_D1 B ON A.EDI_CU' +
-        'SSNWFR1_H_UID = B.EDI_CUSSNWFR1_H_UID'
+        'FROM EDI_CUSSNWFR1_H H1 LEFT JOIN EDI_CUSSNWFR1_D1 D1 ON H1.EDI_' +
+        'CUSSNWFR1_H_UID = D1.EDI_CUSSNWFR1_H_UID'
       
-        '                       INNER JOIN EDI_CUSSNWFS4_D1D3 C ON B.EDI_' +
-        'CUSSNWFR1_D1_UID = C.EDI_CUSSNWFS4_D1_UID'
-      'ORDER BY A.DOCUMENT_REFERENCE_ID, SERIAL_NO, MAKE_SERIAL_NO')
+        '                        LEFT JOIN EDI_CUSSNWFR1_D1D3 D3 ON D1.ED' +
+        'I_CUSSNWFR1_D1_UID = D3.EDI_CUSSNWFR1_D1_UID'
+      'WHERE D3.EDI_CUSSNWFR1_D1D3_UID IS NOT NULL'
+      'ORDER BY H1.DOCUMENT_REFERENCE_ID, SERIAL_NO, MAKE_SERIAL_NO')
     Left = 248
     Top = 120
   end
@@ -426,12 +425,15 @@ object dlg_IMPORT_frm: Tdlg_IMPORT_frm
     CursorType = ctStatic
     Parameters = <>
     SQL.Strings = (
+      'DELETE FROM RECV_STANDARD2'
       'INSERT INTO RECV_STANDARD2'
       'SELECT * FROM STANDARD2'
       ''
+      'DELETE FROM RECV_TAKEN'
       'INSERT INTO RECV_TAKEN'
       'SELECT * FROM TAKEN'
       ''
+      'DELETE FROM RECV_MAKE'
       'INSERT INTO RECV_MAKE'
       'SELECT * FROM MAKE')
     Left = 352

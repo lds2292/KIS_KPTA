@@ -7,6 +7,7 @@ inherited dialog_PUMLIST_frm: Tdialog_PUMLIST_frm
   ClientHeight = 384
   ClientWidth = 735
   FormStyle = fsNormal
+  OldCreateOrder = True
   Position = poOwnerFormCenter
   Visible = False
   OnShow = FormShow

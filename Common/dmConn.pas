@@ -176,6 +176,8 @@ type
     StringField40: TStringField;
     StringField41: TStringField;
     StringField42: TStringField;
+    dsMake: TDataSource;
+    dsCheck: TDataSource;
     procedure DataModuleCreate(Sender: TObject);
     procedure qryStandard2AfterOpen(DataSet: TDataSet);
     procedure qryStandard1AfterScroll(DataSet: TDataSet);
@@ -418,6 +420,22 @@ begin
     Close;
     Parameters.ParamByName('DOC_NO').Value := DataSet.FieldByName('DOC_NO').AsString;
     Parameters.ParamByName('SERIAL_NO').Value := DataSet.FieldByName('SERIAL_NO').AsString;
+    Open;
+  end;
+
+  with qryMake do
+  begin
+    Close;
+    Parameters.ParamByName('DOC_NO').Value := qryStandard2DOC_NO.AsString;
+    Parameters.ParamByName('SERIAL_NO').Value := qryStandard2SERIAL_NO.AsString;
+    Open;
+  end;
+
+  with qryCheck do
+  begin
+    Close;
+    Parameters.ParamByName('DOC_NO').Value := qryStandard2DOC_NO.AsString;
+    Parameters.ParamByName('SERIAL_NO').Value := qryStandard2SERIAL_NO.AsString;
     Open;
   end;
 

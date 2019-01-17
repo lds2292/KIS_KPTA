@@ -2850,10 +2850,10 @@ inherited UI_KPTA_DocNormal_frm: TUI_KPTA_DocNormal_frm
             Top = 1
             Width = 862
             Height = 151
-            ActivePage = sTabSheet3
+            ActivePage = sTabSheet4
             Align = alClient
             TabHeight = 25
-            TabIndex = 0
+            TabIndex = 1
             TabOrder = 0
             TabWidth = 85
             SkinData.SkinSection = 'PAGECONTROL'

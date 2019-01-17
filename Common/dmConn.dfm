@@ -515,6 +515,7 @@ object DataModule_Conn: TDataModule_Conn
   end
   object qryMake: TADOQuery
     Connection = KisConn
+    CursorType = ctStatic
     Parameters = <
       item
         Name = 'DOC_NO'
@@ -540,12 +541,14 @@ object DataModule_Conn: TDataModule_Conn
       'WHERE DOC_NO = :DOC_NO'
       'AND SERIAL_CODE = '#39'FR2'#39
       'AND SERIAL_NO = :SERIAL_NO'
-      'ORDER BY MAKE_SERIAL_NO')
+      'ORDER BY MAKE_SERIAL_NO'
+      '')
     Left = 88
     Top = 160
   end
   object qryCheck: TADOQuery
     Connection = KisConn
+    CursorType = ctStatic
     Parameters = <
       item
         Name = 'DOC_NO'
@@ -568,12 +571,14 @@ object DataModule_Conn: TDataModule_Conn
     SQL.Strings = (
       'SELECT *'
       'FROM [CHECK]'
+      '/*'
       'WHERE DOC_NO = :DOC_NO'
       'AND SERIAL_CODE = '#39'FR2'#39
       'AND SERIAL_NO = :SERIAL_NO'
-      'ORDER BY CHECK_SERIAL_NO')
-    Left = 128
-    Top = 160
+      'ORDER BY CHECK_SERIAL_NO'
+      '*/')
+    Left = 88
+    Top = 208
   end
   object spCopyDocument: TADOStoredProc
     Connection = KisConn
@@ -685,12 +690,12 @@ object DataModule_Conn: TDataModule_Conn
       'HAVING YEAR(REQUEST_DATE) = :nYear'
       'AND MONTH(REQUEST_DATE) = :nMon')
     Left = 88
-    Top = 208
+    Top = 248
   end
   object dsCount: TDataSource
     DataSet = qryCount
-    Left = 128
-    Top = 208
+    Left = 168
+    Top = 248
   end
   object qrySTD1Copy: TADOQuery
     CursorType = ctStatic
@@ -925,5 +930,15 @@ object DataModule_Conn: TDataModule_Conn
       FieldName = 'PAY_TYPE_NAME'
       Size = 100
     end
+  end
+  object dsMake: TDataSource
+    DataSet = qryMake
+    Left = 128
+    Top = 160
+  end
+  object dsCheck: TDataSource
+    DataSet = qryCheck
+    Left = 128
+    Top = 208
   end
 end

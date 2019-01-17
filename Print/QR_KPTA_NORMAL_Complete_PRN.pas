@@ -247,6 +247,7 @@ type
     QR_PublishOrgan: TQRLabel;
     QR_MAKE_COMPANY2: TQRLabel;
     QR_MAKE_COMPANY3: TQRLabel;
+    QRShape48: TQRShape;
     procedure QuickRepBeforePrint(Sender: TCustomQuickRep;
       var PrintReport: Boolean);
     procedure QuickRepNeedData(Sender: TObject; var MoreData: Boolean);
@@ -446,7 +447,7 @@ begin
                       qryStandard2forPrintEXTRACTION.AsString + ' / ' +
                       qryStandard2forPrintBATCH_NO.AsString + ' / ' +
                       qryStandard2forPrintBSE_ORIGIN_NATION_ENG.AsString;
-  end;  
+  end;
 //  IF ChildBand1.Enabled Then
 //  begin
 //    QR_MAKE_COMPANY.Caption := '¨ð '+qryStandard2forPrintWITAK_SANGHO1.AsString;

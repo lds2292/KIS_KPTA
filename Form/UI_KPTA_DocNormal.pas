@@ -523,14 +523,15 @@ begin
     sButton1.Visible := True
   else
     sButton1.Visible := sButton1.Visible AND (not AnsiMatchText(DataModule_Conn.qryStandard1.FieldByName('isRECV').AsString ,['접수','서류제출','승인']));
-    
+
   sButton2.Visible := sButton1.Visible AND (FCancel = False);
 
-  sButton4.Visible := sButton1.Visible;
-  sButton5.Visible := sButton1.Visible;
-  sButton6.Visible := sButton1.Visible;
-  sButton7.Visible := sButton1.Visible;
-  sButton8.Visible := sButton1.Visible;
+  sPanel43.Visible := sButton1.Visible;
+//  sButton4.Visible := sButton1.Visible;
+//  sButton5.Visible := sButton1.Visible;
+//  sButton6.Visible := sButton1.Visible;
+//  sButton7.Visible := sButton1.Visible;
+//  sButton8.Visible := sButton1.Visible;
 
   case sButton1.Visible of
     True : sButton3.Caption := '취소';

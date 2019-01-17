@@ -92,8 +92,9 @@ var
   i : Integer;
 begin
   inherited;
-  qryList.Close;
-  qryList.Open;
+  ReadList;
+//  qryList.Close;
+//  qryList.Open;
 
   //검색조건 콤보박스 셋팅
   sComboBox1.Clear;
