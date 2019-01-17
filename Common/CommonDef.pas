@@ -19,12 +19,16 @@ Type
     APRE_POSTBOX : String;
     XML_SEND_DIR : String;
   end;
+
   TLoginData = record
     sID : string;
     sName : string;
   end;
 
+  TPanelInfo = record
+    X, Y, Height, Widht : Integer;
+  end;
+
 implementation
 
 end.
- 

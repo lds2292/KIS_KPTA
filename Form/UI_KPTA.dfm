@@ -78,7 +78,6 @@ inherited UI_KPTA_frm: TUI_KPTA_frm
       Width = 6
       Height = 46
       Anchors = [akTop, akRight]
-      Visible = False
       ButtonStyle = tbsDivider
       SkinData.SkinSection = 'SPEEDBUTTON'
     end
@@ -357,7 +356,6 @@ inherited UI_KPTA_frm: TUI_KPTA_frm
       ParentFont = False
       TabOrder = 11
       TabStop = False
-      Visible = False
       OnClick = sButton9Click
       SkinData.SkinSection = 'CHECKBOX'
       Reflected = True

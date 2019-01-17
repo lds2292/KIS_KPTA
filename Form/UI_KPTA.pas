@@ -779,7 +779,7 @@ begin
   inherited;
   Dialog_ProcessView_frm := TDialog_ProcessView_frm.Create(Self);
   try
-    Dialog_ProcessView_frm.ShowModal;
+    Dialog_ProcessView_frm.SearchNo(DataModule_Conn.qryStandard2DOC_NO.AsString);
   finally
     FreeAndNil(Dialog_ProcessView_frm);
   end;
