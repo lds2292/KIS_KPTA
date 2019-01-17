@@ -221,6 +221,7 @@ type
     QRShape28: TQRShape;
     QR_MAKE_COMPANY2: TQRLabel;
     QR_MAKE_COMPANY3: TQRLabel;
+    QRShape48: TQRShape;
     procedure QuickRepBeforePrint(Sender: TCustomQuickRep;
       var PrintReport: Boolean);
     procedure QuickRepNeedData(Sender: TObject; var MoreData: Boolean);

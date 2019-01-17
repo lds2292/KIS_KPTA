@@ -72,6 +72,16 @@ inherited UI_KPTA_frm: TUI_KPTA_frm
       ButtonStyle = tbsDivider
       SkinData.SkinSection = 'SPEEDBUTTON'
     end
+    object sSpeedButton5: TsSpeedButton
+      Left = 642
+      Top = 4
+      Width = 6
+      Height = 46
+      Anchors = [akTop, akRight]
+      Visible = False
+      ButtonStyle = tbsDivider
+      SkinData.SkinSection = 'SPEEDBUTTON'
+    end
     object sButton3: TsButton
       Left = 1174
       Top = 2
@@ -329,6 +339,31 @@ inherited UI_KPTA_frm: TUI_KPTA_frm
       Images = DataModule_ICON.IMG_24
       ImageAlignment = iaTop
       ImageIndex = 14
+    end
+    object sButton9: TsButton
+      Tag = 1
+      Left = 649
+      Top = 3
+      Width = 66
+      Height = 49
+      Cursor = crHandPoint
+      Anchors = [akTop, akRight]
+      Caption = #52376#47532#54788#54889
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -12
+      Font.Name = #47569#51008' '#44256#46357
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 11
+      TabStop = False
+      Visible = False
+      OnClick = sButton9Click
+      SkinData.SkinSection = 'CHECKBOX'
+      Reflected = True
+      Images = DataModule_ICON.IMG_24
+      ImageAlignment = iaTop
+      ImageIndex = 38
     end
   end
   object sPanel2: TsPanel [2]
