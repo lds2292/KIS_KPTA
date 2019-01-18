@@ -90,6 +90,8 @@ type
     sDBGrid3: TsDBGrid;
     sTabSheet2: TsTabSheet;
     sDBGrid4: TsDBGrid;
+    sSpeedButton5: TsSpeedButton;
+    sButton9: TsButton;
     procedure sButton1Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -123,6 +125,7 @@ type
     procedure sButton18Click(Sender: TObject);
     procedure sEdit1KeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure sButton9Click(Sender: TObject);
   private
     { Private declarations }
     FSQL : String;
@@ -139,7 +142,7 @@ implementation
 
 uses dmConn, UI_KPTA_DocNormal, CommonDef, CommonVar, dmIcon, ADODB,
   CommonLib, DB, CommonMSG, Dialog_CopyReport, UI_ReadyDocument,
-  Dialog_BetweenList, KISCalendar, QR_KPTA_NORMAL_PRN, QuickRpt, UI_PrintPreview, QR_KPTA_NORMAL_Complete_PRN, KISCalendarV2, UI_RecvDocument, UI_QuickMenu;
+  Dialog_BetweenList, KISCalendar, QR_KPTA_NORMAL_PRN, QuickRpt, UI_PrintPreview, QR_KPTA_NORMAL_Complete_PRN, KISCalendarV2, UI_RecvDocument, UI_QuickMenu, Dialog_ProcessView;
 
 {$R *.dfm}
 
@@ -769,6 +772,17 @@ begin
   inherited;
   IF Key = VK_RETURN Then sButton6Click(nil);
 
+end;
+
+procedure TUI_KPTA_frm.sButton9Click(Sender: TObject);
+begin
+  inherited;
+  Dialog_ProcessView_frm := TDialog_ProcessView_frm.Create(Self);
+  try
+    Dialog_ProcessView_frm.SearchNo(DataModule_Conn.qryStandard2DOC_NO.AsString);
+  finally
+    FreeAndNil(Dialog_ProcessView_frm);
+  end;
 end;
 
 end.

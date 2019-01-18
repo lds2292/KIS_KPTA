@@ -221,6 +221,7 @@ type
     QRShape28: TQRShape;
     QR_MAKE_COMPANY2: TQRLabel;
     QR_MAKE_COMPANY3: TQRLabel;
+    QRShape48: TQRShape;
     procedure QuickRepBeforePrint(Sender: TCustomQuickRep;
       var PrintReport: Boolean);
     procedure QuickRepNeedData(Sender: TObject; var MoreData: Boolean);
@@ -295,8 +296,6 @@ begin
   FTOTAL_UNIT := qryStandard2forPrintMODEL_AMT_UNIT.AsString;
   FSUB_IDX := 1;
   ReadMake(qryStandard2forPrintSERIAL_NO.AsString);
-
-  qryStandard2forPrint.Next;
 end;
 
 procedure TQR_KPTA_NORMAL_PRN_frm.QRSubDetail1NeedData(Sender: TObject;
@@ -351,6 +350,8 @@ begin
                       qryStandard2forPrintBATCH_NO.AsString + ' / ' +
                       qryStandard2forPrintBSE_ORIGIN_NATION_ENG.AsString;
   end;
+
+  qryStandard2forPrint.Next;
 
   inc(FSUB_IDX);
   qryMakeforPrint.Next;

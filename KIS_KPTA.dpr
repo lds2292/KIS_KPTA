@@ -64,7 +64,9 @@ uses
   NewExcelReader in '..\..\..\UseComponent\KISLIB\KISExcelWriter\NewExcelReader.pas',
   NewExcelWriter in '..\..\..\UseComponent\KISLIB\KISExcelWriter\NewExcelWriter.pas',
   SQLCreator in '..\..\..\UseComponent\KISLIB\KISSQLCreator\SQLCreator.pas',
-  dialog_PUMLIST in 'Form\Dialog\dialog_PUMLIST.pas' {dialog_PUMLIST_frm};
+  dialog_PUMLIST in 'Form\Dialog\dialog_PUMLIST.pas' {dialog_PUMLIST_frm},
+  Dialog_ProcessView in 'Form\Dialog\Dialog_ProcessView.pas' {Dialog_ProcessView_frm},
+  KisXmlReader in '..\..\..\UseComponent\KISLIB\KISXml\KisXmlReader.pas';
 
 {$R *.res}
 
