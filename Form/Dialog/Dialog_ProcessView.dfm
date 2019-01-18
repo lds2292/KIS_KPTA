@@ -5,7 +5,7 @@ inherited Dialog_ProcessView_frm: TDialog_ProcessView_frm
   BorderStyle = bsDialog
   BorderWidth = 4
   Caption = #45800#51068#53685#44288' '#52376#47532#54788#54889
-  ClientHeight = 501
+  ClientHeight = 495
   ClientWidth = 757
   FormStyle = fsNormal
   OldCreateOrder = True
@@ -18,7 +18,7 @@ inherited Dialog_ProcessView_frm: TDialog_ProcessView_frm
     Left = 0
     Top = 0
     Width = 757
-    Height = 501
+    Height = 495
     SkinData.SkinSection = 'TRANSPARENT'
     Align = alClient
     DoubleBuffered = False
@@ -27,7 +27,7 @@ inherited Dialog_ProcessView_frm: TDialog_ProcessView_frm
       Left = 1
       Top = 1
       Width = 755
-      Height = 499
+      Height = 493
       HorzScrollBar.Visible = False
       VertScrollBar.Smooth = True
       VertScrollBar.Style = ssFlat

@@ -394,7 +394,7 @@ begin
   FSUB_IDX := 1;
   ReadMake(qryStandard2forPrintSERIAL_NO.AsString);
 
-  qryStandard2forPrint.Next;
+//  qryStandard2forPrint.Next;
 end;
 
 procedure TQR_KPTA_NORMAL_Complete_PRN_frm.QRSubDetail1NeedData(
@@ -458,6 +458,8 @@ begin
 //                      qryStandard2forPrintBATCH_NO.AsString + ' / ' +
 //                      qryStandard2forPrintBSE_ORIGIN_NATION_ENG.AsString;
 //  end;
+
+  qryStandard2forPrint.Next;
 
   inc(FSUB_IDX);
   qryMakeforPrint.Next;

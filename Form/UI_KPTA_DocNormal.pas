@@ -300,6 +300,7 @@ type
     procedure sSpeedButton19Click(Sender: TObject);
   private
     { Private declarations }
+    FAutoCalc : Boolean;
     FDocNo : string;
     FBeforeColor : TColor;
     FCaption : string;
@@ -376,7 +377,17 @@ begin
         208 : sEdit47.Text := CodeRecord.sContents2;
       end;
 
-      sEdit4.Visible := sEdit33.Text = '99';
+      If sEdit33.Text = '99' Then
+      begin
+        sEdit4.Visible := true;
+        If Trim(sEdit4.Text) = '' Then
+          sEdit4.Text := '자사';  
+      end
+      else
+      begin
+        sEdit4.Visible := False;
+        sEdit4.Clear;
+      end;
 
     finally
       FreeAndNil(Dialog_CodeParent_frm);
@@ -2110,7 +2121,8 @@ begin
     //금액
     sCurrencyEdit5.Value := qryStandard2MODEL_AMT.AsCurrency;
     //금액단위
-    sEdit37.Text := qryStandard2MODEL_AMT_UNIT.AsString;
+//    sEdit37.Text := qryStandard2MODEL_AMT_UNIT.AsString;
+    sEdit37.Text := sEdit30.Text;
     //허가번호
     sEdit39.Text := qryStandard2PERMIT_SINGO_NO.AsString;
     //허가일자
@@ -2157,6 +2169,7 @@ procedure TUI_KPTA_DocNormal_frm.FormCreate(Sender: TObject);
 begin
   inherited;
   FCancel := False;
+  FAutoCalc := True;
   sPageControl1.ActivePageIndex := 0;
 end;
 
@@ -2300,8 +2313,17 @@ begin
   inherited;
   IF sDBGrid1.DataSource.DataSet.Active Then
   begin
-   sCurrencyEdit6.Value := sDBGrid1.DataSource.DataSet.RecordCount;
-   sCurrencyEdit1.Value := TotalAMT;   
+    sCurrencyEdit6.Value := sDBGrid1.DataSource.DataSet.RecordCount;
+    sCurrencyEdit1.Value := TotalAMT;
+    If (sCurrencyEdit2.Value <> sCurrencyEdit1.Value) AND FAutoCalc AND (Self.Tag = 0) Then
+    begin
+      IF MessageBox(SElf.Handle, Pchar('품목사항이 변경되어 결제금액이 변경되었습니다. 계산된 금액으로 적용하시겠습니까?'#13#10'변경전 결제금액:'+sCurrencyEdit2.Text+#13#10'변경후 결제금액:'+sCurrencyEdit1.Text+#13#10'한번 취소후에는 물어보지 않습니다'), '결제금액 변경안내', MB_OKCANCELQUESTION) = ID_OK Then
+      begin
+        sCurrencyEdit2.Value := sCurrencyEdit1.Value;
+      end
+      else
+        FAutoCalc := False;
+    end;
   end;
 end;
 

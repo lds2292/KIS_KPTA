@@ -142,11 +142,11 @@ inherited UI_KPTA_DocNormal_frm: TUI_KPTA_DocNormal_frm
     Top = 81
     Width = 876
     Height = 789
-    ActivePage = sTabSheet2
+    ActivePage = sTabSheet1
     Align = alClient
     Images = DataModule_ICON.IMG_24
     TabHeight = 30
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 1
     TabWidth = 95
     OnChanging = sPageControl1Changing
@@ -406,7 +406,7 @@ inherited UI_KPTA_DocNormal_frm: TUI_KPTA_DocNormal_frm
           object sSpeedButton5: TsSpeedButton
             Tag = 105
             Left = 157
-            Top = 469
+            Top = 445
             Width = 23
             Height = 23
             Cursor = crHandPoint
@@ -418,7 +418,7 @@ inherited UI_KPTA_DocNormal_frm: TUI_KPTA_DocNormal_frm
           object sSpeedButton6: TsSpeedButton
             Tag = 107
             Left = 157
-            Top = 493
+            Top = 469
             Width = 23
             Height = 23
             Cursor = crHandPoint
@@ -1154,8 +1154,8 @@ inherited UI_KPTA_DocNormal_frm: TUI_KPTA_DocNormal_frm
           end
           object sPanel28: TsPanel
             Left = 5
-            Top = 445
-            Width = 175
+            Top = 493
+            Width = 105
             Height = 23
             SkinData.CustomFont = True
             SkinData.SkinSection = 'PANEL'
@@ -1169,10 +1169,11 @@ inherited UI_KPTA_DocNormal_frm: TUI_KPTA_DocNormal_frm
             Font.Style = []
             ParentFont = False
             TabOrder = 47
+            Visible = False
           end
           object sCurrencyEdit1: TsCurrencyEdit
-            Left = 181
-            Top = 445
+            Left = 111
+            Top = 493
             Width = 148
             Height = 23
             Cursor = crIBeam
@@ -1188,6 +1189,7 @@ inherited UI_KPTA_DocNormal_frm: TUI_KPTA_DocNormal_frm
             ParentFont = False
             ReadOnly = True
             TabOrder = 48
+            Visible = False
             SkinData.CustomColor = True
             SkinData.SkinSection = 'EDIT'
             DecimalPlaces = 4
@@ -1195,7 +1197,7 @@ inherited UI_KPTA_DocNormal_frm: TUI_KPTA_DocNormal_frm
           end
           object sPanel29: TsPanel
             Left = 5
-            Top = 469
+            Top = 445
             Width = 104
             Height = 23
             SkinData.CustomFont = True
@@ -1214,7 +1216,7 @@ inherited UI_KPTA_DocNormal_frm: TUI_KPTA_DocNormal_frm
           object sEdit26: TsEdit
             Tag = 105
             Left = 110
-            Top = 469
+            Top = 445
             Width = 48
             Height = 23
             Cursor = crIBeam
@@ -1234,7 +1236,7 @@ inherited UI_KPTA_DocNormal_frm: TUI_KPTA_DocNormal_frm
           end
           object sEdit27: TsEdit
             Left = 181
-            Top = 469
+            Top = 445
             Width = 240
             Height = 23
             Cursor = crNo
@@ -1249,7 +1251,7 @@ inherited UI_KPTA_DocNormal_frm: TUI_KPTA_DocNormal_frm
           end
           object sPanel30: TsPanel
             Left = 5
-            Top = 493
+            Top = 469
             Width = 104
             Height = 23
             SkinData.CustomFont = True
@@ -1268,7 +1270,7 @@ inherited UI_KPTA_DocNormal_frm: TUI_KPTA_DocNormal_frm
           object sEdit28: TsEdit
             Tag = 107
             Left = 110
-            Top = 493
+            Top = 469
             Width = 48
             Height = 23
             Cursor = crIBeam
@@ -1285,7 +1287,7 @@ inherited UI_KPTA_DocNormal_frm: TUI_KPTA_DocNormal_frm
           end
           object sEdit29: TsEdit
             Left = 181
-            Top = 493
+            Top = 469
             Width = 240
             Height = 23
             Cursor = crNo
@@ -2383,6 +2385,7 @@ inherited UI_KPTA_DocNormal_frm: TUI_KPTA_DocNormal_frm
             Top = 283
             Width = 156
             Height = 21
+            TabStop = False
             AutoSize = False
             Color = clBtnFace
             Ctl3D = False

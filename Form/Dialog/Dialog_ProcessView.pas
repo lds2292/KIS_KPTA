@@ -30,6 +30,9 @@ var
 
 implementation
 
+uses
+  dmIcon;
+
 {$R *.dfm}
 
 procedure TDialog_ProcessView_frm.FormCreate(Sender: TObject);
@@ -41,6 +44,8 @@ begin
 end;
 
 procedure TDialog_ProcessView_frm.CreatePanel;
+var
+  FC : TColor;
 begin
   //패널
   with TsPanel.Create(Self) do
@@ -57,10 +62,14 @@ begin
     Left := PI.X;
     Top := ((PanelIndex-1)*65)+(4*PanelIndex);
 
+    FC := clBlack;
     IF FTotalCnt = FixedCnt Then
       SkinData.SkinSection := 'MAINMENU'
     else
+    begin
       SkinData.SkinSection := 'PANEL';
+      FC := clGray;
+    end;
 
     Visible := True;
   end;
@@ -112,6 +121,8 @@ begin
     Alignment := taCenter;
     Anchors := [akLeft];
     AutoSize := False;
+    Font.Color := FC;
+    UseSkinColor := False;
     Caption := FormatFloat('00',FTotalCnt);
   end;
 
@@ -128,6 +139,8 @@ begin
     Alignment := taCenter;
     Anchors := [akLeft];
     AutoSize := False;
+    Font.Color := FC;
+    UseSkinColor := False;    
     Caption := XR.getValue(XR.CHILD_NODE, 'reqRelaElctDocCd')+' - '+XR.getValue(XR.CHILD_NODE, 'reqRqstPrcsStcd')
   end;
 
@@ -144,6 +157,8 @@ begin
     Alignment := taCenter;
     Anchors := [akLeft];
     AutoSize := False;
+    Font.Color := FC;
+    UseSkinColor := False;    
     Caption := XR.getValue(XR.CHILD_NODE, 'reqRqstNo');
   end;
 
@@ -160,6 +175,8 @@ begin
     Alignment := taCenter;
     Anchors := [akLeft];
     AutoSize := False;
+    Font.Color := FC;
+    UseSkinColor := False;    
     Caption := XR.getValue(XR.CHILD_NODE, 'rcpnDttm');
   end;
 
@@ -176,6 +193,8 @@ begin
     Alignment := taLeftJustify;
     Anchors := [akLeft];
     AutoSize := True;
+    Font.Color := FC;
+    UseSkinColor := False;    
     IF XR.getValue(XR.CHILD_NODE, 'relaDocNm') = '' Then
       Caption := '['+XR.getValue(XR.CHILD_NODE, 'elctDocNm')+']'
     else
@@ -195,6 +214,8 @@ begin
     Alignment := taLeftJustify;
     Anchors := [akLeft];
     AutoSize := True;
+    Font.Color := FC;
+    UseSkinColor := False;    
     Caption := '';
     IF XR.getValue(XR.CHILD_NODE, 'reqIttRsltInfmNo') <> '' Then
       Caption := '요건기관결과통보번호: '+XR.getValue(XR.CHILD_NODE, 'reqIttRsltInfmNo')
@@ -213,6 +234,8 @@ begin
     Alignment := taLeftJustify;
     Anchors := [akLeft];
     AutoSize := True;
+    Font.Color := FC;
+    UseSkinColor := False;    
     Caption := '';
     IF XR.getValue(XR.CHILD_NODE, 'reqRqstPrcsSttsNm') <> '' Then
       Caption := '['+XR.getValue(XR.CHILD_NODE, 'reqRqstPrcsSttsNm')+']';
