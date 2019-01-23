@@ -67,10 +67,14 @@ type
     procedure sDBGrid1DblClick(Sender: TObject);
     procedure qryListAfterOpen(DataSet: TDataSet);
     procedure sButton3Click(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure sDBGrid1TitleClick(Column: TColumn);
   private
     { Private declarations }
     FDOCGB : String;
-    procedure ReadList;
+    FASC : Boolean;
+    FSortFieldIndex : Integer;
+    procedure ReadList(SortFieldIndex : Integer = -1);
   public
     property DOCGB: String read FDOCGB write FDOCGB;
     function getField(sFieldName: String): TField;
@@ -139,7 +143,7 @@ begin
   Result := qryList.FieldByName(sFieldName);
 end;
 
-procedure Tdialog_PUMLIST_frm.ReadList;
+procedure Tdialog_PUMLIST_frm.ReadList(SortFieldIndex : Integer = -1);
 begin
   with qryList do
   begin
@@ -150,7 +154,35 @@ begin
     begin
       SQL.Add('AND '+sDBGrid1.Columns[sComboBox1.ItemIndex].FieldName+' LIKE '+QuotedStr('%'+edt_findtext.Text+'%'));
     end;
-    SQL.Add('ORDER BY TRADE_NAME');
+
+    IF SortFieldIndex = -1 Then
+      SQL.Add('ORDER BY TRADE_NAME')
+    else
+    begin
+//      FASC := sDBGrid1.Columns[SortFieldIndex].FieldName <> sDBGrid1.Columns[FSortFieldIndex].FieldName;
+      IF SortFieldIndex = FSortFieldIndex Then
+        FASC := not FASC
+      else
+        FASC := True;
+      FSortFieldIndex := SortFieldIndex;
+
+
+      IF SortFieldIndex in [1,2] then
+      begin
+        IF FASC Then
+          SQL.Add('ORDER BY CAST('+sDBGrid1.Columns[SortFieldIndex].FieldName+' as varchar(MAX))')
+        else
+          SQL.Add('ORDER BY CAST('+sDBGrid1.Columns[SortFieldIndex].FieldName+' as varchar(MAX)) DESC');
+      end
+      else
+      begin
+        IF FASC Then
+          SQL.Add('ORDER BY '+sDBGrid1.Columns[SortFieldIndex].FieldName)
+        else
+          SQL.Add('ORDER BY '+sDBGrid1.Columns[SortFieldIndex].FieldName+' DESC');
+      end;
+
+    end;
     Open;
   end;
 end;
@@ -159,6 +191,19 @@ procedure Tdialog_PUMLIST_frm.sButton3Click(Sender: TObject);
 begin
   inherited;
   ReadList;
+end;
+
+procedure Tdialog_PUMLIST_frm.FormCreate(Sender: TObject);
+begin
+  inherited;
+  FASC := True;
+  FSortFieldIndex := -1;
+end;
+
+procedure Tdialog_PUMLIST_frm.sDBGrid1TitleClick(Column: TColumn);
+begin
+  inherited;
+  ReadList(Column.Index);
 end;
 
 end.

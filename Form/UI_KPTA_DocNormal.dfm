@@ -142,11 +142,11 @@ inherited UI_KPTA_DocNormal_frm: TUI_KPTA_DocNormal_frm
     Top = 81
     Width = 876
     Height = 789
-    ActivePage = sTabSheet1
+    ActivePage = sTabSheet2
     Align = alClient
     Images = DataModule_ICON.IMG_24
     TabHeight = 30
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 1
     TabWidth = 95
     OnChanging = sPageControl1Changing

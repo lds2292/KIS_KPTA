@@ -10,6 +10,7 @@ inherited dialog_PUMLIST_frm: Tdialog_PUMLIST_frm
   OldCreateOrder = True
   Position = poOwnerFormCenter
   Visible = False
+  OnCreate = FormCreate
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 15
@@ -36,6 +37,7 @@ inherited dialog_PUMLIST_frm: Tdialog_PUMLIST_frm
     TitleFont.Style = []
     OnDrawColumnCell = KISDrawColumnCell
     OnDblClick = sDBGrid1DblClick
+    OnTitleClick = sDBGrid1TitleClick
     Columns = <
       item
         Alignment = taCenter
