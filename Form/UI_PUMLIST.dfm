@@ -596,7 +596,7 @@ inherited UI_PUMLIST_frm: TUI_PUMLIST_frm
       end
       object sPanel31: TsPanel
         Left = 524
-        Top = 52
+        Top = 4
         Width = 76
         Height = 23
         SkinData.SkinSection = 'PANEL_LOW'
@@ -932,7 +932,7 @@ inherited UI_PUMLIST_frm: TUI_PUMLIST_frm
       end
       object msk_REG_DT: TsMaskEdit
         Left = 601
-        Top = 52
+        Top = 4
         Width = 87
         Height = 23
         Ctl3D = True
@@ -948,6 +948,7 @@ inherited UI_PUMLIST_frm: TUI_PUMLIST_frm
         SkinData.SkinSection = 'EDIT'
       end
       object edt_DrugStandardCode: TsEdit
+        Tag = 104
         Left = 139
         Top = 221
         Width = 156
@@ -1231,7 +1232,7 @@ inherited UI_PUMLIST_frm: TUI_PUMLIST_frm
         Top = 4
         Width = 86
         Height = 23
-        Caption = #51089#49457#51068#51088
+        Caption = #46321#47197#51068#51088
         DoubleBuffered = False
         TabOrder = 1
       end
@@ -1398,7 +1399,8 @@ inherited UI_PUMLIST_frm: TUI_PUMLIST_frm
         Items.Strings = (
           #44144#47000#54408#47749
           #47784#45944#44508#44201
-          #49457#48516)
+          #49457#48516
+          #54364#51456#53076#46300)
       end
     end
   end

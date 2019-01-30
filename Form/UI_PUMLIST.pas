@@ -211,6 +211,7 @@ begin
         0: SQL.Add('AND TRADE_NAME LIKE '+QuotedStr('%'+sEdit1.Text+'%'));
         1: SQL.Add('AND MODEL_SIZE LIKE '+QuotedStr('%'+sEdit1.Text+'%'));
         2: SQL.Add('AND MODEL_SIZE_INGREDIENT LIKE '+QuotedStr('%'+sEdit1.Text+'%'));
+        3: SQL.Add('AND DRUG_STANDARD_CODE LIKE '+QuotedStr('%'+sEdit1.Text+'%'));
       end;
 //      SQL.Add('AND GOODS_CODE LIKE '+QuotedStr('%'+sEdit1.Text+'%'));
     end;
@@ -408,6 +409,8 @@ begin
 end;
 
 procedure TUI_PUMLIST_frm.edt_GOODS_CODEExit(Sender: TObject);
+var
+  TMP_STR : String;
 begin
   inherited;
   IF Sender is TsEdit Then
@@ -422,6 +425,17 @@ begin
         103: edt_BSEORIGIN_NM.Clear;
       end;
     end;
+
+    if (Sender as TsEdit).Tag = 104 then
+    begin
+      TMP_STR := UpperCase( MidStr(edt_GOODS_CODE.Text, 11, 3) );
+      IF AnsiMatchText(TMP_STR,['1AG','1BG','1AR']) Then
+      begin
+        memo_Ingredient.Clear;
+        memo_Ingredient.Text := '별지첨부(문서번호 : '+(Sender as TsEdit).Text+')';
+      end;
+    end;
+
   end;
   IF Sender is TsMaskEdit Then (Sender as TsMaskEdit).Color := clWhite;
 
