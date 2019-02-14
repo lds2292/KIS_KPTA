@@ -209,9 +209,10 @@ begin
     begin
       Case sComboBox1.ItemIndex of
         0: SQL.Add('AND TRADE_NAME LIKE '+QuotedStr('%'+sEdit1.Text+'%'));
-        1: SQL.Add('AND MODEL_SIZE LIKE '+QuotedStr('%'+sEdit1.Text+'%'));
-        2: SQL.Add('AND MODEL_SIZE_INGREDIENT LIKE '+QuotedStr('%'+sEdit1.Text+'%'));
-        3: SQL.Add('AND DRUG_STANDARD_CODE LIKE '+QuotedStr('%'+sEdit1.Text+'%'));
+        1: SQL.Add('AND GOODS_CODE LIKE '+QuotedStr('%'+sEdit1.Text+'%'));
+        2: SQL.Add('AND MODEL_SIZE LIKE '+QuotedStr('%'+sEdit1.Text+'%'));
+        3: SQL.Add('AND MODEL_SIZE_INGREDIENT LIKE '+QuotedStr('%'+sEdit1.Text+'%'));
+        4: SQL.Add('AND DRUG_STANDARD_CODE LIKE '+QuotedStr('%'+sEdit1.Text+'%'));
       end;
 //      SQL.Add('AND GOODS_CODE LIKE '+QuotedStr('%'+sEdit1.Text+'%'));
     end;
