@@ -6,10 +6,12 @@ inherited UI_KPTA_frm: TUI_KPTA_frm
   Caption = #54364#51456#53685#44288#50696#51221#48372#44256#49436' - '#54620#44397#51032#50557#54408#49688#52636#51077#54801#54924
   ClientHeight = 718
   ClientWidth = 1237
+  KeyPreview = True
   OldCreateOrder = True
   Position = poDesigned
   OnClose = FormClose
   OnCreate = FormCreate
+  OnKeyDown = FormKeyDown
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 15

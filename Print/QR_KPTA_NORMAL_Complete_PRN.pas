@@ -95,14 +95,8 @@ type
     QRShape27: TQRShape;
     QRShape28: TQRShape;
     DetailBand1: TQRBand;
-    QRShape30: TQRShape;
-    QRShape31: TQRShape;
-    QRShape32: TQRShape;
     QRShape29: TQRShape;
     QRShape34: TQRShape;
-    QRShape33: TQRShape;
-    QRShape35: TQRShape;
-    QRShape36: TQRShape;
     QR_HS: TQRLabel;
     QR_GOODS: TQRLabel;
     QR_TRADE_PUM: TQRLabel;
@@ -111,26 +105,18 @@ type
     QR_MODEL_QTY: TQRLabel;
     QR_UNIT_PRICE: TQRLabel;
     QR_MODEL_AMT: TQRLabel;
-    QRShape47: TQRShape;
     QRSubDetail1: TQRSubDetail;
     QRShape37: TQRShape;
     QRShape38: TQRShape;
     QR_MAKE: TQRLabel;
-    QRShape46: TQRShape;
-    QR_SUB_LASTLINE: TQRShape;
     ChildBand1: TQRChildBand;
     QRShape40: TQRShape;
     QRShape41: TQRShape;
-    QRShape42: TQRShape;
     QRShape43: TQRShape;
-    QRShape44: TQRShape;
     QR_MAKE_COMPANY1: TQRLabel;
     QR_MAKE_COMPANY_ADDR: TQRMemo;
-    QRShape39: TQRShape;
     QR_BSE: TQRLabel;
-    QRShape45: TQRShape;
     SummaryBand1: TQRBand;
-    QRLabel39: TQRLabel;
     qryStandard1forPrint: TADOQuery;
     qryStandard2forPrint: TADOQuery;
     qryStandard2forPrintDOC_NO: TStringField;
@@ -226,28 +212,31 @@ type
     qryStandard1forPrintTOTAL_COUNT: TIntegerField;
     qryStandard1forPrintEXPORT_NATION_ENG: TStringField;
     qryStandard1forPrintFIRST_CHECK_AGENCY_NAME: TStringField;
+    QRLabel40: TQRLabel;
+    QR_MAKE_COMPANY2: TQRLabel;
+    QR_MAKE_COMPANY3: TQRLabel;
+    QR_NO: TQRLabel;
+    ChildBand2: TQRChildBand;
     QRShape51: TQRShape;
     QRShape52: TQRShape;
-    QRShape53: TQRShape;
     QRShape54: TQRShape;
-    QRShape55: TQRShape;
     QRShape56: TQRShape;
     QRShape57: TQRShape;
-    QRLabel40: TQRLabel;
     QRLabel41: TQRLabel;
     QRLabel42: TQRLabel;
     QRShape58: TQRShape;
     QRShape59: TQRShape;
     QRLabel43: TQRLabel;
     QRLabel44: TQRLabel;
-    QR_PublishTerms: TQRLabel;
     QR_PublishNo: TQRLabel;
     QR_PublishEffectiveDate: TQRLabel;
     QR_PublishDate: TQRLabel;
     QR_PublishOrgan: TQRLabel;
-    QR_MAKE_COMPANY2: TQRLabel;
-    QR_MAKE_COMPANY3: TQRLabel;
-    QRShape48: TQRShape;
+    QRShape55: TQRShape;
+    QR_PublishTerms: TQRMemo;
+    QRShape30: TQRShape;
+    QRShape31: TQRShape;
+    QRShape32: TQRShape;
     procedure QuickRepBeforePrint(Sender: TCustomQuickRep;
       var PrintReport: Boolean);
     procedure QuickRepNeedData(Sender: TObject; var MoreData: Boolean);
@@ -263,7 +252,10 @@ type
     procedure QuickRepEndPage(Sender: TCustomQuickRep);
     procedure ChildBand1BeforePrint(Sender: TQRCustomBand;
       var PrintBand: Boolean);
+    procedure ChildBand2BeforePrint(Sender: TQRCustomBand;
+      var PrintBand: Boolean);
   private
+    FPUBLISH_TEXT, FPUBLISH_OUT : TStringlist;
     FDOC_NO : String;
     FTOTAL_AMT : Currency;
     FTOTAL_UNIT : String;
@@ -275,7 +267,7 @@ type
     procedure ReadMake(SerialNo : String);
     function getOrigianlRequestDate(DOC_NO : String):String;
   public
-    procedure Run(DOC_NO : String);
+    function Run(DOC_NO : String):Boolean;
     procedure CloseDataSet;
   end;
 
@@ -339,14 +331,16 @@ begin
   end;
 end;
 
-procedure TQR_KPTA_NORMAL_Complete_PRN_frm.Run(DOC_NO: String);
+function TQR_KPTA_NORMAL_Complete_PRN_frm.Run(DOC_NO: String):Boolean;
 begin
+  Result := True;
   FDOC_NO := DOC_NO;
 
   try
     IF ReadStandard1 Then
     begin
       ShowMessage('문서번호 : '+DOC_NO+'를 찾을수 없습니다');
+      Result := false;
       Exit;
     end;
 
@@ -380,8 +374,9 @@ procedure TQR_KPTA_NORMAL_Complete_PRN_frm.DetailBand1BeforePrint(
 begin
   FTOTAL_HEIGHT := FTOTAL_HEIGHT + Sender.Height;
 
+  QR_NO.Caption := qryStandard2forPrintSERIAL_NO.AsString;
   QR_HS.Caption := '① '+qryStandard2forPrintHS.AsString;
-  QR_GOODS.Caption := '② '+qryStandard2forPrintGOODS_CODE.AsString;
+  QR_GOODS.Caption := '② '+qryStandard2forPrintSERIAL_CODE.AsString+qryStandard2forPrintSERIAL_NO.AsString+' / '+qryStandard2forPrintGOODS_CODE.AsString;
   QR_TRADE_PUM.Caption := '③ '+qryStandard2forPrintTRADE_NAME.AsString;
   QR_MODELSIZE.Caption := '④ '+qryStandard2forPrintMODEL_SIZE.AsString;
   QR_INGREDIENT.Caption := '⑤ '+qryStandard2forPrintMODEL_SIZE_INGREDIENT.AsString;
@@ -464,10 +459,10 @@ begin
   inc(FSUB_IDX);
   qryMakeforPrint.Next;
 
-  If not qryMakeforPrint.Eof Then
-    QR_SUB_LASTLINE.Enabled := FTOTAL_HEIGHT + Sender.Height >= MAX_HEIGHT
-  else
-    QR_SUB_LASTLINE.Enabled := FTOTAL_HEIGHT + ChildBand1.Height >= MAX_HEIGHT;
+//  If not qryMakeforPrint.Eof Then
+//    QR_SUB_LASTLINE.Enabled := FTOTAL_HEIGHT + Sender.Height >= MAX_HEIGHT
+//  else
+//    QR_SUB_LASTLINE.Enabled := FTOTAL_HEIGHT + ChildBand1.Height >= MAX_HEIGHT;
 
 end;
 
@@ -534,22 +529,47 @@ begin
 
   //수입자 기재사항
   QRMemo1.Lines.Text := qryStandard1forPrintIMPORT_MEMO.AsString;
+
+  //발급조건 텍스트저장(후에 사용)
+  FPUBLISH_TEXT := TStringList.Create;
+  FPUBLISH_OUT := TStringList.Create;
+  FPUBLISH_TEXT.Text := qryStandard1forPrintPUBLISH_MEMO.AsString;
 end;
 
 procedure TQR_KPTA_NORMAL_Complete_PRN_frm.SummaryBand1BeforePrint(
   Sender: TQRCustomBand; var PrintBand: Boolean);
 var
-  TempStr : String;
+  i, j, nLoop : integer;
 begin
-  TempStr := FormatFloat('#,0.####',FTOTAL_AMT)+' ('+FTOTAL_UNIT+')';
-  QRLabel39.Caption := Format('%s%35s',['총금액(단위)',TempStr]);
+  //발급조건 작성
+  try
+    FPUBLISH_OUT.Clear;
 
-  QR_PublishTerms.Caption   := qryStandard1forPrintPUBLISH_MEMO.AsString;
-  QR_PublishNo.Caption      := qryStandard1forPrintPUBLISH_NO.AsString;
-  QR_PublishDate.Caption    := FormatDateTime('YYYY-MM-DD',ConvertStr2Date(qryStandard1forPrintPUBLISH_DATE.AsString));
-  QR_PublishEffectiveDate.Caption := FormatDateTime('YYYY-MM-DD',ConvertStr2Date(qryStandard1forPrintEXPIRY_DATE.AsString));
-  QR_PublishOrgan.Caption   := qryStandard1forPrintPUBLISH_INSTITUTE.AsString;
+    for i := 0 to FPUBLISH_TEXT.Count-1 do
+    begin
+      IF Length( FPUBLISH_TEXT.Strings[i] ) < 100 Then
+        FPUBLISH_OUT.Add(FPUBLISH_TEXT.Strings[i])
+      else
+      begin
+        nLoop := Length(FPUBLISH_TEXT.Strings[i]) div 100;
+        IF (Length(FPUBLISH_TEXT.Strings[i]) mod 100) > 0 Then Inc(nLoop);
+        for j := 0 to nLoop -1 do
+        begin
+          FPUBLISH_OUT.Add(CopyK(FPUBLISH_TEXT.Strings[i], (j*100)+1,100 ));
+        end;
+      end;
+    end;
 
+    QR_PublishTerms.Lines.Text := FPUBLISH_OUT.Text;
+    QR_PublishTerms.Height := (QR_PublishTerms.Lines.Count * 13);
+
+    SummaryBand1.Height := QR_PublishTerms.Height+15;
+    QRShape30.Height := SummaryBand1.Height;
+    QRShape31.Height := SummaryBand1.Height;
+  finally
+    FPUBLISH_TEXT.Free;
+    FPUBLISH_OUT.Free;
+  end;
 end;
 
 procedure TQR_KPTA_NORMAL_Complete_PRN_frm.QuickRepEndPage(
@@ -580,6 +600,15 @@ begin
       Free;
     end;
   end;
+end;
+
+procedure TQR_KPTA_NORMAL_Complete_PRN_frm.ChildBand2BeforePrint(
+  Sender: TQRCustomBand; var PrintBand: Boolean);
+begin
+  QR_PublishNo.Caption      := qryStandard1forPrintPUBLISH_NO.AsString;
+  QR_PublishDate.Caption    := FormatDateTime('YYYY-MM-DD',ConvertStr2Date(qryStandard1forPrintPUBLISH_DATE.AsString));
+  QR_PublishEffectiveDate.Caption := FormatDateTime('YYYY-MM-DD',ConvertStr2Date(qryStandard1forPrintEXPIRY_DATE.AsString));
+  QR_PublishOrgan.Caption   := qryStandard1forPrintPUBLISH_INSTITUTE.AsString;
 end;
 
 end.

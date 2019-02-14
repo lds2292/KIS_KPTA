@@ -126,6 +126,8 @@ type
     procedure sEdit1KeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure sButton9Click(Sender: TObject);
+    procedure FormKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
   private
     { Private declarations }
     FSQL : String;
@@ -677,6 +679,7 @@ end;
 procedure TUI_KPTA_frm.sButton12Click(Sender: TObject);
 var
   PRN_KPTA : TQuickRep;
+  ExistsData : Boolean;
 begin
   inherited;
   Case (Sender as TsButton).Tag of
@@ -686,12 +689,17 @@ begin
   UI_PrintPreview_frm := TUI_PrintPreview_frm.Create(Application);
 
   try
+    ExistsData := True;
     Case (Sender as TsButton).Tag of
       0: (PRN_KPTA as TQR_KPTA_NORMAL_PRN_frm).Run(DataModule_Conn.qryStandard1.FieldByName('DOC_NO').AsString);
-      1: (PRN_KPTA as TQR_KPTA_NORMAL_Complete_PRN_frm).Run(DataModule_Conn.qryStandard1.FieldByName('DOC_NO').AsString);
+      1: ExistsData := (PRN_KPTA as TQR_KPTA_NORMAL_Complete_PRN_frm).Run(DataModule_Conn.qryStandard1.FieldByName('DOC_NO').AsString);
     end;
-    UI_PrintPreview_frm.Report := PRN_KPTA;
-    UI_PrintPreview_frm.Preview;
+    
+    IF ExistsData Then
+    begin
+      UI_PrintPreview_frm.Report := PRN_KPTA;
+      UI_PrintPreview_frm.Preview;
+    end;
   finally
     FreeAndNil( PRN_KPTA );
     FreeAndNil( UI_PrintPreview_frm );
@@ -782,6 +790,20 @@ begin
     Dialog_ProcessView_frm.SearchNo(DataModule_Conn.qryStandard2DOC_NO.AsString);
   finally
     FreeAndNil(Dialog_ProcessView_frm);
+  end;
+end;
+
+procedure TUI_KPTA_frm.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  inherited;
+  IF ssCtrl in Shift Then
+  begin
+    IF Key = 81 Then
+    begin
+      sButton12.Enabled := True;
+      sButton13.Enabled := True;      
+    end;
   end;
 end;
 

@@ -14,7 +14,8 @@ uses
   function GetHashString(Value: String): String;
   procedure ClearPanel(var UserPanel : TsPanel);
   procedure ReadOnlyPanel(var UserPanel : TsPanel; bValue : Boolean = False);  
-
+  function CopyK(S: String; Index, Count: Integer; bSpace: Boolean=False): String;
+  
 implementation
 
 function getCodefromCombobox(Combobox : TsComboBox;ExtractChar : String):String;
@@ -173,6 +174,69 @@ begin
     IF UserPanel.Controls[i] is TsComboBox Then (UserPanel.Controls[i] as TsComboBox).ReadOnly := bValue;
     IF UserPanel.Controls[i] is TsMemo Then (UserPanel.Controls[i] as TsMemo).ReadOnly := bValue;
   end;
+end;
+
+function CopyK(S: String; Index, Count: Integer; bSpace: Boolean=False): String;
+//==============================================================================
+// PROCEDURE NAME : CopyK 
+// DESCRIPTION : 
+//      한글(2byte)을 Copy함수로 자를때 한글반바이트(1byte) 때문에 특수문자 또는 
+//      한글이 깨지는 문제처리. 
+// 
+//      시작점(Index)이 한글 끝byte이면 다음 글자부터 자른다. (Index+1) 
+//      끝문자가 한글 시작byte이면 이전 글자까지 자른다. (Count-1) 
+//      시작과 끝이 한글반바이트면 안쪽에 있는 문자만 자른다.(Index+1, Count-1) 
+// 
+//      CopyK('안녕하세요', 2, 5, False)  ->  [녕하] 
+//      CopyK('안녕하세요', 3, 5, False)  ->  [녕하] 
+//      CopyK('안녕하세요', 2, 5, True)  ->  [녕하 ] 
+//      CopyK('안녕하세요', 3, 5, True)  ->  [녕하 ] 
+//      CopyK('안녕하세요', 2, 6, True)  ->  [녕하  ] 
+// RETURN : 
+//      자른문자열 
+// PARAMETER : 
+//      S      - 자를 문자열 
+//      Index  - 시작점 
+//      Count  - 갯수 
+//      bSpace - 한글반바이트(1byte) 처리로 자른공간을 공백으로 채운다 
+// HISTORY : 
+//==============================================================================
+var 
+  sp: String; 
+  nLen: Integer;
+begin 
+  Result := ''; 
+  sp    := ''; 
+
+  nLen := Length(S);
+
+  // 시작위치가 길이보다 크면 Exit 
+  if (nLen < Index) then Exit; 
+
+  // 자를 갯수보다 길이가 작으면 Count를 문자열 길이만큼 계산 
+  // S인자 끝이 이미 깨져있을 경우... 
+  if (nLen < (Index + Count-1)) then Count := nLen - Index + 1; 
+
+  // 시작문자가 한글 끝byte면 다음 글자부터 시작한다. 
+  if ByteType(S, Index) = mbTrailByte then 
+  begin 
+    inc(Index); 
+    dec(Count); 
+    
+    if bSpace then sp := sp + ' '; // 줄어든 만큼 공백을 채운다. 
+  end; 
+
+
+  // 끝문자가 한글 시작byte면 줄여서 자른다. 
+  if ByteType(S, Index+Count-1) = mbLeadByte then 
+  begin 
+    inc(Count); 
+
+    if bSpace then sp := sp + ' '; // 줄어든 만큼 공백을 채운다. 
+  end; 
+
+  Result := copy(S, Index, Count) + sp; 
+
 end;
 
 end.

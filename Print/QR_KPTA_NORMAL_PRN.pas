@@ -120,14 +120,8 @@ type
     QR_FIRST_CHECK_AGENCY: TQRLabel;
     QR_REGION_NAME: TQRLabel;
     QRMemo1: TQRMemo;
-    QRShape30: TQRShape;
-    QRShape31: TQRShape;
-    QRShape32: TQRShape;
     QRShape29: TQRShape;
     QRShape34: TQRShape;
-    QRShape33: TQRShape;
-    QRShape35: TQRShape;
-    QRShape36: TQRShape;
     QR_HS: TQRLabel;
     qryStandard2forPrint: TADOQuery;
     qryStandard2forPrintDOC_NO: TStringField;
@@ -167,17 +161,9 @@ type
     qryStandard2forPrintBATCH_NO: TStringField;
     qryStandard2forPrintORIGIN_NATION_CODE: TStringField;
     qryStandard2forPrintORIGIN_NATION_NAME: TStringField;
-    QR_GOODS: TQRLabel;
-    QR_TRADE_PUM: TQRLabel;
-    QR_MODELSIZE: TQRLabel;
-    QR_INGREDIENT: TQRLabel;
-    QR_MODEL_QTY: TQRLabel;
-    QR_UNIT_PRICE: TQRLabel;
-    QR_MODEL_AMT: TQRLabel;
     qryMakeforPrint: TADOQuery;
     QRShape37: TQRShape;
     QRShape38: TQRShape;
-    QR_MAKE: TQRLabel;
     qryMakeforPrintDOC_NO: TStringField;
     qryMakeforPrintSERIAL_CODE: TStringField;
     qryMakeforPrintSERIAL_NO: TStringField;
@@ -186,20 +172,13 @@ type
     qryMakeforPrintMAKE_DATE: TStringField;
     QRShape40: TQRShape;
     QRShape41: TQRShape;
-    QRShape42: TQRShape;
     QRShape43: TQRShape;
-    QRShape44: TQRShape;
     QR_MAKE_COMPANY1: TQRLabel;
     QR_MAKE_COMPANY_ADDR: TQRMemo;
-    QRShape39: TQRShape;
     QR_BSE: TQRLabel;
     qryStandard2forPrintBSE_ORIGIN_NATION_ENG: TStringField;
     SummaryBand1: TQRBand;
     QRLabel39: TQRLabel;
-    QRShape45: TQRShape;
-    QRShape46: TQRShape;
-    QRShape47: TQRShape;
-    QR_SUB_LASTLINE: TQRShape;
     QRShape25: TQRShape;
     QRLabel25: TQRLabel;
     QRLabel26: TQRLabel;
@@ -221,7 +200,16 @@ type
     QRShape28: TQRShape;
     QR_MAKE_COMPANY2: TQRLabel;
     QR_MAKE_COMPANY3: TQRLabel;
-    QRShape48: TQRShape;
+    QR_NO: TQRLabel;
+    QR_GOODS: TQRLabel;
+    QR_TRADE_PUM: TQRLabel;
+    QR_MODELSIZE: TQRLabel;
+    QR_INGREDIENT: TQRLabel;
+    QR_MODEL_QTY: TQRLabel;
+    QR_UNIT_PRICE: TQRLabel;
+    QR_MODEL_AMT: TQRLabel;
+    QR_MAKE: TQRLabel;
+    QRShape30: TQRShape;
     procedure QuickRepBeforePrint(Sender: TCustomQuickRep;
       var PrintReport: Boolean);
     procedure QuickRepNeedData(Sender: TObject; var MoreData: Boolean);
@@ -283,6 +271,7 @@ procedure TQR_KPTA_NORMAL_PRN_frm.DetailBand1BeforePrint(
 begin
   FTOTAL_HEIGHT := FTOTAL_HEIGHT + Sender.Height;
 
+  QR_NO.Caption := qryStandard2forPrintSERIAL_NO.AsString;
   QR_HS.Caption := 'ич '+qryStandard2forPrintHS.AsString;
   QR_GOODS.Caption := 'иш '+qryStandard2forPrintGOODS_CODE.AsString;
   QR_TRADE_PUM.Caption := 'ищ '+qryStandard2forPrintTRADE_NAME.AsString;
@@ -356,10 +345,10 @@ begin
   inc(FSUB_IDX);
   qryMakeforPrint.Next;
 
-  If not qryMakeforPrint.Eof Then
-    QR_SUB_LASTLINE.Enabled := FTOTAL_HEIGHT + Sender.Height >= MAX_HEIGHT
-  else
-    QR_SUB_LASTLINE.Enabled := FTOTAL_HEIGHT + ChildBand1.Height >= MAX_HEIGHT;
+//  If not qryMakeforPrint.Eof Then
+//    QR_SUB_LASTLINE.Enabled := FTOTAL_HEIGHT + Sender.Height >= MAX_HEIGHT
+//  else
+//    QR_SUB_LASTLINE.Enabled := FTOTAL_HEIGHT + ChildBand1.Height >= MAX_HEIGHT;
 
 end;
 
