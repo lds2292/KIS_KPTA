@@ -237,6 +237,36 @@ type
     QRShape30: TQRShape;
     QRShape31: TQRShape;
     QRShape32: TQRShape;
+    QRSubDetail2: TQRSubDetail;
+    qryTakeForPrint: TADOQuery;
+    qryTakeForPrintDOC_NO: TStringField;
+    qryTakeForPrintSERIAL_CODE: TStringField;
+    qryTakeForPrintSERIAL_NO: TStringField;
+    qryTakeForPrintNATION_CODE: TStringField;
+    qryTakeForPrintNATION_NAME: TStringField;
+    qryTakeForPrintTAKE_SANGHO1: TStringField;
+    qryTakeForPrintTAKE_SANGHO2: TStringField;
+    qryTakeForPrintTAKE_SANGHO3: TStringField;
+    qryTakeForPrintTAKE_ADDR1: TStringField;
+    qryTakeForPrintTAKE_ADDR2: TStringField;
+    qryTakeForPrintTAKE_ADDR3: TStringField;
+    ChildBand3: TQRChildBand;
+    QRLabel39: TQRLabel;
+    QRLabel45: TQRLabel;
+    QRLabel46: TQRLabel;
+    QRLabel47: TQRLabel;
+    QRLabel48: TQRLabel;
+    QRLabel49: TQRLabel;
+    QRLabel50: TQRLabel;
+    QRLabel51: TQRLabel;
+    QRLabel52: TQRLabel;
+    QRShape33: TQRShape;
+    QRShape35: TQRShape;
+    QRShape36: TQRShape;
+    QRShape39: TQRShape;
+    QRShape42: TQRShape;
+    QRShape44: TQRShape;
+    qryTakeForPrintTAKE_NO: TStringField;
     procedure QuickRepBeforePrint(Sender: TCustomQuickRep;
       var PrintReport: Boolean);
     procedure QuickRepNeedData(Sender: TObject; var MoreData: Boolean);
@@ -254,6 +284,11 @@ type
       var PrintBand: Boolean);
     procedure ChildBand2BeforePrint(Sender: TQRCustomBand;
       var PrintBand: Boolean);
+    procedure QRSubDetail2NeedData(Sender: TObject; var MoreData: Boolean);
+    procedure QRSubDetail2BeforePrint(Sender: TQRCustomBand;
+      var PrintBand: Boolean);
+    procedure ChildBand3BeforePrint(Sender: TQRCustomBand;
+      var PrintBand: Boolean);
   private
     FPUBLISH_TEXT, FPUBLISH_OUT : TStringlist;
     FDOC_NO : String;
@@ -261,10 +296,12 @@ type
     FTOTAL_UNIT : String;
     FSUB_IDX : integer;
     FSUB_MAX : Integer;
+    FTAKE_IDX : integer;
+    FTAKE_MAX : integer;
     FTOTAL_HEIGHT : Integer;
     function ReadStandard1:Boolean;
     procedure Readstandard2;
-    procedure ReadMake(SerialNo : String);
+    procedure ReadMakeTake(SerialNo : String);
     function getOrigianlRequestDate(DOC_NO : String):String;
   public
     function Run(DOC_NO : String):Boolean;
@@ -290,9 +327,10 @@ begin
   qryStandard1forPrint.Close;
   qryStandard2forPrint.Close;
   qryMakeforPrint.Close;
+  qryTakeForPrint.Close;
 end;
 
-procedure TQR_KPTA_NORMAL_Complete_PRN_frm.ReadMake(SerialNo: String);
+procedure TQR_KPTA_NORMAL_Complete_PRN_frm.ReadMakeTake(SerialNo: String);
 begin
   with qryMakeforPrint do
   begin
@@ -306,6 +344,17 @@ begin
     else
       FSUB_MAX := qryMakeforPrint.RecordCount;
   end;
+
+  with qryTakeForPrint do
+  begin
+    Close;
+    Parameters.ParamByName('DOC_NO').Value := FDOC_NO;
+    Parameters.ParamByName('SERIAL_NO').Value := SerialNo;
+    Open;
+
+    FTAKE_MAX := qryTakeForPrint.RecordCount;
+  end;
+
 end;
 
 function TQR_KPTA_NORMAL_Complete_PRN_frm.ReadStandard1: Boolean;
@@ -387,7 +436,8 @@ begin
   FTOTAL_AMT := FTOTAL_AMT + qryStandard2forPrintMODEL_AMT.AsCurrency;
   FTOTAL_UNIT := qryStandard2forPrintMODEL_AMT_UNIT.AsString;
   FSUB_IDX := 1;
-  ReadMake(qryStandard2forPrintSERIAL_NO.AsString);
+  FTAKE_IDX := 1;
+  ReadMakeTake(qryStandard2forPrintSERIAL_NO.AsString);
 
 //  qryStandard2forPrint.Next;
 end;
@@ -609,6 +659,29 @@ begin
   QR_PublishDate.Caption    := FormatDateTime('YYYY-MM-DD',ConvertStr2Date(qryStandard1forPrintPUBLISH_DATE.AsString));
   QR_PublishEffectiveDate.Caption := FormatDateTime('YYYY-MM-DD',ConvertStr2Date(qryStandard1forPrintEXPIRY_DATE.AsString));
   QR_PublishOrgan.Caption   := qryStandard1forPrintPUBLISH_INSTITUTE.AsString;
+end;
+
+procedure TQR_KPTA_NORMAL_Complete_PRN_frm.QRSubDetail2NeedData(
+  Sender: TObject; var MoreData: Boolean);
+begin
+  MoreData := FTAKE_IDX <= FTAKE_MAX;
+end;
+
+procedure TQR_KPTA_NORMAL_Complete_PRN_frm.QRSubDetail2BeforePrint(
+  Sender: TQRCustomBand; var PrintBand: Boolean);
+begin
+  QRLabel49.Caption := qryTakeForPrintTAKE_NO.AsString;
+  QRLabel52.Caption := qryTakeForPrintNATION_CODE.AsString+'/'+qryTakeForPrintNATION_NAME.AsString;
+  QRLabel50.Caption := Trim((qryTakeForPrintTAKE_SANGHO1.AsString)+' '+Trim(qryTakeForPrintTAKE_SANGHO2.AsString)+' '+Trim(qryTakeForPrintTAKE_SANGHO3.AsString));
+  QRLabel51.Caption := Trim((qryTakeForPrintTAKE_ADDR1.AsString)+' '+Trim(qryTakeForPrintTAKE_ADDR2.AsString)+' '+Trim(qryTakeForPrintTAKE_ADDR3.AsString));
+  inc(FTAKE_IDX);
+  qryTakeForPrint.Next;
+end;
+
+procedure TQR_KPTA_NORMAL_Complete_PRN_frm.ChildBand3BeforePrint(
+  Sender: TQRCustomBand; var PrintBand: Boolean);
+begin
+  PrintBand := (FTAKE_MAX > 0);
 end;
 
 end.
