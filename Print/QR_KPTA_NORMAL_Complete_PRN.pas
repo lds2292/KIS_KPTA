@@ -420,12 +420,21 @@ end;
 
 procedure TQR_KPTA_NORMAL_Complete_PRN_frm.DetailBand1BeforePrint(
   Sender: TQRCustomBand; var PrintBand: Boolean);
+var
+  TMP_STR : String;
 begin
   FTOTAL_HEIGHT := FTOTAL_HEIGHT + Sender.Height;
 
   QR_NO.Caption := qryStandard2forPrintSERIAL_NO.AsString;
-  QR_HS.Caption := '① '+qryStandard2forPrintHS.AsString;
-  QR_GOODS.Caption := '② '+qryStandard2forPrintSERIAL_CODE.AsString+qryStandard2forPrintSERIAL_NO.AsString+' / '+qryStandard2forPrintGOODS_CODE.AsString;
+  TMP_STR := LeftStr( qryStandard2forPrintHS.AsString , 4 )+'.'+MidStr(qryStandard2forPrintHS.AsString,5,2)+'-'+RightStr(qryStandard2forPrintHS.AsString,4);
+  QR_HS.Caption := '① '+TMP_STR;
+  TMP_STR := LeftStr(qryStandard2forPrintGOODS_CODE.AsString, 10)+'-'+
+             MidStr(qryStandard2forPrintGOODS_CODE.AsString, 11, 3)+'-'+
+             MidStr(qryStandard2forPrintGOODS_CODE.AsString, 14, 4)+'-'+
+             MidStr(qryStandard2forPrintGOODS_CODE.AsString, 18, 6)+'-'+
+             RightStr(qryStandard2forPrintGOODS_CODE.AsString, 3);
+//  QR_GOODS.Caption := '② '+qryStandard2forPrintSERIAL_CODE.AsString+qryStandard2forPrintSERIAL_NO.AsString+' / '+qryStandard2forPrintGOODS_CODE.AsString;
+  QR_GOODS.Caption := '② '+qryStandard2forPrintSERIAL_CODE.AsString+qryStandard2forPrintSERIAL_NO.AsString+'/'+TMP_STR;
   QR_TRADE_PUM.Caption := '③ '+qryStandard2forPrintTRADE_NAME.AsString;
   QR_MODELSIZE.Caption := '④ '+qryStandard2forPrintMODEL_SIZE.AsString;
   QR_INGREDIENT.Caption := '⑤ '+qryStandard2forPrintMODEL_SIZE_INGREDIENT.AsString;
@@ -534,7 +543,8 @@ begin
   //수입자 성명
   QR_IMPORTER_NAME.Caption := qryStandard1forPrintIMPORT_DAEPYO.AsString;
   //수입자 주소
-  QR_IMPORTER_ADDR.Caption := qryStandard1forPrintIMPORT_ADDR1.AsString;
+//  QR_IMPORTER_ADDR.Caption := qryStandard1forPrintIMPORT_ADDR1.AsString;
+  QR_IMPORTER_ADDR.Caption := Trim(Trim(qryStandard1forPrintIMPORT_ADDR1.AsString)+' '+Trim(qryStandard1forPrintIMPORT_ADDR2.AsString));
   //수입업 신고번호
   QR_TRADE_NO.Caption := qryStandard1forPrintIMPORT_TRADE_NO.AsString;
 
@@ -543,7 +553,8 @@ begin
   //수입화주 이름
   QR_HWAJU_NAME.Caption := qryStandard1forPrintHWAJU_DAEPYO.AsString;
   //수입화주 주소
-  QR_HWAJU_ADDR.Caption := qryStandard1forPrintHWAJU_ADDR1.AsString;
+//  QR_HWAJU_ADDR.Caption := qryStandard1forPrintHWAJU_ADDR1.AsString;
+  QR_HWAJU_ADDR.Caption := Trim( Trim(qryStandard1forPrintHWAJU_ADDR1.AsString)+' '+Trim(qryStandard1forPrintHWAJU_ADDR2.AsString) );
   //수입화주 사업자등록번호
   QR_HWAJU_SAUPNO.Caption :=  qryStandard1forPrintHWAJU_SAUP_NO.AsString;
 

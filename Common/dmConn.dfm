@@ -34,14 +34,6 @@ object DataModule_Conn: TDataModule_Conn
     Top = 184
   end
   object KisConn: TADOConnection
-    ConnectionString = 
-      'Provider=SQLNCLI11.1;Integrated Security=SSPI;Persist Security I' +
-      'nfo=False;User ID="";Initial Catalog=KIS_KPTA;Data Source=(local' +
-      'db)\v12.0;Use Procedure for Prepare=1;Auto Translate=True;Packet' +
-      ' Size=4096;Workstation ID=LEEDEOKSOO;Initial File Name="";Use En' +
-      'cryption for Data=False;Tag with column collation when possible=' +
-      'False;MARS Connection=False;DataTypeCompatibility=0;Trust Server' +
-      ' Certificate=False;Server SPN="";Application Intent=READWRITE;'
     LoginPrompt = False
     Mode = cmReadWrite
     Provider = 'SQLNCLI11.1'

@@ -142,11 +142,11 @@ inherited UI_KPTA_DocNormal_frm: TUI_KPTA_DocNormal_frm
     Top = 81
     Width = 876
     Height = 789
-    ActivePage = sTabSheet2
+    ActivePage = sTabSheet1
     Align = alClient
     Images = DataModule_ICON.IMG_24
     TabHeight = 30
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 1
     TabWidth = 95
     OnChanging = sPageControl1Changing
@@ -739,7 +739,6 @@ inherited UI_KPTA_DocNormal_frm: TUI_KPTA_DocNormal_frm
             MaxLength = 12
             ParentCtl3D = False
             TabOrder = 7
-            Text = '2200222960'
             CheckOnExit = True
             SkinData.CustomColor = True
             SkinData.SkinSection = 'EDIT'
