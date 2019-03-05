@@ -621,12 +621,16 @@ begin
       end;
     end;
 
-    QR_PublishTerms.Lines.Text := FPUBLISH_OUT.Text;
-    QR_PublishTerms.Height := (QR_PublishTerms.Lines.Count * 13);
+    SummaryBand1.Enabled := Trim(FPUBLISH_OUT.Text) <> '';
+    IF Trim(FPUBLISH_OUT.Text) <> '' Then
+    begin
+      QR_PublishTerms.Lines.Text := FPUBLISH_OUT.Text;
+      QR_PublishTerms.Height := (QR_PublishTerms.Lines.Count * 13);
 
-    SummaryBand1.Height := QR_PublishTerms.Height+15;
-    QRShape30.Height := SummaryBand1.Height;
-    QRShape31.Height := SummaryBand1.Height;
+      SummaryBand1.Height := QR_PublishTerms.Height+15;
+      QRShape30.Height := SummaryBand1.Height;
+      QRShape31.Height := SummaryBand1.Height;
+    end;
   finally
     FPUBLISH_TEXT.Free;
     FPUBLISH_OUT.Free;
