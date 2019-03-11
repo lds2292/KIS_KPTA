@@ -115,7 +115,7 @@ begin
 
       FieldByName('REGION_CODE'            ).asString := getValueFromXPath(ROOT_NODE,'wco:Declaration/wco:Control/wco:Certifier/wco:ID');
       FieldByName('REGION_NAME'            ).asString := getValueFromXPath(ROOT_NODE,'wco:Declaration/wco:Control/wco:Certifier/wco:Name');
-      FieldByName('IMPORT_MEMO'            ).asString := getValueFromXPath(ROOT_NODE,'wco:AdditionalInformation/wco:Content');
+      FieldByName('IMPORT_MEMO'            ).asString := getValueFromXPath(ROOT_NODE,'wco:Declaration/wco:AdditionalInformation/wco:Content');
       FieldByName('TOTAL_COUNT'            ).asString := getValueFromXPath(ROOT_NODE,'wco:Declaration/wco:LoadingListQuantity');
 
       Post;
