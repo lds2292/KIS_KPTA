@@ -203,7 +203,6 @@ type
     QR_NO: TQRLabel;
     QR_GOODS: TQRLabel;
     QR_TRADE_PUM: TQRLabel;
-    QR_MODELSIZE: TQRLabel;
     QR_INGREDIENT: TQRLabel;
     QR_MODEL_QTY: TQRLabel;
     QR_UNIT_PRICE: TQRLabel;
@@ -240,6 +239,8 @@ type
     qryTakeForPrintTAKE_ADDR2: TStringField;
     qryTakeForPrintTAKE_ADDR3: TStringField;
     qryTakeForPrintTAKE_NO: TStringField;
+    QRM_PUMSIZE: TQRMemo;
+    QRLabel41: TQRLabel;
     procedure QuickRepBeforePrint(Sender: TCustomQuickRep;
       var PrintReport: Boolean);
     procedure QuickRepNeedData(Sender: TObject; var MoreData: Boolean);
@@ -306,9 +307,16 @@ end;
 procedure TQR_KPTA_NORMAL_PRN_frm.DetailBand1BeforePrint(
   Sender: TQRCustomBand; var PrintBand: Boolean);
 var
-  TMP_STR : String;  
+  TMP_STR : String;
 begin
-  FTOTAL_HEIGHT := FTOTAL_HEIGHT + Sender.Height;
+  //모델규격때문에 상대적 위치잡기전 초기화
+  QRM_PUMSIZE.Height := 12;
+  QR_MODEL_QTY.Top  := 47;
+  QR_UNIT_PRICE.Top := QR_MODEL_QTY.Top;
+  QR_MODEL_AMT.Top  := QR_MODEL_QTY.Top;
+  Sender.Height := 66;
+  QRShape29.Height := 67; //높이+4;
+  QRShape34.Height := QRShape29.Height;
 
   QR_NO.Caption := qryStandard2forPrintSERIAL_NO.AsString;
   TMP_STR := LeftStr( qryStandard2forPrintHS.AsString , 4 )+'.'+MidStr(qryStandard2forPrintHS.AsString,5,2)+'-'+RightStr(qryStandard2forPrintHS.AsString,4);
@@ -317,13 +325,26 @@ begin
              MidStr(qryStandard2forPrintGOODS_CODE.AsString, 11, 3)+'-'+
              MidStr(qryStandard2forPrintGOODS_CODE.AsString, 14, 4)+'-'+
              MidStr(qryStandard2forPrintGOODS_CODE.AsString, 18, 6)+'-'+
-             RightStr(qryStandard2forPrintGOODS_CODE.AsString, 3);  
+             RightStr(qryStandard2forPrintGOODS_CODE.AsString, 3);
 //  QR_GOODS.Caption := '② '+qryStandard2forPrintGOODS_CODE.AsString;
   QR_GOODS.Caption := '② '+qryStandard2forPrintSERIAL_CODE.AsString+qryStandard2forPrintSERIAL_NO.AsString+'/'+TMP_STR;
   QR_TRADE_PUM.Caption := '③ '+qryStandard2forPrintTRADE_NAME.AsString;
-  QR_MODELSIZE.Caption := '④ '+qryStandard2forPrintMODEL_SIZE.AsString;
   QR_INGREDIENT.Caption := '⑤ '+qryStandard2forPrintMODEL_SIZE_INGREDIENT.AsString;
+//  QR_MODELSIZE.Caption := '④ '+qryStandard2forPrintMODEL_SIZE.AsString;
 
+  QRLabel41.Enabled := Trim(qryStandard2forPrintMODEL_SIZE.AsString) <> '';
+  QRM_PUMSIZE.Lines.Text := qryStandard2forPrintMODEL_SIZE.AsString;
+  IF QRM_PUMSIZE.Lines.Count > 1 Then
+  begin
+    QRM_PUMSIZE.Height := 12 * QRM_PUMSIZE.Lines.Count;
+    QR_MODEL_QTY.Top := QRM_PUMSIZE.Top+QRM_PUMSIZE.Height+4;
+    QR_UNIT_PRICE.Top := QR_MODEL_QTY.Top;
+    QR_MODEL_AMT.Top  := QR_MODEL_QTY.Top;
+    Sender.Height := QR_MODEL_QTY.Top+QR_MODEL_QTY.Height+2;
+    QRShape29.Height := Sender.Height+4;
+    QRShape34.Height := QRShape29.Height;
+  end;
+  
   QR_MODEL_QTY.Caption  := '⑥ '+ FormatFloat('#,0.####',qryStandard2forPrintMODEL_QTY.AsCurrency)+'('+qryStandard2forPrintMODEL_QTY_UNIT.AsString+')';
   QR_UNIT_PRICE.Caption := '⑦ '+ FormatFloat('#,0.####',qryStandard2forPrintMODEL_DANGA.AsCurrency);
   QR_MODEL_AMT.Caption  := '⑧ '+ FormatFloat('#,0.####',qryStandard2forPrintMODEL_AMT.AsCurrency)+'('+qryStandard2forPrintMODEL_AMT_UNIT.AsString+')';
@@ -331,6 +352,9 @@ begin
   FTOTAL_UNIT := qryStandard2forPrintMODEL_AMT_UNIT.AsString;
   FSUB_IDX := 1;
   FTAKE_IDX := 1;
+
+  FTOTAL_HEIGHT := FTOTAL_HEIGHT + Sender.Height;  
+
   ReadMake(qryStandard2forPrintSERIAL_NO.AsString);
 end;
 
@@ -359,7 +383,7 @@ begin
       QR_MAKE.Caption := '   '+qryMakeforPrintMAKE_NO.AsString+' / '+TempStr;
   end
   else
-    QR_MAKE.Caption := ' ';
+    QR_MAKE.Caption := '⑨ ';
 
   ChildBand1.Enabled := FSUB_IDX = FSUB_MAX;
   IF ChildBand1.Enabled Then
