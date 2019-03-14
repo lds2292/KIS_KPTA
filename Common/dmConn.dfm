@@ -1,10 +1,10 @@
 object DataModule_Conn: TDataModule_Conn
   OldCreateOrder = False
   OnCreate = DataModuleCreate
-  Left = 1286
-  Top = 237
-  Height = 345
-  Width = 399
+  Left = 937
+  Top = 143
+  Height = 716
+  Width = 777
   object dsStandard2: TDataSource
     DataSet = qryStandard2
     Left = 128
@@ -932,5 +932,101 @@ object DataModule_Conn: TDataModule_Conn
     DataSet = qryCheck
     Left = 128
     Top = 208
+  end
+  object qrySortSerialNo: TADOQuery
+    Connection = KisConn
+    Parameters = <
+      item
+        Name = 'DOC_NO'
+        DataType = ftString
+        Size = 30
+        Value = Null
+      end>
+    SQL.Strings = (
+      'DECLARE @DOC_NO varchar(30),'
+      '        @MIN_NO int'
+      ''
+      'SET @DOC_NO = :DOC_NO'
+      ''
+      
+        'SELECT @MIN_NO = CONVERT(int, MIN(SERIAL_NO)) FROM STANDARD2 WHE' +
+        'RE DOC_NO =  @DOC_NO'
+      ''
+      'IF (@MIN_NO > 1) '
+      'BEGIN'
+      '    --'#51228#51312#51221#48372#49324#54637' '#51068#47144#48264#54840' '#50629#45936#51060#53944
+      '    UPDATE [MAKE]'
+      '    SET [MAKE].SERIAL_NO = UPDATE_TBL.NEW_SERIAL_NO '
+      '    FROM('
+      
+        '      SELECT REPLICATE('#39'0'#39', 3 - LEN(CONVERT(varchar(3),ROW_NUMBE' +
+        'R() OVER(ORDER BY SERIAL_NO)))) + CONVERT(varchar(3),ROW_NUMBER(' +
+        ') OVER(ORDER BY SERIAL_NO)) as NEW_SERIAL_NO, DOC_NO, SERIAL_COD' +
+        'E, SERIAL_NO'
+      '      FROM [MAKE]'
+      '      WHERE DOC_NO = @DOC_NO'
+      '    ) UPDATE_TBL'
+      '    WHERE [MAKE].DOC_NO = UPDATE_TBL.DOC_NO'
+      '          AND'
+      '          [MAKE].SERIAL_CODE = UPDATE_TBL.SERIAL_CODE'
+      '          AND'
+      '          [MAKE].SERIAL_NO = UPDATE_TBL.SERIAL_NO'
+      ''
+      '    --'#49688#53441#51228#51312#49324#54637' '#51068#47144#48264#54840' '#50629#45936#51060#53944
+      '    UPDATE [TAKEN]'
+      '    SET [TAKEN].SERIAL_NO = UPDATE_TBL.NEW_SERIAL_NO '
+      '    FROM('
+      
+        '      SELECT REPLICATE('#39'0'#39', 3 - LEN(CONVERT(varchar(3),ROW_NUMBE' +
+        'R() OVER(ORDER BY SERIAL_NO)))) + CONVERT(varchar(3),ROW_NUMBER(' +
+        ') OVER(ORDER BY SERIAL_NO)) as NEW_SERIAL_NO, DOC_NO, SERIAL_COD' +
+        'E, SERIAL_NO'
+      '      FROM [TAKEN]'
+      '      WHERE DOC_NO = @DOC_NO'
+      '    ) UPDATE_TBL'
+      '    WHERE [TAKEN].DOC_NO = UPDATE_TBL.DOC_NO'
+      '          AND'
+      '          [TAKEN].SERIAL_CODE = UPDATE_TBL.SERIAL_CODE'
+      '          AND'
+      '          [TAKEN].SERIAL_NO = UPDATE_TBL.SERIAL_NO'
+      ''
+      '    --'#46041#51068#49457#44160#49324#44208#44284#49436' '#51068#47144#48264#54840' '#50629#45936#51060#53944
+      '    UPDATE [CHECK]'
+      '    SET [CHECK].SERIAL_NO = UPDATE_TBL.NEW_SERIAL_NO '
+      '    FROM('
+      
+        '      SELECT REPLICATE('#39'0'#39', 3 - LEN(CONVERT(varchar(3),ROW_NUMBE' +
+        'R() OVER(ORDER BY SERIAL_NO)))) + CONVERT(varchar(3),ROW_NUMBER(' +
+        ') OVER(ORDER BY SERIAL_NO)) as NEW_SERIAL_NO, DOC_NO, SERIAL_COD' +
+        'E, SERIAL_NO'
+      '      FROM [CHECK]'
+      '      WHERE DOC_NO = @DOC_NO'
+      '    ) UPDATE_TBL'
+      '    WHERE [CHECK].DOC_NO = UPDATE_TBL.DOC_NO'
+      '          AND'
+      '          [CHECK].SERIAL_CODE = UPDATE_TBL.SERIAL_CODE'
+      '          AND'
+      '          [CHECK].SERIAL_NO = UPDATE_TBL.SERIAL_NO'
+      ''
+      '    --'#54408#47785#49324#54637' '#51068#47144#48264#54840' '#50629#45936#51060#53944
+      '    UPDATE [STANDARD2]'
+      '    SET [STANDARD2].SERIAL_NO = UPDATE_TBL.NEW_SERIAL_NO '
+      '    FROM('
+      
+        '      SELECT REPLICATE('#39'0'#39', 3 - LEN(CONVERT(varchar(3),ROW_NUMBE' +
+        'R() OVER(ORDER BY SERIAL_NO)))) + CONVERT(varchar(3),ROW_NUMBER(' +
+        ') OVER(ORDER BY SERIAL_NO)) as NEW_SERIAL_NO, DOC_NO, SERIAL_COD' +
+        'E, SERIAL_NO'
+      '      FROM [STANDARD2]'
+      '      WHERE DOC_NO = @DOC_NO'
+      '    ) UPDATE_TBL'
+      '    WHERE [STANDARD2].DOC_NO = UPDATE_TBL.DOC_NO'
+      '          AND'
+      '          [STANDARD2].SERIAL_CODE = UPDATE_TBL.SERIAL_CODE'
+      '          AND'
+      '          [STANDARD2].SERIAL_NO = UPDATE_TBL.SERIAL_NO'
+      'END')
+    Left = 88
+    Top = 296
   end
 end

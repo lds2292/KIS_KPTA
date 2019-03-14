@@ -1509,7 +1509,6 @@ begin
     IF CheckErrorDocument Then Abort;
   end;
 
-
   with DataModule_Conn.qryStandard1 do
   begin
     FieldByName('DOC_GUBUN').AsString    := getCodefromCombobox(sComboBox2);
@@ -1568,7 +1567,13 @@ begin
 
     Post;
 
+    //일련번호 재정렬
+    DataModule_Conn.qrySortSerialNo.Close;
+    DataModule_Conn.qrySortSerialNo.Parameters[0].Value := edt_DocNo1.Text+edt_DocNo2.Text+edt_DocNo3.Text;
+    DataModule_Conn.qrySortSerialNo.ExecSQL;
+    
     DataModule_Conn.KisConn.CommitTrans;
+
     ModalResult := mrOk;
   end;
 end;

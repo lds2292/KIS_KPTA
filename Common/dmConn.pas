@@ -178,6 +178,7 @@ type
     StringField42: TStringField;
     dsMake: TDataSource;
     dsCheck: TDataSource;
+    qrySortSerialNo: TADOQuery;
     procedure DataModuleCreate(Sender: TObject);
     procedure qryStandard2AfterOpen(DataSet: TDataSet);
     procedure qryStandard1AfterScroll(DataSet: TDataSet);
