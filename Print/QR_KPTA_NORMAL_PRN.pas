@@ -244,6 +244,9 @@ type
     QRM_TRADE_NAME: TQRMemo;
     QRM_INGREDIENT: TQRMemo;
     QRM_BSE: TQRMemo;
+    QR_HWAJU_ADDR2: TQRLabel;
+    QR_EXPORTER_ADDR2: TQRLabel;
+    QR_IMPORTER_ADDR2: TQRLabel;
     procedure QuickRepBeforePrint(Sender: TCustomQuickRep;
       var PrintReport: Boolean);
     procedure QuickRepNeedData(Sender: TObject; var MoreData: Boolean);
@@ -531,6 +534,7 @@ procedure TQR_KPTA_NORMAL_PRN_frm.TitleBand1BeforePrint(
   Sender: TQRCustomBand; var PrintBand: Boolean);
 var
   TempStr : String;
+  i : Integer;
 begin
   FTOTAL_HEIGHT := FTOTAL_HEIGHT + Sender.Height;
 
@@ -545,7 +549,8 @@ begin
   //수입자 성명
   QR_IMPORTER_NAME.Caption := qryStandard1forPrintIMPORT_DAEPYO.AsString;
   //수입자 주소
-  QR_IMPORTER_ADDR.Caption := Trim(Trim(qryStandard1forPrintIMPORT_ADDR1.AsString)+' '+Trim(qryStandard1forPrintIMPORT_ADDR2.AsString));
+  QR_IMPORTER_ADDR.Caption  := Trim(qryStandard1forPrintIMPORT_ADDR1.AsString);
+  QR_IMPORTER_ADDR2.Caption := Trim(qryStandard1forPrintIMPORT_ADDR2.AsString);
   //수입업 신고번호
   QR_TRADE_NO.Caption := qryStandard1forPrintIMPORT_TRADE_NO.AsString;
 
@@ -554,7 +559,8 @@ begin
   //수입화주 이름
   QR_HWAJU_NAME.Caption := qryStandard1forPrintHWAJU_DAEPYO.AsString;
   //수입화주 주소
-  QR_HWAJU_ADDR.Caption := Trim( Trim(qryStandard1forPrintHWAJU_ADDR1.AsString)+' '+Trim(qryStandard1forPrintHWAJU_ADDR2.AsString) );
+  QR_HWAJU_ADDR.Caption  := Trim(qryStandard1forPrintHWAJU_ADDR1.AsString);
+  QR_HWAJU_ADDR2.Caption := Trim(qryStandard1forPrintHWAJU_ADDR2.AsString);
   //수입화주 사업자등록번호
   QR_HWAJU_SAUPNO.Caption :=  qryStandard1forPrintHWAJU_SAUP_NO.AsString;
 
@@ -562,14 +568,23 @@ begin
   QR_EXPORTER_SANGHO.Caption := qryStandard1forPrintEXPORT_SANGHO.AsString;
   //수출자 국가
   QR_EXPORTER_NATION.Caption := qryStandard1forPrintEXPORT_NATION_ENG.AsString;
-  //수출자 주소(MAX_width : 517)
-  QR_SIZER.Caption := qryStandard1forPrintEXPORT_ADDR1.AsString;
-  while not (QR_SIZER.Width <= 517) do
+  //수출자 주소
+  TempStr := qryStandard1forPrintEXPORT_ADDR1.AsString;
+  QR_EXPORTER_ADDR2.Caption := '';
+  for i := 0 to (Length(TempStr) div 90) do
   begin
-    QR_SIZER.Font.Size := QR_SIZER.Font.Size-1;
+    Case i of
+      0: QR_EXPORTER_ADDR.Caption  := LeftStr(TempStr, 90);
+      1: QR_EXPORTER_ADDR2.Caption := MidStr(TempStr, 91, 90);
+    end;
   end;
-  QR_EXPORTER_ADDR.Font.Size := QR_SIZER.Font.Size;
-  QR_EXPORTER_ADDR.Caption := QR_SIZER.Caption;
+//  QR_SIZER.Caption := qryStandard1forPrintEXPORT_ADDR1.AsString;
+//  while not (QR_SIZER.Width <= 517) do
+//  begin
+//    QR_SIZER.Font.Size := QR_SIZER.Font.Size-1;
+//  end;
+//  QR_EXPORTER_ADDR.Font.Size := QR_SIZER.Font.Size;
+//  QR_EXPORTER_ADDR.Caption := QR_SIZER.Caption;
 
   //결제금액
   QR_AMT.Caption := qryStandard1forPrintINDO_TYPE.AsString +' - '+
