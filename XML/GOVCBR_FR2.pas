@@ -277,8 +277,9 @@ begin
             //품목식별부호 M
             CHILD_NODE.AddChild('wco:ID').Text := getStr('SERIAL_CODE')+getStr('SERIAL_NO');
             //구 종별코드 C
-            if getStrCompare('OLD_GOODS_CODE') Then
-            CHILD_NODE.AddChild('wco:CategoryCode').Text := SQLData;
+//            if getStrCompare('OLD_GOODS_CODE') Then
+            if getStrCompare('OLD_JONG_CODE') Then
+             CHILD_NODE.AddChild('wco:CategoryCode').Text := SQLData;
             //HS부호 M
             CHILD_NODE.AddChild('wco:Classification').AddChild('wco:ID').Text := getStr('HS');
             //모델규격성분 C

@@ -68,7 +68,7 @@ begin
       FieldByName('DOC_GUBUN'              ).asString := getValueFromXPath(ROOT_NODE,'wco:Declaration/kcs:SubTypeCode');
       FieldByName('REQUEST_DATE'           ).asString := FormatDateTime('YYYY-MM-DD',ConvertStr2Date(getValueFromXPath(ROOT_NODE,'wco:Declaration/wco:IssueDateTime')));
       FieldByName('JEJE_GUBUN'             ).asString := getValueFromXPath(ROOT_NODE,'wco:Declaration/wco:TransactionNatureCode');
-
+                                                    
       CHILD_NODE := getNodeFromXPath(ROOT_NODE,'wco:Declaration/wco:Agent').ChildNodes.First;
       while CHILD_NODE <> nil do
       begin
@@ -76,7 +76,8 @@ begin
         begin
           case AnsiIndexText(CHILD_NODE.Attributes['schemeAgencyID'],['KTX','KFT']) of
             0: FieldByName('IMPORT_SAUP_NO').asString := CHILD_NODE.Text;
-            1: FieldByName('IMPORT_TRADE_NO').asString := getValueFromXPath(CHILD_NODE,'wco:ID');
+            1: FieldByName('IMPORT_TRADE_NO').asString := CHILD_NODE.Text;
+//            1: FieldByName('IMPORT_TRADE_NO').asString := getValueFromXPath(CHILD_NODE,'wco:ID');
           end;
         end;
         CHILD_NODE := CHILD_NODE.NextSibling;

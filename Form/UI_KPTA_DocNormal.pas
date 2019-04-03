@@ -1142,23 +1142,28 @@ begin
   end
   else
   begin
-    with TADOQuery.Create(nil) do
-    begin
-      try
-        Connection := DataModule_Conn.KisConn;
-        SQL.Text := 'SELECT 1 FROM HS WHERE HS_CODE = '+QuotedStr(edt_Hs.Text);
-        Open;
+    //------------------------------------------------------------------------------
+    // 20190403
+    // 세번입력만 확인
+    //------------------------------------------------------------------------------
 
-        IF RecordCount = 0 Then
-        begin
-          MessageBox(Self.Handle,Pchar('입력하신 세번['+edt_Hs.Text+']은 유효하지 않은 세번입니다'),'품목정보 저장 오류',MB_OK+MB_ICONERROR);
-          Exit;
-        end;
-      finally
-        Close;
-        Free;
-      end;
-    end;
+//    with TADOQuery.Create(nil) do
+//    begin
+//      try
+//        Connection := DataModule_Conn.KisConn;
+//        SQL.Text := 'SELECT 1 FROM HS WHERE HS_CODE = '+QuotedStr(edt_Hs.Text);
+//        Open;
+//
+//        IF RecordCount = 0 Then
+//        begin
+//          MessageBox(Self.Handle,Pchar('입력하신 세번['+edt_Hs.Text+']은 유효하지 않은 세번입니다'),'품목정보 저장 오류',MB_OK+MB_ICONERROR);
+//          Exit;
+//        end;
+//      finally
+//        Close;
+//        Free;
+//      end;
+//    end;
   end;
 //------------------------------------------------------------------------------
 // 품목코드 입력확인
