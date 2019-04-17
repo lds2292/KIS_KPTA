@@ -560,8 +560,6 @@ begin
 //                      qryStandard2forPrintBSE_ORIGIN_NATION_ENG.AsString;
 //  end;
 
-  qryStandard2forPrint.Next;
-
   inc(FSUB_IDX);
   qryMakeforPrint.Next;
 
@@ -705,6 +703,7 @@ procedure TQR_KPTA_NORMAL_Complete_PRN_frm.ChildBand1BeforePrint(
   Sender: TQRCustomBand; var PrintBand: Boolean);
 begin
   FTOTAL_HEIGHT := FTOTAL_HEIGHT + Sender.Height;
+  qryStandard2forPrint.Next;  
 end;
 
 function TQR_KPTA_NORMAL_Complete_PRN_frm.getOrigianlRequestDate(DOC_NO : String): String;

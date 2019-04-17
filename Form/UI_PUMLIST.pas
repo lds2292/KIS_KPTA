@@ -448,6 +448,29 @@ var
   KEYY : integer;
 begin
   inherited;
+//------------------------------------------------------------------------------
+// 해당품목이 이미 있다면
+//------------------------------------------------------------------------------
+  IF (FWorkType = wtIns) AND ((Sender as TsButton).Tag = 1) Then
+  begin
+    with TADOQuery.Create(nil) do
+    begin
+      try
+        Connection := DataModule_Conn.KisConn;
+        SQL.Text := 'SELECT PID, [GOODS_CODE] FROM PUMLIST WHERE GOODS_CODE = '+QuotedStr(edt_GOODS_CODE.Text);
+        Open;
+
+        IF RecordCount > 0 Then
+        begin
+          MessageBox(Self.Handle, PChar('중복되는 품목코드가 존재합니다'#13#10+FieldByName('GOODS_CODE').AsString), '저장오류', MB_OK+MB_ICONERROR);
+          Exit;
+        end;
+      finally
+        Close;
+        Free;
+      end;
+    end;
+  end;
 
   IF (Sender as TsButton).Tag = 1 Then
   begin
