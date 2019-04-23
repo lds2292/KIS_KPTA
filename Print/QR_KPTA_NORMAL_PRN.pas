@@ -552,7 +552,10 @@ begin
   QR_IMPORTER_ADDR.Caption  := Trim(qryStandard1forPrintIMPORT_ADDR1.AsString);
   QR_IMPORTER_ADDR2.Caption := Trim(qryStandard1forPrintIMPORT_ADDR2.AsString);
   //수입업 신고번호
-  QR_TRADE_NO.Caption := qryStandard1forPrintIMPORT_TRADE_NO.AsString;
+//  QR_TRADE_NO.Caption := qryStandard1forPrintIMPORT_TRADE_NO.AsString;
+  // 2019-04-23
+  // 요청에 의해 사업자등록번호만 나오게
+  QR_TRADE_NO.Caption := Trim(qryStandard1forPrintIMPORT_SAUP_NO.AsString);
 
   //수입화주 상호
   QR_HWAJU_SANGHO.Caption := qryStandard1forPrintHWAJU_SANGHO.AsString;
