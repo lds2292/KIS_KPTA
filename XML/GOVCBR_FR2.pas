@@ -326,7 +326,10 @@ begin
       // ROOT / LPCO / Agent
           CHILD_NODE :=  CHILD_NODE.AddChild('wco:Agent');
           //계약(수탁)제조일련번호 M
-          CHILD_NODE.AddChild('wco:ID').Text := qryTaken.FieldByName('TAKE_NO').AsString;
+          // 2019-04-30 이덕수
+          // 수탁제조 일련번호는 001이 아닌 1로 작성되어야함
+          //CHILD_NODE.AddChild('wco:ID').Text := qryTaken.FieldByName('TAKE_NO').AsString;
+          CHILD_NODE.AddChild('wco:ID').Text := FormatFloat('0',qryTaken.FieldByName('TAKE_NO').AsInteger);
           //계약(수탁)제조상호1 M
           CHILD_NODE.AddChild('wco:Name').Text := qryTaken.FieldByName('TAKE_SANGHO1').AsString;
           //계약(수탁)제조상호2 C
