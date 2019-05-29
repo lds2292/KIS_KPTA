@@ -323,7 +323,7 @@ var
 implementation
 
 uses
-  CommonLib, dmConn;
+  CommonLib, dmConn, CommonVar;
 
 {$R *.DFM}
 
@@ -430,6 +430,9 @@ procedure TQR_KPTA_NORMAL_Complete_PRN_frm.DetailBand1BeforePrint(
 var
   TMP_STR : String;
   MAX_TOP : Integer;
+  i, j : Integer;
+  AddLine : Integer;
+
 begin
   QR_NO.Caption := qryStandard2forPrintSERIAL_NO.AsString;
   TMP_STR := LeftStr( qryStandard2forPrintHS.AsString , 4 )+'.'+MidStr(qryStandard2forPrintHS.AsString,5,2)+'-'+RightStr(qryStandard2forPrintHS.AsString,4);
@@ -442,8 +445,32 @@ begin
 //  QR_GOODS.Caption := '② '+qryStandard2forPrintGOODS_CODE.AsString;
   QR_GOODS.Caption := '② '+qryStandard2forPrintSERIAL_CODE.AsString+qryStandard2forPrintSERIAL_NO.AsString+'/'+TMP_STR;
 //  QR_TRADE_PUM.Caption := '③ '+qryStandard2forPrintTRADE_NAME.AsString;
-  QRM_TRADE_NAME.Height := 12;
+//------------------------------------------------------------------------------
+// 2019-05-29 이덕수
+// 거래품명 가로길이가 45자 이상 체크해서 다음줄로 넘기기
+//------------------------------------------------------------------------------
+  i := 0;
+  AddLine := 0;
   QRM_TRADE_NAME.Lines.Text := qryStandard2forPrintTRADE_NAME.AsString;
+  while true do
+  begin
+    TMP_STR := QRM_TRADE_NAME.Lines.Strings[i];
+    IF Length( TMP_STR ) > CUT_LENGTH Then
+    begin
+      AddLine := Length(TMP_STR) div CUT_LENGTH;
+      IF Length(TMP_STR) mod CUT_LENGTH = 0 Then
+        AddLine := AddLine-1;
+      for j := 1 to AddLine do
+      begin
+        QRM_TRADE_NAME.Lines.Insert(i+j, MidStr(TMP_STR, (j*CUT_LENGTH)+1, CUT_LENGTH));
+      end;
+      i := i + AddLine;
+    end;
+    inc(i);
+    IF QRM_TRADE_NAME.Lines.Count <= i Then Break;    
+  end;
+
+  QRM_TRADE_NAME.Height := 12;
   IF QRM_TRADE_NAME.Lines.Count > 1 then
   begin
     QRM_TRADE_NAME.Height := 12 * QRM_TRADE_NAME.Lines.Count;
