@@ -343,6 +343,7 @@ begin
     TMP_STR := QRM_TRADE_NAME.Lines.Strings[i];
     IF Length( TMP_STR ) > CUT_LENGTH Then
     begin
+      QRM_TRADE_NAME.Lines.Strings[i] := LeftStr(TMP_STR, CUT_LENGTH);    
       AddLine := Length(TMP_STR) div CUT_LENGTH;
       IF Length(TMP_STR) mod CUT_LENGTH = 0 Then
         AddLine := AddLine-1;
