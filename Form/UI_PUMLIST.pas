@@ -454,7 +454,7 @@ begin
   IF (FWorkType = wtIns) AND ((Sender as TsButton).Tag = 1) Then
   begin
     with TADOQuery.Create(nil) do
-    begin
+    begin                                    
       try
         Connection := DataModule_Conn.KisConn;
         SQL.Text := 'SELECT PID, [GOODS_CODE] FROM PUMLIST WHERE GOODS_CODE = '+QuotedStr(edt_GOODS_CODE.Text);

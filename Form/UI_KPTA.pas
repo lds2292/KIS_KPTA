@@ -92,6 +92,7 @@ type
     sDBGrid4: TsDBGrid;
     sSpeedButton5: TsSpeedButton;
     sButton9: TsButton;
+    sButton10: TsButton;
     procedure sButton1Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -128,6 +129,7 @@ type
     procedure sButton9Click(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure sButton10Click(Sender: TObject);
   private
     { Private declarations }
     FSQL : String;
@@ -144,7 +146,7 @@ implementation
 
 uses dmConn, UI_KPTA_DocNormal, CommonDef, CommonVar, dmIcon, ADODB,
   CommonLib, DB, CommonMSG, Dialog_CopyReport, UI_ReadyDocument,
-  Dialog_BetweenList, KISCalendar, QR_KPTA_NORMAL_PRN, QuickRpt, UI_PrintPreview, QR_KPTA_NORMAL_Complete_PRN, KISCalendarV2, UI_RecvDocument, UI_QuickMenu, Dialog_ProcessView;
+  Dialog_BetweenList, KISCalendar, QR_KPTA_NORMAL_PRN, QuickRpt, UI_PrintPreview, QR_KPTA_NORMAL_Complete_PRN, KISCalendarV2, UI_RecvDocument, UI_QuickMenu, Dialog_ProcessView, Dialog_ExcelExport;
 
 {$R *.dfm}
 
@@ -573,6 +575,8 @@ begin
     begin
 //      sComboBox1.ItemIndex := 1;
 //      sMaskEdit1.Text := FormatDateTime('YYYY-MM-DD',DataModule_Conn.qryCount.FieldByName('YearMonth').AsDateTime);
+      sMaskEdit1.Text := Dialog_BetweenList_frm.StartDate;
+      sMaskEdit2.Text := Dialog_BetweenList_frm.EndDate;
       ReadList;
     end;
   finally
@@ -804,6 +808,17 @@ begin
       sButton12.Enabled := True;
       sButton13.Enabled := True;      
     end;
+  end;
+end;
+
+procedure TUI_KPTA_frm.sButton10Click(Sender: TObject);
+begin
+  inherited;
+  Dialog_ExcelExport_frm := TDialog_ExcelExport_frm.Create(Self);
+  try
+    Dialog_ExcelExport_frm.ShowModal;
+  finally
+    FreeAndNil( Dialog_ExcelExport_frm );
   end;
 end;
 

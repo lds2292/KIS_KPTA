@@ -34,6 +34,7 @@ object Main_frm: TMain_frm
     Top = 200
     object d1: TMenuItem
       Caption = #54872#44221#49444#51221
+      Checked = True
       object N7: TMenuItem
         Tag = 100
         Caption = #53076#46300#44288#47532
@@ -77,6 +78,11 @@ object Main_frm: TMain_frm
         Caption = #47928#49436#51228#52636#48264#54840
         ImageIndex = 29
         OnClick = MenuClick
+      end
+      object N15: TMenuItem
+        Caption = #48736#47480#47700#45684
+        Checked = True
+        OnClick = N15Click
       end
       object N8: TMenuItem
         Caption = '-'

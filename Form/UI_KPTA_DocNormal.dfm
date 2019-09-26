@@ -3292,7 +3292,6 @@ inherited UI_KPTA_DocNormal_frm: TUI_KPTA_DocNormal_frm
                   Font.Style = []
                   ParentFont = False
                   TabOrder = 5
-                  Visible = False
                 end
                 object sPanel77: TsPanel
                   Left = 51

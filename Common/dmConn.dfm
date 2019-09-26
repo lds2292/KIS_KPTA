@@ -307,7 +307,7 @@ object DataModule_Conn: TDataModule_Conn
     Connection = KisConn
     CursorType = ctStatic
     AfterOpen = qryStandard2AfterOpen
-    AfterScroll = qryStandard2AfterOpen
+    AfterScroll = qryStandard2AfterScroll
     Parameters = <
       item
         Name = 'DOC_NO'
@@ -563,12 +563,11 @@ object DataModule_Conn: TDataModule_Conn
     SQL.Strings = (
       'SELECT *'
       'FROM [CHECK]'
-      '/*'
       'WHERE DOC_NO = :DOC_NO'
       'AND SERIAL_CODE = '#39'FR2'#39
       'AND SERIAL_NO = :SERIAL_NO'
       'ORDER BY CHECK_SERIAL_NO'
-      '*/')
+      '')
     Left = 88
     Top = 208
   end
@@ -641,34 +640,18 @@ object DataModule_Conn: TDataModule_Conn
     CursorType = ctStatic
     Parameters = <
       item
-        Name = 'USER_ID'
-        Attributes = [paNullable]
-        DataType = ftString
-        NumericScale = 255
-        Precision = 255
-        Size = 2
-        Value = '0'
-      end
-      item
         Name = 'nYear'
         Attributes = [paSigned, paNullable]
         DataType = ftInteger
         Precision = 10
         Size = 4
-        Value = 2016
-      end
-      item
-        Name = 'nMon'
-        Attributes = [paSigned, paNullable]
-        DataType = ftInteger
-        Precision = 10
-        Size = 4
-        Value = 11
+        Value = 2018
       end>
     SQL.Strings = (
       
-        'SELECT REQUEST_DATE as YearMonth, COUNT(*) as WriteDocCount, Bet' +
-        'weenDocNo = CASE WHEN MIN(DOC_NO) = MAX(DOC_NO) THEN MIN(DOC_NO)'
+        'SELECT YEAR(REQUEST_DATE) as DOC_YEAR, MONTH(REQUEST_DATE) as DO' +
+        'C_MON, COUNT(*) as WriteDocCount, BetweenDocNo = CASE WHEN MIN(D' +
+        'OC_NO) = MAX(DOC_NO) THEN MIN(DOC_NO)'
       
         '                                                                ' +
         '                 ELSE MIN(DOC_NO)+'#39' ~ '#39'+MAX(DOC_NO)'
@@ -676,11 +659,9 @@ object DataModule_Conn: TDataModule_Conn
         '                                                                ' +
         '            END'
       'FROM STANDARD1 '
-      'WHERE SUBSTRING( DOC_NO ,8 ,1) = :USER_ID'
-      'AND isDeleted = 0'
-      'GROUP BY REQUEST_DATE'
-      'HAVING YEAR(REQUEST_DATE) = :nYear'
-      'AND MONTH(REQUEST_DATE) = :nMon')
+      'WHERE isDeleted = 0'
+      'GROUP BY YEAR(REQUEST_DATE), MONTH(REQUEST_DATE)'
+      'HAVING YEAR(REQUEST_DATE) = :nYear')
     Left = 88
     Top = 248
   end

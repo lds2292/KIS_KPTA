@@ -1,6 +1,6 @@
 inherited Dialog_ProcessView_frm: TDialog_ProcessView_frm
-  Left = 1119
-  Top = 36
+  Left = 1128
+  Top = 95
   ActiveControl = sScrollBox1
   BorderStyle = bsDialog
   BorderWidth = 4

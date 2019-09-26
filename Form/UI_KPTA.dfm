@@ -1,6 +1,6 @@
 inherited UI_KPTA_frm: TUI_KPTA_frm
-  Left = 434
-  Top = 106
+  Left = 455
+  Top = 102
   BorderIcons = []
   BorderWidth = 4
   Caption = #54364#51456#53685#44288#50696#51221#48372#44256#49436' - '#54620#44397#51032#50557#54408#49688#52636#51077#54801#54924
@@ -75,7 +75,7 @@ inherited UI_KPTA_frm: TUI_KPTA_frm
       SkinData.SkinSection = 'SPEEDBUTTON'
     end
     object sSpeedButton5: TsSpeedButton
-      Left = 642
+      Left = 645
       Top = 4
       Width = 6
       Height = 46
@@ -343,7 +343,7 @@ inherited UI_KPTA_frm: TUI_KPTA_frm
     end
     object sButton9: TsButton
       Tag = 1
-      Left = 649
+      Left = 655
       Top = 3
       Width = 66
       Height = 49
@@ -364,6 +364,32 @@ inherited UI_KPTA_frm: TUI_KPTA_frm
       Images = DataModule_ICON.IMG_24
       ImageAlignment = iaTop
       ImageIndex = 38
+    end
+    object sButton10: TsButton
+      Tag = 1
+      Left = 719
+      Top = 3
+      Width = 66
+      Height = 49
+      Cursor = crHandPoint
+      Anchors = [akTop, akRight]
+      Caption = #50641#49472#45824#51109
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -12
+      Font.Name = #47569#51008' '#44256#46357
+      Font.Style = []
+      ParentFont = False
+      ParentShowHint = False
+      ShowHint = False
+      TabOrder = 12
+      TabStop = False
+      OnClick = sButton10Click
+      SkinData.SkinSection = 'CHECKBOX'
+      Reflected = True
+      Images = DataModule_ICON.IMG_24
+      ImageAlignment = iaTop
+      ImageIndex = 17
     end
   end
   object sPanel2: TsPanel [2]
@@ -1361,11 +1387,11 @@ inherited UI_KPTA_frm: TUI_KPTA_frm
         Top = 34
         Width = 395
         Height = 205
-        ActivePage = sTabSheet1
+        ActivePage = sTabSheet2
         Align = alRight
         Images = DataModule_ICON.IMG_16
         TabHeight = 28
-        TabIndex = 0
+        TabIndex = 1
         TabOrder = 2
         TabPadding = 5
         object sTabSheet1: TsTabSheet
@@ -1450,6 +1476,7 @@ inherited UI_KPTA_frm: TUI_KPTA_frm
             OnDrawColumnCell = KISDrawColumnCell
             Columns = <
               item
+                Alignment = taCenter
                 Color = clBtnFace
                 Expanded = False
                 FieldName = 'CHECK_SERIAL_NO'
@@ -1467,6 +1494,7 @@ inherited UI_KPTA_frm: TUI_KPTA_frm
                 Visible = True
               end
               item
+                Alignment = taRightJustify
                 Expanded = False
                 FieldName = 'CHECK_QTY'
                 Title.Alignment = taCenter
@@ -1480,6 +1508,6 @@ inherited UI_KPTA_frm: TUI_KPTA_frm
     end
   end
   inherited sSkinProvider1: TsSkinProvider
-    Top = 120
+    Top = 136
   end
 end

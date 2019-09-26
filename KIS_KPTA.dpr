@@ -69,7 +69,8 @@ uses
   KisXmlReader in '..\..\..\UseComponent\KISLIB\KISXml\KisXmlReader.pas',
   UPDATE in 'update\UPDATE.pas' {UPDATE_frm},
   UpdateFile in 'update\UpdateFile.pas',
-  HTTP in 'update\HTTP.pas';
+  HTTP in 'update\HTTP.pas',
+  Dialog_ExcelExport in 'Form\Dialog\Dialog_ExcelExport.pas' {Dialog_ExcelExport_frm};
 
 {$R *.res}
 
@@ -91,11 +92,11 @@ begin
       Application.Initialize;
       Application.Title := 'KISÀÇ¼öÇù';
       Application.CreateForm(TMain_frm, Main_frm);
-    Application.CreateForm(TUI_Login_frm, UI_Login_frm);
-    Application.CreateForm(TXMLSource_dm, XMLSource_dm);
-    Application.CreateForm(TUI_QuickMenu_frm, UI_QuickMenu_frm);
-    Application.CreateForm(Tdlg_IMPORT_frm, dlg_IMPORT_frm);
-    Application.Run;
+  Application.CreateForm(TUI_Login_frm, UI_Login_frm);
+  Application.CreateForm(TXMLSource_dm, XMLSource_dm);
+  Application.CreateForm(TUI_QuickMenu_frm, UI_QuickMenu_frm);
+  Application.CreateForm(Tdlg_IMPORT_frm, dlg_IMPORT_frm);
+  Application.Run;
     end
     else
     begin

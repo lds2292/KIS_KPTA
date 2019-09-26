@@ -1,3 +1,3 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Connection><common><Address>/kNATDE=
-</Address><Port></Port><UserData><ID></ID><PWD></PWD></UserData><DBFile><islocal>1</islocal><path></path></DBFile></common><DataServerList><ListCount>1</ListCount></DataServerList></Connection>
+</Address><Port></Port><UserData><ID></ID><PWD></PWD></UserData><DBFile><islocal>1</islocal><path>C:\IKIS21\KIS_KPTA\DB\KIS_KPTA.mdf</path></DBFile></common><DataServerList><ListCount>1</ListCount></DataServerList></Connection>
