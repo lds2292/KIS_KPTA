@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ParentForm, DB, ExtCtrls, sPanel, ADODB, Grids, DBGrids,
-  acDBGrid, sSkinProvider, StdCtrls, sEdit, sButton, sComboBox;
+  acDBGrid, sSkinProvider, StdCtrls, sEdit, sButton, sComboBox, DateUtils;
 
 type
   Tdialog_PUMLIST_frm = class(TParentForm_frm)
@@ -67,12 +67,18 @@ type
     procedure sDBGrid1DblClick(Sender: TObject);
     procedure qryListAfterOpen(DataSet: TDataSet);
     procedure sButton3Click(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure sDBGrid1TitleClick(Column: TColumn);
   private
     { Private declarations }
     FDOCGB : String;
-    procedure ReadList;
+//    FCreateDate : TDateTime;
+    FASC : Boolean;
+    FSortFieldIndex : Integer;
+    procedure ReadList(SortFieldIndex : Integer = -1);
   public
     property DOCGB: String read FDOCGB write FDOCGB;
+//    property CreateDate:TDateTime read FCreateDate write FCreateDate;
     function getField(sFieldName: String): TField;
     { Public declarations }
   end;
@@ -139,18 +145,56 @@ begin
   Result := qryList.FieldByName(sFieldName);
 end;
 
-procedure Tdialog_PUMLIST_frm.ReadList;
+procedure Tdialog_PUMLIST_frm.ReadList(SortFieldIndex : Integer = -1);
 begin
   with qryList do
   begin
     Close;
     SQL.Text := 'SELECT * FROM PUMLIST';
+//------------------------------------------------------------------------------
+// 2019-12-05
+// 12월부터 제재구분 1AG(화장품)에 대한 품목코드가 (CCYYMMDD)+(일련번호4)로 변경되어
+// 품목코드가져오는것부터 출력까지 변경해야함
+// 2019-12-06
+// 다시 되돌림
+//------------------------------------------------------------------------------
+//    IF (UpperCase( FDOCGB )= '1AG') AND (CompareDate(EncodeDate(2019,12,1), CreateDate) <= 0) Then
+//      SQL.Add('WHERE LEN(GOODS_CODE) = 12')
+//    else
     SQL.Add('WHERE SUBSTRING(GOODS_CODE, 11, 3) = '+QuotedStr(FDOCGB));
     IF Trim(edt_findtext.Text) <> '' Then
     begin
       SQL.Add('AND '+sDBGrid1.Columns[sComboBox1.ItemIndex].FieldName+' LIKE '+QuotedStr('%'+edt_findtext.Text+'%'));
     end;
-    SQL.Add('ORDER BY TRADE_NAME');
+
+    IF SortFieldIndex = -1 Then
+      SQL.Add('ORDER BY TRADE_NAME')
+    else
+    begin
+//      FASC := sDBGrid1.Columns[SortFieldIndex].FieldName <> sDBGrid1.Columns[FSortFieldIndex].FieldName;
+      IF SortFieldIndex = FSortFieldIndex Then
+        FASC := not FASC
+      else
+        FASC := True;
+      FSortFieldIndex := SortFieldIndex;
+
+
+      IF SortFieldIndex in [1,2] then
+      begin
+        IF FASC Then
+          SQL.Add('ORDER BY CAST('+sDBGrid1.Columns[SortFieldIndex].FieldName+' as varchar(MAX))')
+        else
+          SQL.Add('ORDER BY CAST('+sDBGrid1.Columns[SortFieldIndex].FieldName+' as varchar(MAX)) DESC');
+      end
+      else
+      begin
+        IF FASC Then
+          SQL.Add('ORDER BY '+sDBGrid1.Columns[SortFieldIndex].FieldName)
+        else
+          SQL.Add('ORDER BY '+sDBGrid1.Columns[SortFieldIndex].FieldName+' DESC');
+      end;
+
+    end;
     Open;
   end;
 end;
@@ -159,6 +203,19 @@ procedure Tdialog_PUMLIST_frm.sButton3Click(Sender: TObject);
 begin
   inherited;
   ReadList;
+end;
+
+procedure Tdialog_PUMLIST_frm.FormCreate(Sender: TObject);
+begin
+  inherited;
+  FASC := True;
+  FSortFieldIndex := -1;
+end;
+
+procedure Tdialog_PUMLIST_frm.sDBGrid1TitleClick(Column: TColumn);
+begin
+  inherited;
+  ReadList(Column.Index);
 end;
 
 end.

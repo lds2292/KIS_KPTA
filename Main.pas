@@ -38,12 +38,14 @@ type
     N12: TMenuItem;
     N13: TMenuItem;
     N14: TMenuItem;
+    N15: TMenuItem;
     procedure C1Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure MenuClick(Sender: TObject);
     procedure d3Click(Sender: TObject);
     procedure N13Click(Sender: TObject);
     procedure N14Click(Sender: TObject);
+    procedure N15Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -57,7 +59,7 @@ var
 implementation
 
 uses dmIcon, CommonVar, dmConn, UI_HS, UI_KPTA, UI_ReadyDocument,
-  UI_UserConfig, UI_DocumentNo, CommonLib, UI_Login, UI_Company, KIS_UPDATE, UI_RecvDocument, ParentForm, UI_CommonCD, UI_PUMLIST, dlg_IMPORT, dialog_RUNSQL;
+  UI_UserConfig, UI_DocumentNo, CommonLib, UI_Login, UI_Company, KIS_UPDATE, UI_RecvDocument, ParentForm, UI_CommonCD, UI_PUMLIST, dlg_IMPORT, dialog_RUNSQL, UI_QuickMenu;
 {$R *.dfm}
 
 procedure TMain_frm.C1Click(Sender: TObject);
@@ -162,6 +164,20 @@ begin
   begin
     dialog_RUNSQL_frm.Show;
     dialog_RUNSQL_frm.BringToFront;
+  end;
+end;
+
+procedure TMain_frm.N15Click(Sender: TObject);
+begin
+  N15.Checked := not N15.Checked;
+
+  if N15.Checked then
+  begin
+    UI_QuickMenu_frm := TUI_QuickMenu_frm.Create(Application);
+  end
+  else
+  begin
+    UI_QuickMenu_frm.Close;
   end;
 end;
 

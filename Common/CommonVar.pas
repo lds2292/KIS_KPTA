@@ -20,6 +20,8 @@ Const
   Section_Connect = 'CONNECT_OPTION';
 Const
   MB_OKCANCELQUESTION : Cardinal = MB_OKCANCEL+MB_ICONQUESTION;
+const
+  CUT_LENGTH : integer = 45;  
 implementation
 
 end.

@@ -21,6 +21,9 @@ Type
 
 implementation
 
+uses
+  CommonLib;
+
 { TGOVCBR_FR2 }
 
 function TGOVCBR_FR2.getStrCompare(FieldName : String; CompareStr : String; CompareType : TCompareType): Boolean;
@@ -40,7 +43,7 @@ end;
 procedure TGOVCBR_FR2.MakeDocument(SingoNo: String);
 var
   i,j : integer;
-
+  sJejeGubun, sGoodsCode : String;
 begin
 //------------------------------------------------------------------------------
 // 문서 코드
@@ -71,7 +74,8 @@ begin
     //문서형태구분
     ROOT_NODE.AddChild('wco:TypeCode').Text := 'GOVCBR'+FDocumentCODE;
     //제재구분코드
-    ROOT_NODE.AddChild('wco:TransactionNatureCode').Text := qryStandardJEJE_GUBUN.AsString;
+    sJejeGubun := qryStandardJEJE_GUBUN.AsString;
+    ROOT_NODE.AddChild('wco:TransactionNatureCode').Text := sJejeGubun;
     //신청문서구분
     ROOT_NODE.AddChild('kcs:SubTypeCode').Text := qryStandardDOC_GUBUN.AsString;
     //취소신청사유
@@ -271,14 +275,26 @@ begin
       // ROOT / LPCO / Consignment / ConsignmentItem / Commodity
             CHILD_NODE := CHILD_NODE.AddChild('wco:Commodity');
             //품목코드 M
-            CHILD_NODE.AddChild('wco:ClassificationNameCode').Text := getStr('GOODS_CODE');
+            sGoodsCode := getStr('GOODS_CODE');
+            //------------------------------------------------------------------------------
+            // 2019-12-05
+            // 12월부터 제재구분 1AG(화장품)에 대한 품목코드가 (CCYYMMDD)+(일련번호4)로 변경되어
+            // 품목코드가져오는것부터 출력까지 변경해야함
+            // 2019-12-06
+            // 잘못된 정보였므로 되돌림
+            //------------------------------------------------------------------------------
+//            IF (UpperCase( sJejeGubun )= '1AG') AND (CompareDate(EncodeDate(2019,12,1), qryStandardREQUEST_DATE.AsDateTime) <= 0) Then
+//              CHILD_NODE.AddChild('wco:ClassificationNameCode').Text := RightStr(sGoodsCode,12)
+//            else
+            CHILD_NODE.AddChild('wco:ClassificationNameCode').Text := sGoodsCode;
             //거래품명 M
             CHILD_NODE.AddChild('wco:CargoDescription').Text := getStr('TRADE_NAME');
             //품목식별부호 M
             CHILD_NODE.AddChild('wco:ID').Text := getStr('SERIAL_CODE')+getStr('SERIAL_NO');
             //구 종별코드 C
-            if getStrCompare('OLD_GOODS_CODE') Then
-            CHILD_NODE.AddChild('wco:CategoryCode').Text := SQLData;
+//            if getStrCompare('OLD_GOODS_CODE') Then
+            if getStrCompare('OLD_JONG_CODE') Then
+             CHILD_NODE.AddChild('wco:CategoryCode').Text := SQLData;
             //HS부호 M
             CHILD_NODE.AddChild('wco:Classification').AddChild('wco:ID').Text := getStr('HS');
             //모델규격성분 C
@@ -325,7 +341,10 @@ begin
       // ROOT / LPCO / Agent
           CHILD_NODE :=  CHILD_NODE.AddChild('wco:Agent');
           //계약(수탁)제조일련번호 M
-          CHILD_NODE.AddChild('wco:ID').Text := qryTaken.FieldByName('TAKE_NO').AsString;
+          // 2019-04-30 이덕수
+          // 수탁제조 일련번호는 001이 아닌 1로 작성되어야함
+          //CHILD_NODE.AddChild('wco:ID').Text := qryTaken.FieldByName('TAKE_NO').AsString;
+          CHILD_NODE.AddChild('wco:ID').Text := FormatFloat('0',qryTaken.FieldByName('TAKE_NO').AsInteger);
           //계약(수탁)제조상호1 M
           CHILD_NODE.AddChild('wco:Name').Text := qryTaken.FieldByName('TAKE_SANGHO1').AsString;
           //계약(수탁)제조상호2 C

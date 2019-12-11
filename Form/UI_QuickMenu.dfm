@@ -8,6 +8,7 @@ inherited UI_QuickMenu_frm: TUI_QuickMenu_frm
   ClientWidth = 321
   Font.Charset = DEFAULT_CHARSET
   OldCreateOrder = True
+  OnClose = FormClose
   OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 15

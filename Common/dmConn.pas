@@ -178,6 +178,7 @@ type
     StringField42: TStringField;
     dsMake: TDataSource;
     dsCheck: TDataSource;
+    qrySortSerialNo: TADOQuery;
     procedure DataModuleCreate(Sender: TObject);
     procedure qryStandard2AfterOpen(DataSet: TDataSet);
     procedure qryStandard1AfterScroll(DataSet: TDataSet);
@@ -185,6 +186,7 @@ type
       var Text: String; DisplayText: Boolean);
     procedure qryStandard2MODEL_SIZEGetText(Sender: TField;
       var Text: String; DisplayText: Boolean);
+    procedure qryStandard2AfterScroll(DataSet: TDataSet);
   private
     { Private declarations }
     FSQL : String;
@@ -415,30 +417,7 @@ end;
 
 procedure TDataModule_Conn.qryStandard2AfterOpen(DataSet: TDataSet);
 begin
-  with qryTaken do
-  begin
-    Close;
-    Parameters.ParamByName('DOC_NO').Value := DataSet.FieldByName('DOC_NO').AsString;
-    Parameters.ParamByName('SERIAL_NO').Value := DataSet.FieldByName('SERIAL_NO').AsString;
-    Open;
-  end;
-
-  with qryMake do
-  begin
-    Close;
-    Parameters.ParamByName('DOC_NO').Value := qryStandard2DOC_NO.AsString;
-    Parameters.ParamByName('SERIAL_NO').Value := qryStandard2SERIAL_NO.AsString;
-    Open;
-  end;
-
-  with qryCheck do
-  begin
-    Close;
-    Parameters.ParamByName('DOC_NO').Value := qryStandard2DOC_NO.AsString;
-    Parameters.ParamByName('SERIAL_NO').Value := qryStandard2SERIAL_NO.AsString;
-    Open;
-  end;
-
+  if DataSet.RecordCount = 0 Then qryStandard2AfterScroll(DataSet);
 end;
 
 procedure TDataModule_Conn.qryStandard1AfterScroll(DataSet: TDataSet);
@@ -522,6 +501,33 @@ begin
   qryCreateDocumentNo.Close;
   qryCreateDocumentNo.Parameters.ParamByName('USER_ID').Value := LoginData.sID;
   qryCreateDocumentNo.ExecSQL;
+end;
+
+procedure TDataModule_Conn.qryStandard2AfterScroll(DataSet: TDataSet);
+begin
+  with qryTaken do
+  begin
+    Close;
+    Parameters.ParamByName('DOC_NO').Value := DataSet.FieldByName('DOC_NO').AsString;
+    Parameters.ParamByName('SERIAL_NO').Value := DataSet.FieldByName('SERIAL_NO').AsString;
+    Open;
+  end;
+
+  with qryMake do
+  begin
+    Close;
+    Parameters.ParamByName('DOC_NO').Value := qryStandard2DOC_NO.AsString;
+    Parameters.ParamByName('SERIAL_NO').Value := qryStandard2SERIAL_NO.AsString;
+    Open;
+  end;
+
+  with qryCheck do
+  begin
+    Close;
+    Parameters.ParamByName('DOC_NO').Value := qryStandard2DOC_NO.AsString;
+    Parameters.ParamByName('SERIAL_NO').Value := qryStandard2SERIAL_NO.AsString;
+    Open;
+  end;
 end;
 
 end.

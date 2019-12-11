@@ -11,7 +11,6 @@ type
   TDialog_BetweenList_frm = class(TParentForm_frm)
     sPanel14: TsPanel;
     sComboBox1: TsComboBox;
-    sComboBox2: TsComboBox;
     sDBGrid1: TsDBGrid;
     sButton5: TsButton;
     procedure FormShow(Sender: TObject);
@@ -20,8 +19,12 @@ type
   private
     { Private declarations }
     procedure ReadList;
+    function getEndDate: String;
+    function getStartDate: String;
   public
     { Public declarations }
+    property StartDate:String read getStartDate;
+    property EndDate:String read getEndDate;
   end;
 
 var
@@ -40,9 +43,9 @@ begin
   with DataModule_Conn.qryCount do
   begin
     Close;
-    Parameters.ParamByName('USER_ID').Value := LoginData.sID;
+//    Parameters.ParamByName('USER_ID').Value := LoginData.sID;
     Parameters.ParamByName('nYear').Value := LeftStr(sCombobox1.Text,4);
-    Parameters.ParamByName('nMon').Value := AnsiReplaceText(sComboBox2.Text,'¿ù','');
+//    Parameters.ParamByName('nMon').Value := AnsiReplaceText(sComboBox2.Text,'¿ù','');
     Open;
   end;
 end;
@@ -51,7 +54,7 @@ procedure TDialog_BetweenList_frm.FormShow(Sender: TObject);
 begin
   inherited;
   sComboBox1.ItemIndex := YearOf(Now)-2016;
-  sComboBox2.ItemIndex := MonthOf(Now)-1;
+//  sComboBox2.ItemIndex := MonthOf(Now)-1;
   ReadList;
 end;
 
@@ -65,6 +68,22 @@ procedure TDialog_BetweenList_frm.sComboBox1Select(Sender: TObject);
 begin
   inherited;
   ReadList;
+end;
+
+function TDialog_BetweenList_frm.getEndDate: String;
+begin
+  with DataModule_Conn.qryCount do
+  begin
+    result := FormatDateTime('YYYY-MM-DD', EndOfTheMonth(EncodeDate(FieldByName('DOC_YEAR').AsInteger, FieldByName('DOC_MON').AsInteger, 1)));
+  end;
+end;
+
+function TDialog_BetweenList_frm.getStartDate: String;
+begin
+  with DataModule_Conn.qryCount do
+  begin
+    result := FormatDateTime('YYYY-MM-DD', EncodeDate(FieldByName('DOC_YEAR').AsInteger, FieldByName('DOC_MON').AsInteger, 1));
+  end;
 end;
 
 end.

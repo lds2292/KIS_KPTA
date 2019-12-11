@@ -66,29 +66,42 @@ uses
   SQLCreator in '..\..\..\UseComponent\KISLIB\KISSQLCreator\SQLCreator.pas',
   dialog_PUMLIST in 'Form\Dialog\dialog_PUMLIST.pas' {dialog_PUMLIST_frm},
   Dialog_ProcessView in 'Form\Dialog\Dialog_ProcessView.pas' {Dialog_ProcessView_frm},
-  KisXmlReader in '..\..\..\UseComponent\KISLIB\KISXml\KisXmlReader.pas';
+  KisXmlReader in '..\..\..\UseComponent\KISLIB\KISXml\KisXmlReader.pas',
+  UPDATE in 'update\UPDATE.pas' {UPDATE_frm},
+  UpdateFile in 'update\UpdateFile.pas',
+  HTTP in 'update\HTTP.pas',
+  Dialog_ExcelExport in 'Form\Dialog\Dialog_ExcelExport.pas' {Dialog_ExcelExport_frm};
 
 {$R *.res}
 
 begin
   DataModule_ICON := TDataModule_ICON.Create(Application);
-  DataModule_Conn := TDataModule_Conn.Create(Application);
-  UI_Login_frm := TUI_Login_frm.Create(Application);
 
-  if UI_Login_frm.ShowModal = mrOK then
+  UPDATE_frm := TUPDATE_frm.Create(Application);
+  IF UPDATE_frm.CompareVersion Then
   begin
-    Application.Initialize;
-    Application.Title := 'KISÀÇ¼öÇù';
-    Application.CreateForm(TMain_frm, Main_frm);
+    UPDATE_frm.ShowModal;
+  end
+  else
+  begin
+    DataModule_Conn := TDataModule_Conn.Create(Application);
+    UI_Login_frm := TUI_Login_frm.Create(Application);
+    
+    if UI_Login_frm.ShowModal = mrOK then
+    begin
+      Application.Initialize;
+      Application.Title := 'KISÀÇ¼öÇù';
+      Application.CreateForm(TMain_frm, Main_frm);
   Application.CreateForm(TUI_Login_frm, UI_Login_frm);
   Application.CreateForm(TXMLSource_dm, XMLSource_dm);
   Application.CreateForm(TUI_QuickMenu_frm, UI_QuickMenu_frm);
   Application.CreateForm(Tdlg_IMPORT_frm, dlg_IMPORT_frm);
   Application.Run;
-  end
-  else
-  begin
-    FreeAndNil(DataModule_Conn);
-    Freeandnil(UI_Login_frm);
+    end
+    else
+    begin
+      FreeAndNil(DataModule_Conn);
+      Freeandnil(UI_Login_frm);
+    end;
   end;
 end.

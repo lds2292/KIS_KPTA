@@ -1,8 +1,9 @@
 inherited Dialog_BetweenList_frm: TDialog_BetweenList_frm
   Left = 763
   Top = 155
-  Caption = #51068#48324' '#51089#49457#45236#50669
-  ClientWidth = 458
+  Caption = #50900#48324' '#51089#49457#45236#50669
+  ClientHeight = 327
+  ClientWidth = 448
   FormStyle = fsStayOnTop
   OldCreateOrder = True
   Position = poOwnerFormCenter
@@ -13,38 +14,27 @@ inherited Dialog_BetweenList_frm: TDialog_BetweenList_frm
   object sPanel14: TsPanel [0]
     Left = 0
     Top = 0
-    Width = 458
+    Width = 448
     Height = 33
-    Align = alTop
-    TabOrder = 0
     SkinData.SkinSection = 'PANEL'
+    Align = alTop
+    DoubleBuffered = False
+    TabOrder = 0
     object sComboBox1: TsComboBox
       Left = 6
       Top = 4
       Width = 70
       Height = 25
-      Alignment = taLeftJustify
-      BoundLabel.Indent = 0
-      BoundLabel.Font.Charset = DEFAULT_CHARSET
-      BoundLabel.Font.Color = clWindowText
-      BoundLabel.Font.Height = -11
-      BoundLabel.Font.Name = 'MS Sans Serif'
-      BoundLabel.Font.Style = []
-      BoundLabel.Layout = sclLeft
-      BoundLabel.MaxWidth = 0
-      BoundLabel.UseSkinColor = True
-      SkinData.SkinSection = 'COMBOBOX'
-      VerticalAlignment = taAlignTop
-      Style = csDropDownList
-      Color = clWhite
       Font.Charset = ANSI_CHARSET
       Font.Color = clBlack
       Font.Height = -13
       Font.Name = #47569#51008' '#44256#46357
       Font.Style = []
+      ParentFont = False
+      SkinData.SkinSection = 'COMBOBOX'
+      Style = csDropDownList
       ItemHeight = 19
       ItemIndex = 0
-      ParentFont = False
       TabOrder = 0
       Text = '2016'#45380
       OnSelect = sComboBox1Select
@@ -60,50 +50,6 @@ inherited Dialog_BetweenList_frm: TDialog_BetweenList_frm
         '2024'#45380
         '2025'#45380)
     end
-    object sComboBox2: TsComboBox
-      Left = 77
-      Top = 4
-      Width = 55
-      Height = 25
-      Alignment = taLeftJustify
-      BoundLabel.Indent = 0
-      BoundLabel.Font.Charset = DEFAULT_CHARSET
-      BoundLabel.Font.Color = clWindowText
-      BoundLabel.Font.Height = -11
-      BoundLabel.Font.Name = 'MS Sans Serif'
-      BoundLabel.Font.Style = []
-      BoundLabel.Layout = sclLeft
-      BoundLabel.MaxWidth = 0
-      BoundLabel.UseSkinColor = True
-      SkinData.SkinSection = 'COMBOBOX'
-      VerticalAlignment = taAlignTop
-      Style = csDropDownList
-      Color = clWhite
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clBlack
-      Font.Height = -13
-      Font.Name = #47569#51008' '#44256#46357
-      Font.Style = []
-      ItemHeight = 19
-      ItemIndex = 11
-      ParentFont = False
-      TabOrder = 1
-      Text = '12'#50900
-      OnSelect = sComboBox1Select
-      Items.Strings = (
-        '1'#50900
-        '2'#50900
-        '3'#50900
-        '4'#50900
-        '5'#50900
-        '6'#50900
-        '7'#50900
-        '8'#50900
-        '9'#50900
-        '10'#50900
-        '11'#50900
-        '12'#50900)
-    end
     object sButton5: TsButton
       Left = 384
       Top = 5
@@ -111,7 +57,7 @@ inherited Dialog_BetweenList_frm: TDialog_BetweenList_frm
       Height = 23
       Caption = #45803#44592
       ModalResult = 2
-      TabOrder = 2
+      TabOrder = 1
       SkinData.SkinSection = 'BUTTON'
       Images = DataModule_ICON.IMG_16
       ImageIndex = 14
@@ -120,8 +66,8 @@ inherited Dialog_BetweenList_frm: TDialog_BetweenList_frm
   object sDBGrid1: TsDBGrid [1]
     Left = 0
     Top = 33
-    Width = 458
-    Height = 578
+    Width = 448
+    Height = 294
     Align = alClient
     Color = clWhite
     DataSource = DataModule_Conn.dsCount
@@ -144,10 +90,19 @@ inherited Dialog_BetweenList_frm: TDialog_BetweenList_frm
       item
         Alignment = taCenter
         Expanded = False
-        FieldName = 'YearMonth'
+        FieldName = 'DOC_YEAR'
         Title.Alignment = taCenter
-        Title.Caption = #51089#49457#51068#51088
-        Width = 110
+        Title.Caption = #45380#46020
+        Width = 50
+        Visible = True
+      end
+      item
+        Alignment = taCenter
+        Expanded = False
+        FieldName = 'DOC_MON'
+        Title.Alignment = taCenter
+        Title.Caption = #50900
+        Width = 50
         Visible = True
       end
       item
@@ -169,7 +124,7 @@ inherited Dialog_BetweenList_frm: TDialog_BetweenList_frm
       end>
   end
   inherited sSkinProvider1: TsSkinProvider
-    Left = 0
-    Top = 48
+    Left = 64
+    Top = 104
   end
 end

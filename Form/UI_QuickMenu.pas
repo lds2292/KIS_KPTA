@@ -11,6 +11,7 @@ type
     sTreeView1: TsTreeView;
     procedure FormCreate(Sender: TObject);
     procedure sTreeView1DblClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
     Node : TTreeNode;
@@ -96,5 +97,13 @@ begin
   end;
 end;
 
+
+procedure TUI_QuickMenu_frm.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+begin
+  inherited;
+  Action := caFree;
+  UI_QuickMenu_frm := nil;
+end;
 
 end.

@@ -17,7 +17,6 @@ type
     edt_userid: TsEdit;
     edt_pass: TsEdit;
     sSkinProvider1: TsSkinProvider;
-    sSkinManager1: TsSkinManager;
     Image2: TImage;
     sLabel1: TsLabel;
     sButton1: TsButton;
