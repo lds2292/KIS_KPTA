@@ -8,7 +8,7 @@ uses
   StdCtrls, sLabel, Buttons, sSpeedButton, sComboBox, Mask, sMaskEdit,
   sEdit, sButton, sCustomComboEdit, sCurrEdit, sCurrencyEdit, sCheckBox,
   sMemo, sScrollBox, ComCtrls, sPageControl, Grids, DBGrids, acDBGrid, StrUtils,
-  DB, ADODB, pngimage, sBevel;
+  DB, ADODB, pngimage, sBevel, DateUtils;
 
 type
   TUI_KPTA_DocNormal_frm = class(TParentForm_frm)
@@ -321,6 +321,7 @@ type
     procedure DeleteMake;
     procedure DeleteCheck;
     function  TotalAMT:Currency;
+    function getRequestDate: TDateTime;
   public
     { Public declarations }
     function NewDocument:TModalResult;
@@ -329,6 +330,7 @@ type
     function ViewDocument:TModalResult;
     function CopyDocument(BaseDocNo : string):TModalResult;
     property DocNo:String  read FDocNo;
+    property RequestDate : TDateTime read getRequestDate;
   end;
 
 var
@@ -1796,6 +1798,36 @@ begin
     Result := True;
     Exit;
   end;
+
+//------------------------------------------------------------------------------
+// 2019-12-05
+// 제재구분 1AG일경우 19년 12월 1일 이후건은 무조건 품목코드 12자리로 가야함
+// 보여지는건 사업자번호+제재구분+(새로생성된 품목번호12자리)로 되어져야함
+// 보통은 길이가 26자리이지만 적용되면 25자리가 나와야함
+// 2019-12-06
+// 잘못된 정보로 삭제
+//------------------------------------------------------------------------------
+//  IF (edt_jejegubun.Text = '1AG') AND (CompareDate(EncodeDate(2019, 12, 1), ConvertStr2Date(edt_RequestDate.Text)) <= 0) Then
+//  begin
+//    with TADOQuery.Create(nil) do
+//    begin
+//      try
+//        Connection := DataModule_Conn.KisConn;
+//        SQL.Text := 'SELECT DOC_NO, SERIAL_NO FROM STANDARD2 WHERE DOC_NO = '+QuotedStr(edt_DocNo1.Text+edt_DocNo2.Text+edt_DocNo3.Text)+' AND LEN(GOODS_CODE) = 26';
+//        Open;
+//
+//        if RecordCount > 0 Then
+//        begin
+//          MessageBox(Self.Handle,PChar('2019년 12월 1일이후로 제재구분이 1AG(화장품)의 품목코드는 12자리입니다.'#13#10'품목데이터['+FieldByName('SERIAL_NO').AsString+']를 확인해주세요'),'저장오류',MB_OK+MB_ICONERROR);
+//          Result := True;
+//          Exit;
+//        end;
+//      finally
+//        Close;
+//        Free;
+//      end;
+//    end;
+//  end;
 end;
 
 procedure TUI_KPTA_DocNormal_frm.sButton5Click(Sender: TObject);
@@ -2536,15 +2568,28 @@ begin
     with dialog_PUMLIST_frm do
     begin
       DOCGB := edt_jejegubun.Text;
+//      CreateDate := RequestDate;
       IF ShowModal = mrOK Then
       begin
         //품목코드
         TMP_STR := getField('GOODS_CODE').AsString;
+//        IF DOCGB = '1AG' Then
+//        begin
+//          edt_pum1.Text := ConfigData.SAUP_NO;
+//          // 제재구분 1AG로 고정
+//          edt_pum2.Text := DOCGB;
+//          edt_pum3.Text := LeftStr( TMP_STR, 4);
+//          edt_pum4.Text := MidStr( TMP_STR, 5, 6);
+//          edt_pum5.Text := MidStr( TMP_STR, 11, 3);
+//        end
+//        else
+//        begin
         edt_pum1.Text := LeftStr( TMP_STR , 10 );
         edt_pum2.Text := MidStr( TMP_STR, 11, 3);
         edt_pum3.Text := MidStr( TMP_STR, 14, 4);
         edt_pum4.Text := MidStr( TMP_STR, 18, 6);
         edt_pum5.Text := MidStr( TMP_STR, 24, 3);
+//        end;
         //세번부호
         edt_Hs.Text := getField('HSCD').AsString;
         DataModule_Conn.qryStandard2.FieldByName('HS').AsString := edt_Hs.Text;
@@ -2658,4 +2703,10 @@ begin
     FreeAndNil(dlg_MtlrsList_frm);
   end;
 end;
+function TUI_KPTA_DocNormal_frm.getRequestDate: TDateTime;
+begin
+//  Result := EncodeDate(StrToInt(LeftStr(edt_RequestDate.Text,4)), StrToInt(MidStr(edt_RequestDate.Text,5,2)), StrToInt(MidStr(edt_RequestDate.Text,7,2)));
+  result := ConvertStr2Date(edt_RequestDate.Text);
+end;
+
 end.

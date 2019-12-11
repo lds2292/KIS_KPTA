@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ParentForm, DB, ExtCtrls, sPanel, ADODB, Grids, DBGrids,
-  acDBGrid, sSkinProvider, StdCtrls, sEdit, sButton, sComboBox;
+  acDBGrid, sSkinProvider, StdCtrls, sEdit, sButton, sComboBox, DateUtils;
 
 type
   Tdialog_PUMLIST_frm = class(TParentForm_frm)
@@ -72,11 +72,13 @@ type
   private
     { Private declarations }
     FDOCGB : String;
+//    FCreateDate : TDateTime;
     FASC : Boolean;
     FSortFieldIndex : Integer;
     procedure ReadList(SortFieldIndex : Integer = -1);
   public
     property DOCGB: String read FDOCGB write FDOCGB;
+//    property CreateDate:TDateTime read FCreateDate write FCreateDate;
     function getField(sFieldName: String): TField;
     { Public declarations }
   end;
@@ -149,6 +151,16 @@ begin
   begin
     Close;
     SQL.Text := 'SELECT * FROM PUMLIST';
+//------------------------------------------------------------------------------
+// 2019-12-05
+// 12월부터 제재구분 1AG(화장품)에 대한 품목코드가 (CCYYMMDD)+(일련번호4)로 변경되어
+// 품목코드가져오는것부터 출력까지 변경해야함
+// 2019-12-06
+// 다시 되돌림
+//------------------------------------------------------------------------------
+//    IF (UpperCase( FDOCGB )= '1AG') AND (CompareDate(EncodeDate(2019,12,1), CreateDate) <= 0) Then
+//      SQL.Add('WHERE LEN(GOODS_CODE) = 12')
+//    else
     SQL.Add('WHERE SUBSTRING(GOODS_CODE, 11, 3) = '+QuotedStr(FDOCGB));
     IF Trim(edt_findtext.Text) <> '' Then
     begin

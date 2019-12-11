@@ -21,6 +21,9 @@ Type
 
 implementation
 
+uses
+  CommonLib;
+
 { TGOVCBR_FR2 }
 
 function TGOVCBR_FR2.getStrCompare(FieldName : String; CompareStr : String; CompareType : TCompareType): Boolean;
@@ -40,7 +43,7 @@ end;
 procedure TGOVCBR_FR2.MakeDocument(SingoNo: String);
 var
   i,j : integer;
-
+  sJejeGubun, sGoodsCode : String;
 begin
 //------------------------------------------------------------------------------
 // 문서 코드
@@ -71,7 +74,8 @@ begin
     //문서형태구분
     ROOT_NODE.AddChild('wco:TypeCode').Text := 'GOVCBR'+FDocumentCODE;
     //제재구분코드
-    ROOT_NODE.AddChild('wco:TransactionNatureCode').Text := qryStandardJEJE_GUBUN.AsString;
+    sJejeGubun := qryStandardJEJE_GUBUN.AsString;
+    ROOT_NODE.AddChild('wco:TransactionNatureCode').Text := sJejeGubun;
     //신청문서구분
     ROOT_NODE.AddChild('kcs:SubTypeCode').Text := qryStandardDOC_GUBUN.AsString;
     //취소신청사유
@@ -271,7 +275,18 @@ begin
       // ROOT / LPCO / Consignment / ConsignmentItem / Commodity
             CHILD_NODE := CHILD_NODE.AddChild('wco:Commodity');
             //품목코드 M
-            CHILD_NODE.AddChild('wco:ClassificationNameCode').Text := getStr('GOODS_CODE');
+            sGoodsCode := getStr('GOODS_CODE');
+            //------------------------------------------------------------------------------
+            // 2019-12-05
+            // 12월부터 제재구분 1AG(화장품)에 대한 품목코드가 (CCYYMMDD)+(일련번호4)로 변경되어
+            // 품목코드가져오는것부터 출력까지 변경해야함
+            // 2019-12-06
+            // 잘못된 정보였므로 되돌림
+            //------------------------------------------------------------------------------
+//            IF (UpperCase( sJejeGubun )= '1AG') AND (CompareDate(EncodeDate(2019,12,1), qryStandardREQUEST_DATE.AsDateTime) <= 0) Then
+//              CHILD_NODE.AddChild('wco:ClassificationNameCode').Text := RightStr(sGoodsCode,12)
+//            else
+            CHILD_NODE.AddChild('wco:ClassificationNameCode').Text := sGoodsCode;
             //거래품명 M
             CHILD_NODE.AddChild('wco:CargoDescription').Text := getStr('TRADE_NAME');
             //품목식별부호 M

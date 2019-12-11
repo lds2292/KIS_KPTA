@@ -256,7 +256,12 @@ begin
         EW.CellBorder(1,nCurrRow,33,nCurrRow,[loTop],2);
         EW.Cells(11, nCurrRow, 'FR'+qryExcel.FieldByName('SERIAL_NO').AsString, taCenter);
         EW.Cells(12, nCurrRow, qryExcel.FieldByName('HS').AsString, taCenter);
-        EW.Cells(13, nCurrRow, qryExcel.FieldByName('GOODS_CODE').AsString, taCenter);
+
+//        IF (qryExcel.FieldByName('JEJE_GUBUN').AsString = '1AG') AND (CompareDate(EncodeDate(2019,12,1),qryExcel.FieldByName('REQUEST_DATE').AsDateTime)<= 0) Then
+//          EW.Cells(13, nCurrRow, RightStr(qryExcel.FieldByName('GOODS_CODE').AsString, 12), taCenter)
+//        else
+          EW.Cells(13, nCurrRow, qryExcel.FieldByName('GOODS_CODE').AsString, taCenter);
+
         EW.Cells(14, nCurrRow, qryExcel.FieldByName('TRADE_NAME').AsString);
         EW.Cells(15, nCurrRow, qryExcel.FieldByName('MODEL_SIZE').AsString);
         EW.Cells(16, nCurrRow, qryExcel.FieldByName('MODEL_SIZE_INGREDIENT').AsString);

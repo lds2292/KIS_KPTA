@@ -1,6 +1,6 @@
 inherited UI_KPTA_frm: TUI_KPTA_frm
-  Left = 455
-  Top = 102
+  Left = 382
+  Top = 167
   BorderIcons = []
   BorderWidth = 4
   Caption = #54364#51456#53685#44288#50696#51221#48372#44256#49436' - '#54620#44397#51032#50557#54408#49688#52636#51077#54801#54924

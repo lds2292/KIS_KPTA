@@ -3,7 +3,7 @@ unit QR_KPTA_NORMAL_Complete_PRN;
 interface
 
 uses Windows, SysUtils, Messages, Classes, Graphics, Controls,
-  StdCtrls, ExtCtrls, Forms, QuickRpt, QRCtrls, DB, ADODB, Dialogs, StrUtils;
+  StdCtrls, ExtCtrls, Forms, QuickRpt, QRCtrls, DB, ADODB, Dialogs, StrUtils, DateUtils;
 
 type
   TQR_KPTA_NORMAL_Complete_PRN_frm = class(TQuickRep)
@@ -437,14 +437,20 @@ begin
   QR_NO.Caption := qryStandard2forPrintSERIAL_NO.AsString;
   TMP_STR := LeftStr( qryStandard2forPrintHS.AsString , 4 )+'.'+MidStr(qryStandard2forPrintHS.AsString,5,2)+'-'+RightStr(qryStandard2forPrintHS.AsString,4);
   QR_HS.Caption := '① '+TMP_STR;
+//  IF (qryStandard1forPrintJEJE_GUBUN.AsString = '1AG') AND (CompareDate(EncodeDate(2019,12,1),qryStandard1forPrintREQUEST_DATE.AsDateTime) <= 0) Then
+//  begin
+//    TMP_STR := RightStr(qryStandard2forPrintGOODS_CODE.AsString, 12);
+//  end
+//  else
+//  begin
   TMP_STR := LeftStr(qryStandard2forPrintGOODS_CODE.AsString, 10)+'-'+
              MidStr(qryStandard2forPrintGOODS_CODE.AsString, 11, 3)+'-'+
              MidStr(qryStandard2forPrintGOODS_CODE.AsString, 14, 4)+'-'+
              MidStr(qryStandard2forPrintGOODS_CODE.AsString, 18, 6)+'-'+
              RightStr(qryStandard2forPrintGOODS_CODE.AsString, 3);
-//  QR_GOODS.Caption := '② '+qryStandard2forPrintGOODS_CODE.AsString;
+//  end;
   QR_GOODS.Caption := '② '+qryStandard2forPrintSERIAL_CODE.AsString+qryStandard2forPrintSERIAL_NO.AsString+'/'+TMP_STR;
-//  QR_TRADE_PUM.Caption := '③ '+qryStandard2forPrintTRADE_NAME.AsString;
+
 //------------------------------------------------------------------------------
 // 2019-05-29 이덕수
 // 거래품명 가로길이가 45자 이상 체크해서 다음줄로 넘기기
